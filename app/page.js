@@ -24,8 +24,8 @@ export default function HomePage() {
               <p className="eyebrow">Instalyd</p>
               <h1>Vi monterer billyd.</h1>
               <p className="lead">
-                Nå er siden delt opp i flere undersider, så det blir enklere å finne
-                informasjonen du trenger.
+                Ingen fancy buzzwords. Vi bygger anlegg som spiller rent, ser ryddig ut
+                og tåler daglig bruk.
               </p>
 
               <div className="hero__actions">
@@ -40,6 +40,7 @@ export default function HomePage() {
               <div className="hero__facts" aria-label="Kort informasjon">
                 <div className="hero__fact">650 kr/time</div>
                 <div className="hero__fact">Akershus og Buskerud</div>
+                <div className="hero__fact">Bygget for norsk klima</div>
               </div>
             </div>
           </div>
