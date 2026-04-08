@@ -97,6 +97,13 @@ const faqItems = [
   },
 ];
 
+const mobileNavItems = [
+  { href: "#top", label: "Hjem" },
+  { href: "#hvorfor", label: "Hvorfor" },
+  { href: "#tjenester", label: "Tjenester" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+
 const contact = {
   phoneDisplay: "902 54 100",
   phoneHref: "+4790254100",
@@ -378,6 +385,14 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+
+      <nav className="bottom-nav" aria-label="Mobilnavigasjon">
+        {mobileNavItems.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
 
       <footer className="footer">
         <p>Instalyd</p>
