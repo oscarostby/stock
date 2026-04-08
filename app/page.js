@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
+import { faqItems } from "./data";
 import { SiteEffects } from "./site-effects";
 
 export default function HomePage() {
@@ -41,6 +42,22 @@ export default function HomePage() {
                 <div className="hero__fact">Akershus og Buskerud</div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="section-heading" data-reveal="">
+            <p className="eyebrow">Vanlige spørsmål</p>
+            <h2>Det folk ofte lurer på</h2>
+          </div>
+
+          <div className="faq-list">
+            {faqItems.map((item) => (
+              <details className="faq-item" data-reveal="" key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
           </div>
         </section>
       </main>
