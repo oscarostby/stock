@@ -13,10 +13,9 @@ export default function ContactPage() {
           <div className="contact-layout">
             <div className="contact-copy" data-reveal="">
               <p className="eyebrow">Kontakt</p>
-              <h1>Send bil, utstyr og hva du vil oppnå, så svarer vi konkret.</h1>
+              <h1>Send bil og hva du vil ha gjort, så svarer vi så fort vi kan.</h1>
               <p className="lead">
-                Jo mer presist du beskriver prosjektet, desto lettere er det å si hva som
-                er smart å gjøre først, hva som kan vente og hvor omfattende jobben blir.
+                Send gjerne bilmodell, hva du vil montere og hvilke deler du allerede har.
               </p>
 
               <div className="contact-panel">
@@ -24,7 +23,7 @@ export default function ContactPage() {
                   <span className="contact-row__label">Ring</span>
                   <span className="contact-row__content">
                     <strong>{contact.phoneDisplay}</strong>
-                    <span>Direkte kontakt om prosjektet</span>
+                    <span>Direkte kontakt</span>
                   </span>
                 </a>
 
@@ -35,7 +34,7 @@ export default function ContactPage() {
                   <span className="contact-row__label">SMS</span>
                   <span className="contact-row__content">
                     <strong>Send melding</strong>
-                    <span>Rask forespørsel med bil og ønsket jobb</span>
+                    <span>Rask forespørsel</span>
                   </span>
                 </a>
 
@@ -43,14 +42,14 @@ export default function ContactPage() {
                   <span className="contact-row__label">E-post</span>
                   <span className="contact-row__content">
                     <strong>{contact.email}</strong>
-                    <span>For mer detaljerte beskrivelser og bilder</span>
+                    <span>Send beskrivelse og bilder</span>
                   </span>
                 </a>
               </div>
 
               <article className="contact-note">
-                <p className="card-kicker">For raskere svar</p>
-                <h3>Det er nyttig om du sender</h3>
+                <p className="card-kicker">Det er nyttig om du sender</p>
+                <h3>Bilmodell, deler og hva du ønsker</h3>
                 <ul className="plain-list">
                   {contactChecklist.map((item) => (
                     <li key={item}>{item}</li>
@@ -66,8 +65,7 @@ export default function ContactPage() {
               data-reveal=""
             >
               <p className="form-intro">
-                Skjemaet åpner e-post med ferdig utfylt tekst, så du kan sende forespørselen
-                direkte videre.
+                Skjemaet åpner e-post med ferdig utfylt tekst.
               </p>
 
               <label>

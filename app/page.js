@@ -9,7 +9,7 @@ import { Header } from "./components/header";
 import { contact, heroStats } from "./data";
 import { SiteEffects } from "./site-effects";
 
-const signalTags = ["Frontstage", "Bass", "DSP", "OEM", "CarPlay", "Lyddemping"];
+const signalTags = ["Høyttalere", "Subwoofer", "Forsterker", "DSP", "CarPlay", "Lyddemping"];
 
 const workshopRows = [
   {
@@ -18,34 +18,34 @@ const workshopRows = [
   },
   {
     label: "Integrasjon",
-    value: "OEM-radio, skjerm og CarPlay",
+    value: "Originalradio, skjerm og CarPlay",
   },
   {
     label: "Oppsett",
-    value: "Strøm, demping, kabling og tuning",
+    value: "Strøm, kabling, demping og tuning",
   },
 ];
 
 const homeServices = [
   {
-    label: "Frontstage",
+    label: "Høyttalere",
     title: "Høyttalere og demping",
-    description: "Oppgradering av frontlyd med bedre kontroll og mindre resonans.",
+    description: "Montering av høyttalere og demping for bedre lyd i bilen.",
   },
   {
-    label: "Bass",
-    title: "Subwoofer og strøm",
-    description: "Sub, forsterker og strømopplegg montert ryddig og riktig.",
+    label: "Subwoofer",
+    title: "Subwoofer og forsterker",
+    description: "Montering av subwoofer, forsterker og strømopplegg.",
   },
   {
     label: "DSP",
-    title: "Prosessering og tuning",
-    description: "Når oppsettet krever det, justeres nivåer, deling og balanse.",
+    title: "DSP og tuning",
+    description: "Justering av nivåer, deling og balanse når oppsettet krever det.",
   },
   {
-    label: "OEM",
+    label: "CarPlay",
     title: "Skjerm og CarPlay",
-    description: "Bytte fra originalradio til en løsning som fungerer bedre i bilen.",
+    description: "Bytte fra originalradio til skjerm eller CarPlay-løsning.",
   },
 ];
 
@@ -75,19 +75,18 @@ export default function HomePage() {
           <div className="hero__shell">
             <div className="hero__grid">
               <div className="hero__content" data-reveal="">
-                <p className="eyebrow">Bilstereoverksted</p>
-                <h1>Frontstage, bass, DSP og CarPlay.</h1>
+                <p className="eyebrow">Bilstereo og CarPlay</p>
+                <h1>Montering av bilstereo, subwoofer, DSP og CarPlay.</h1>
                 <p className="lead">
-                  Instalyd monterer lydutstyr og integrasjon for biler som trenger mer enn
-                  fabrikklyd.
+                  Vi monterer lydutstyr og skjermløsninger for biler i Akershus og Buskerud.
                 </p>
 
                 <div className="hero__actions">
                   <a className="button" href={`tel:${contact.phoneHref}`}>
-                    Ring verkstedet
+                    Ring oss
                   </a>
                   <a className="button button--secondary" href="#bestill">
-                    Send bestilling
+                    Send forespørsel
                   </a>
                 </div>
 
@@ -102,7 +101,7 @@ export default function HomePage() {
               </div>
 
               <aside className="hero__rack" data-reveal="">
-                <p className="card-kicker">Verkstedet bygger mest</p>
+                <p className="card-kicker">Vanlige oppdrag</p>
 
                 <div className="hero__rack-list">
                   {workshopRows.map((row) => (
@@ -125,8 +124,8 @@ export default function HomePage() {
 
         <section className="section section--compact">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Hva vi bygger</p>
-            <h2>Montering med tydelig audio-fokus</h2>
+            <p className="eyebrow">Tjenester</p>
+            <h2>Vanlige tjenester</h2>
           </div>
 
           <div className="audio-grid">
@@ -142,7 +141,7 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Skjerm og integrasjon</p>
+            <p className="eyebrow">CarPlay</p>
             <h2>Fra originalradio til CarPlay</h2>
           </div>
 
@@ -181,8 +180,8 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Fra verkstedet</p>
-            <h2>Kundeoppdrag</h2>
+            <p className="eyebrow">Tidligere arbeid</p>
+            <h2>Noen jobber vi har gjort</h2>
           </div>
 
           <div className="project-grid project-grid--audio">
@@ -204,11 +203,10 @@ export default function HomePage() {
         <section className="section section--last" id="bestill">
           <div className="booking-shell booking-shell--audio">
             <div className="booking-copy" data-reveal="">
-              <p className="eyebrow">Kontakt verkstedet</p>
-              <h2>Ring, send e-post eller bestill vurdering.</h2>
+              <p className="eyebrow">Kontakt</p>
+              <h2>Ring, send e-post eller bruk skjemaet.</h2>
               <p className="lead">
-                Send bilmodell og hva du vil bygge, så blir det enklere å gi en konkret
-                vurdering.
+                Send bilmodell og hva du vil ha gjort, så blir det lettere å gi en pris.
               </p>
 
               <div className="contact-panel">
@@ -216,7 +214,7 @@ export default function HomePage() {
                   <span className="contact-row__label">Ring</span>
                   <span className="contact-row__content">
                     <strong>{contact.phoneDisplay}</strong>
-                    <span>Direkte kontakt med verkstedet</span>
+                    <span>Direkte kontakt</span>
                   </span>
                 </a>
 
@@ -224,7 +222,7 @@ export default function HomePage() {
                   <span className="contact-row__label">E-post</span>
                   <span className="contact-row__content">
                     <strong>{contact.email}</strong>
-                    <span>Send beskrivelse og bilder av bilen</span>
+                    <span>Send beskrivelse og bilder</span>
                   </span>
                 </a>
 
@@ -235,7 +233,7 @@ export default function HomePage() {
                   <span className="contact-row__label">SMS</span>
                   <span className="contact-row__content">
                     <strong>Send melding</strong>
-                    <span>Rask forespørsel om pris eller oppsett</span>
+                    <span>Rask forespørsel</span>
                   </span>
                 </a>
               </div>
@@ -247,7 +245,7 @@ export default function HomePage() {
               data-recipient={contact.email}
               data-reveal=""
             >
-              <p className="form-intro">Bestill vurdering via skjema.</p>
+              <p className="form-intro">Skjemaet åpner e-post med ferdig utfylt tekst.</p>
 
               <label>
                 <span>Navn</span>
@@ -269,7 +267,7 @@ export default function HomePage() {
                 <input
                   type="text"
                   name="service"
-                  placeholder="Frontstage, sub, DSP, CarPlay ..."
+                  placeholder="Høyttalere, sub, DSP, CarPlay ..."
                   required
                 />
               </label>

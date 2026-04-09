@@ -7,7 +7,7 @@ export function Footer() {
       <div className="footer__content">
         <div className="footer__brand">
           <p className="footer__title">Instalyd</p>
-          <p>Montering av bilstereo, subwoofer, DSP og CarPlay i Akershus og Buskerud.</p>
+          <p>Montering av bilstereo og CarPlay i Akershus og Buskerud.</p>
         </div>
 
         <div className="footer__column">
