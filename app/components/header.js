@@ -22,73 +22,77 @@ export function Header() {
   }, [isOpen]);
 
   return (
-    <header className="site-header">
-      <div className="utilitybar">
-        <div className="utilitybar__inner">
-          <div className="utilitybar__meta">
-            <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
-            <span>{contact.area}</span>
+    <>
+      <header className={`site-header ${isOpen ? "is-menu-open" : ""}`}>
+        <div className="utilitybar">
+          <div className="utilitybar__inner">
+            <div className="utilitybar__meta">
+              <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              <span>{contact.area}</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="site-header__inner">
-        <Link className="brand" href="/">
-          <span className="brand__name">Instalyd</span>
-          <span className="brand__meta">{contact.tagline}</span>
-        </Link>
-
-        <div className="site-header__group">
-          <nav className="site-nav" aria-label="Hovednavigasjon">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={pathname === item.href ? "is-active" : ""}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <Link className="button button--secondary button--nav" href="/kontakt">
-            Be om pris
+        <div className="site-header__inner">
+          <Link className="brand" href="/">
+            <span className="brand__name">Instalyd</span>
+            <span className="brand__meta">{contact.tagline}</span>
           </Link>
 
-          <button
-            type="button"
-            className={`menu-toggle ${isOpen ? "is-open" : ""}`}
-            aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setIsOpen((open) => !open)}
-          >
-            <span />
-            <span />
-          </button>
+          <div className="site-header__group">
+            <nav className="site-nav" aria-label="Hovednavigasjon">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={pathname === item.href ? "is-active" : ""}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <Link className="button button--secondary button--nav" href="/kontakt">
+              Be om pris
+            </Link>
+
+            <button
+              type="button"
+              className={`menu-toggle ${isOpen ? "is-open" : ""}`}
+              aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setIsOpen((open) => !open)}
+            >
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       <nav
         id="mobile-menu"
         className={`mobile-menu ${isOpen ? "is-open" : ""}`}
         aria-label="Mobilmeny"
       >
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={pathname === item.href ? "is-active" : ""}
-          >
-            {item.label}
-          </Link>
-        ))}
+        <div className="mobile-menu__content">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={pathname === item.href ? "is-active" : ""}
+            >
+              {item.label}
+            </Link>
+          ))}
 
-        <Link className="button mobile-menu__button" href="/kontakt">
-          Be om pris
-        </Link>
+          <Link className="button mobile-menu__button" href="/kontakt">
+            Be om pris
+          </Link>
+        </div>
       </nav>
-    </header>
+    </>
   );
 }
