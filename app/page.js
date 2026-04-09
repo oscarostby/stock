@@ -9,29 +9,54 @@ import { Header } from "./components/header";
 import { contact, heroStats } from "./data";
 import { SiteEffects } from "./site-effects";
 
+const signalTags = ["Frontstage", "Bass", "DSP", "OEM", "CarPlay", "Lyddemping"];
+
+const workshopRows = [
+  {
+    label: "Montering",
+    value: "Høyttalere, subwoofer og forsterker",
+  },
+  {
+    label: "Integrasjon",
+    value: "OEM-radio, skjerm og CarPlay",
+  },
+  {
+    label: "Oppsett",
+    value: "Strøm, demping, kabling og tuning",
+  },
+];
+
 const homeServices = [
   {
-    title: "Høyttalere og frontsystem",
-    description: "Oppgradering av original lyd og montering av nye høyttalere.",
+    label: "Frontstage",
+    title: "Høyttalere og demping",
+    description: "Oppgradering av frontlyd med bedre kontroll og mindre resonans.",
   },
   {
-    title: "Subwoofer og forsterker",
-    description: "Ryddig oppkobling, strømopplegg og plassering i bilen.",
+    label: "Bass",
+    title: "Subwoofer og strøm",
+    description: "Sub, forsterker og strømopplegg montert ryddig og riktig.",
   },
   {
-    title: "CarPlay og skjerm",
-    description: "Bytte fra original radio til en løsning som passer bilen bedre.",
+    label: "DSP",
+    title: "Prosessering og tuning",
+    description: "Når oppsettet krever det, justeres nivåer, deling og balanse.",
+  },
+  {
+    label: "OEM",
+    title: "Skjerm og CarPlay",
+    description: "Bytte fra originalradio til en løsning som fungerer bedre i bilen.",
   },
 ];
 
 const projectImages = [
   {
-    image: subInstallImageOne,
-    alt: "Kundeoppdrag med subwoofer og forsterker",
+    image: subInstallImageTwo,
+    alt: "Kundeoppdrag med subwooferinstallasjon",
   },
   {
-    image: subInstallImageTwo,
-    alt: "Kundeoppdrag med diskret oppsett",
+    image: subInstallImageOne,
+    alt: "Kundeoppdrag med forsterker og subwoofer",
   },
   {
     image: speakerUpgradeImage,
@@ -50,19 +75,19 @@ export default function HomePage() {
           <div className="hero__shell">
             <div className="hero__grid">
               <div className="hero__content" data-reveal="">
-                <p className="eyebrow">Bilstereo og lydmontering</p>
-                <h1>Montering av bilstereo, subwoofer og CarPlay.</h1>
+                <p className="eyebrow">Bilstereoverksted</p>
+                <h1>Frontstage, bass, DSP og CarPlay.</h1>
                 <p className="lead">
-                  Ring, send e-post eller bruk skjemaet under hvis du vil ha pris på et
-                  oppsett til bilen din.
+                  Instalyd monterer lydutstyr og integrasjon for biler som trenger mer enn
+                  fabrikklyd.
                 </p>
 
                 <div className="hero__actions">
                   <a className="button" href={`tel:${contact.phoneHref}`}>
-                    Ring oss
+                    Ring verkstedet
                   </a>
                   <a className="button button--secondary" href="#bestill">
-                    Bestill via skjema
+                    Send bestilling
                   </a>
                 </div>
 
@@ -76,37 +101,38 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <aside className="hero__aside" data-reveal="">
-                <p className="card-kicker">Kort vei inn</p>
+              <aside className="hero__rack" data-reveal="">
+                <p className="card-kicker">Verkstedet bygger mest</p>
 
-                <a className="hero__quicklink" href={`tel:${contact.phoneHref}`}>
-                  <span className="hero__quicklink-label">Ring</span>
-                  <strong>{contact.phoneDisplay}</strong>
-                </a>
-
-                <a className="hero__quicklink" href={`mailto:${contact.email}`}>
-                  <span className="hero__quicklink-label">E-post</span>
-                  <strong>{contact.email}</strong>
-                </a>
-
-                <a className="hero__quicklink" href="#bestill">
-                  <span className="hero__quicklink-label">Skjema</span>
-                  <strong>Send bestilling</strong>
-                </a>
+                <div className="hero__rack-list">
+                  {workshopRows.map((row) => (
+                    <div className="hero__rack-row" key={row.label}>
+                      <span>{row.label}</span>
+                      <strong>{row.value}</strong>
+                    </div>
+                  ))}
+                </div>
               </aside>
+            </div>
+
+            <div className="signal-strip" data-reveal="">
+              {signalTags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="section section--compact">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Vanlige oppdrag</p>
-            <h2>Dette monterer vi oftest</h2>
+            <p className="eyebrow">Hva vi bygger</p>
+            <h2>Montering med tydelig audio-fokus</h2>
           </div>
 
-          <div className="service-grid service-grid--home">
+          <div className="audio-grid">
             {homeServices.map((service) => (
-              <article className="service-card" data-reveal="" key={service.title}>
+              <article className="audio-card" data-reveal="" key={service.title}>
+                <p className="card-kicker">{service.label}</p>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </article>
@@ -116,8 +142,8 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Før og etter</p>
-            <h2>Fra original radio til CarPlay</h2>
+            <p className="eyebrow">Skjerm og integrasjon</p>
+            <h2>Fra originalradio til CarPlay</h2>
           </div>
 
           <div className="before-after">
@@ -155,11 +181,11 @@ export default function HomePage() {
 
         <section className="section">
           <div className="section-heading" data-reveal="">
-            <p className="eyebrow">Tidligere jobber</p>
-            <h2>Bilder fra kundeoppdrag</h2>
+            <p className="eyebrow">Fra verkstedet</p>
+            <h2>Kundeoppdrag</h2>
           </div>
 
-          <div className="project-grid">
+          <div className="project-grid project-grid--audio">
             {projectImages.map((project) => (
               <article className="project-card" data-reveal="" key={project.alt}>
                 <div className="project-card__frame">
@@ -167,7 +193,7 @@ export default function HomePage() {
                     src={project.image}
                     alt={project.alt}
                     className="project-card__image"
-                    sizes="(max-width: 860px) 100vw, 33vw"
+                    sizes="(max-width: 860px) 100vw, 50vw"
                   />
                 </div>
               </article>
@@ -176,12 +202,13 @@ export default function HomePage() {
         </section>
 
         <section className="section section--last" id="bestill">
-          <div className="booking-shell">
+          <div className="booking-shell booking-shell--audio">
             <div className="booking-copy" data-reveal="">
-              <p className="eyebrow">Ta en hyggelig prat</p>
-              <h2>Ring, send e-post eller bruk bestillingsskjemaet.</h2>
+              <p className="eyebrow">Kontakt verkstedet</p>
+              <h2>Ring, send e-post eller bestill vurdering.</h2>
               <p className="lead">
-                Send gjerne bilmodell og hva du ønsker, så blir det lettere å svare raskt.
+                Send bilmodell og hva du vil bygge, så blir det enklere å gi en konkret
+                vurdering.
               </p>
 
               <div className="contact-panel">
@@ -189,7 +216,7 @@ export default function HomePage() {
                   <span className="contact-row__label">Ring</span>
                   <span className="contact-row__content">
                     <strong>{contact.phoneDisplay}</strong>
-                    <span>Direkte kontakt</span>
+                    <span>Direkte kontakt med verkstedet</span>
                   </span>
                 </a>
 
@@ -197,7 +224,7 @@ export default function HomePage() {
                   <span className="contact-row__label">E-post</span>
                   <span className="contact-row__content">
                     <strong>{contact.email}</strong>
-                    <span>Send beskrivelse og bilder</span>
+                    <span>Send beskrivelse og bilder av bilen</span>
                   </span>
                 </a>
 
@@ -208,7 +235,7 @@ export default function HomePage() {
                   <span className="contact-row__label">SMS</span>
                   <span className="contact-row__content">
                     <strong>Send melding</strong>
-                    <span>Rask forespørsel</span>
+                    <span>Rask forespørsel om pris eller oppsett</span>
                   </span>
                 </a>
               </div>
@@ -220,9 +247,7 @@ export default function HomePage() {
               data-recipient={contact.email}
               data-reveal=""
             >
-              <p className="form-intro">
-                Skjemaet åpner e-post med ferdig utfylt tekst.
-              </p>
+              <p className="form-intro">Bestill vurdering via skjema.</p>
 
               <label>
                 <span>Navn</span>
@@ -241,7 +266,12 @@ export default function HomePage() {
 
               <label>
                 <span>Hva gjelder det</span>
-                <input type="text" name="service" placeholder="Sub, høyttalere, CarPlay ..." required />
+                <input
+                  type="text"
+                  name="service"
+                  placeholder="Frontstage, sub, DSP, CarPlay ..."
+                  required
+                />
               </label>
 
               <label className="contact-form__full">

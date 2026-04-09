@@ -1,7 +1,7 @@
 export const heroStats = [
   { label: "Timepris", value: "650 kr" },
   { label: "Område", value: "Akershus / Buskerud" },
-  { label: "Fokus", value: "Bilstereo / DSP / sub" },
+  { label: "Fokus", value: "Frontstage / Bass / DSP" },
 ];
 
 export const heroChecklist = [
