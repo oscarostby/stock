@@ -3,53 +3,79 @@ import { Header } from "../components/header";
 import { contact, contactChecklist } from "../data";
 import { SiteEffects } from "../site-effects";
 
+const contactLinks = [
+  {
+    label: "Ring",
+    title: contact.phoneDisplay,
+    description: "Direkte kontakt",
+    href: `tel:${contact.phoneHref}`,
+  },
+  {
+    label: "E-post",
+    title: contact.email,
+    description: "Send bil og bilder",
+    href: `mailto:${contact.email}`,
+  },
+  {
+    label: "SMS",
+    title: "Send melding",
+    description: "Kort forespørsel",
+    href: `sms:${contact.phoneHref}?body=Hei!%20Jeg%20vil%20ha%20pris%20p%C3%A5%20montering.`,
+  },
+];
+
 export default function ContactPage() {
   return (
     <>
       <SiteEffects />
       <Header />
+
       <main>
         <section className="section">
-          <div className="contact-layout">
-            <div className="contact-copy" data-reveal="">
+          <div className="page-hero">
+            <div data-reveal="">
               <p className="eyebrow">Kontakt</p>
-              <h1>Send bil og hva du vil ha gjort, så svarer vi så fort vi kan.</h1>
+              <h1>Send bil og hva du vil ha gjort, så ser vi på det.</h1>
               <p className="lead">
-                Send gjerne bilmodell, hva du vil montere og hvilke deler du allerede har.
+                Ring hvis du vil ta en rask prat, eller bruk skjemaet hvis du vil sende en
+                mer komplett forespørsel.
               </p>
+            </div>
 
-              <div className="contact-panel">
-                <a className="contact-row" href={`tel:${contact.phoneHref}`}>
-                  <span className="contact-row__label">Ring</span>
-                  <span className="contact-row__content">
-                    <strong>{contact.phoneDisplay}</strong>
-                    <span>Direkte kontakt</span>
-                  </span>
-                </a>
+            <aside className="page-hero__side" data-reveal="">
+              <p className="mini-title">Raskest måte å ta kontakt på</p>
+              <div className="page-hero__meta">
+                <span>Ring</span>
+                <span>E-post</span>
+                <span>SMS</span>
+                <span>Skjema</span>
+              </div>
+            </aside>
+          </div>
+        </section>
 
-                <a
-                  className="contact-row"
-                  href={`sms:${contact.phoneHref}?body=Hei!%20Jeg%20vil%20ha%20pris%20p%C3%A5%20bilstereo.`}
-                >
-                  <span className="contact-row__label">SMS</span>
-                  <span className="contact-row__content">
-                    <strong>Send melding</strong>
-                    <span>Rask forespørsel</span>
-                  </span>
-                </a>
+        <section className="section section--tight section--last">
+          <div className="contact-stage">
+            <div className="contact-stage__copy" data-reveal="">
+              <div>
+                <p className="eyebrow">Direkte kontakt</p>
+                <h2>Velg det som passer best for deg.</h2>
+              </div>
 
-                <a className="contact-row" href={`mailto:${contact.email}`}>
-                  <span className="contact-row__label">E-post</span>
-                  <span className="contact-row__content">
-                    <strong>{contact.email}</strong>
-                    <span>Send beskrivelse og bilder</span>
-                  </span>
-                </a>
+              <div className="contact-links">
+                {contactLinks.map((item) => (
+                  <a className="contact-link" href={item.href} key={item.label}>
+                    <span className="contact-link__label">{item.label}</span>
+                    <span>
+                      <strong>{item.title}</strong>
+                      <p>{item.description}</p>
+                    </span>
+                  </a>
+                ))}
               </div>
 
               <article className="contact-note">
-                <p className="card-kicker">Det er nyttig om du sender</p>
-                <h3>Bilmodell, deler og hva du ønsker</h3>
+                <p className="mini-title">Nyttig å sende med</p>
                 <ul className="plain-list">
                   {contactChecklist.map((item) => (
                     <li key={item}>{item}</li>
@@ -58,45 +84,45 @@ export default function ContactPage() {
               </article>
             </div>
 
-            <form
-              className="contact-form"
-              data-contact-form=""
-              data-recipient={contact.email}
-              data-reveal=""
-            >
-              <p className="form-intro">
-                Skjemaet åpner e-post med ferdig utfylt tekst.
-              </p>
+            <form className="contact-form" data-contact-form="" data-recipient={contact.email} data-reveal="">
+              <p className="form-intro">Skjemaet åpner e-post med ferdig utfylt tekst.</p>
 
-              <label>
-                <span>Navn</span>
-                <input type="text" name="name" placeholder="Ditt navn" required />
-              </label>
+              <div className="contact-form__grid">
+                <label>
+                  <span>Navn</span>
+                  <input type="text" name="name" placeholder="Ditt navn" required />
+                </label>
 
-              <label>
-                <span>Bil</span>
-                <input type="text" name="car" placeholder="For eksempel Golf 7 2018" required />
-              </label>
+                <label>
+                  <span>Bil</span>
+                  <input type="text" name="car" placeholder="For eksempel Golf 7 2018" required />
+                </label>
 
-              <label>
-                <span>Telefon</span>
-                <input type="tel" name="phone" placeholder="902 54 100" required />
-              </label>
+                <label>
+                  <span>Telefon</span>
+                  <input type="tel" name="phone" placeholder="902 54 100" required />
+                </label>
 
-              <label>
-                <span>Hva gjelder det</span>
-                <input type="text" name="service" placeholder="Frontsystem, sub, DSP, lyddemping ..." required />
-              </label>
+                <label>
+                  <span>Hva gjelder det</span>
+                  <input
+                    type="text"
+                    name="service"
+                    placeholder="Høyttalere, subwoofer, CarPlay ..."
+                    required
+                  />
+                </label>
 
-              <label className="contact-form__full">
-                <span>Beskrivelse</span>
-                <textarea
-                  name="details"
-                  rows="6"
-                  placeholder="Skriv kort hva du vil ha gjort, og gjerne hva du allerede har av utstyr."
-                  required
-                />
-              </label>
+                <label className="contact-form__full">
+                  <span>Beskrivelse</span>
+                  <textarea
+                    name="details"
+                    rows="6"
+                    placeholder="Skriv kort hva du vil ha gjort, og gjerne hva du allerede har av utstyr."
+                    required
+                  />
+                </label>
+              </div>
 
               <button className="button" type="submit">
                 Send forespørsel
@@ -105,6 +131,7 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );

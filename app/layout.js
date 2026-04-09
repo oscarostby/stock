@@ -1,13 +1,13 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Instalyd | Bilstereo montert riktig",
+  title: "Instalyd | Bilstereo og CarPlay",
   description:
-    "Instalyd monterer bilstereo, subwoofer, DSP, skjerm og lyddemping med fokus på ryddig finish, riktig oppsett og ærlig prisvurdering.",
+    "Instalyd monterer høyttalere, subwoofer, forsterker, DSP og CarPlay med ryddig finish og tydelig prisvurdering.",
 };
 
 export const viewport = {
-  themeColor: "#090b10",
+  themeColor: "#0a0b0d",
   colorScheme: "dark",
 };
 

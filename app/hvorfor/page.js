@@ -1,3 +1,5 @@
+import Image from "next/image";
+import subInstallImageOne from "../../monteringavsub1.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { steps, trustSignals } from "../data";
@@ -8,64 +10,89 @@ export default function WhyPage() {
     <>
       <SiteEffects />
       <Header />
+
       <main>
         <section className="section">
-          <div className="page-intro" data-reveal="">
-            <div className="page-intro__content">
-              <p className="eyebrow">Hvorfor Instalyd</p>
-              <h1>Vi bygger oppsett som ser gjennomført ut når bilen er ferdig.</h1>
+          <div className="page-hero">
+            <div data-reveal="">
+              <p className="eyebrow">Arbeidsmåte</p>
+              <h1>Ryddig montering og tydelig dialog hele veien.</h1>
               <p className="lead">
-                Mange kan få lyd ut av et anlegg. Færre gjør jobben slik at bilen fortsatt
-                føles ryddig, stille og enkel å leve med etterpå. Det er den delen vi tar
-                på alvor.
+                Målet er et oppsett som fungerer i bilen, ser ordentlig ut og ikke gir
+                overraskelser underveis.
               </p>
             </div>
 
-            <div className="page-intro__aside">
-              <p className="page-intro__label">Det vi vektlegger mest</p>
-              <div className="tag-list">
-                <span>Finish</span>
-                <span>Kabling</span>
-                <span>Dialog</span>
-                <span>Tuning</span>
+            <aside className="page-hero__side" data-reveal="">
+              <p className="mini-title">Det viktigste for oss</p>
+              <div className="page-hero__meta">
+                <span>Ryddig finish</span>
+                <span>Riktig oppkobling</span>
+                <span>Tydelig dialog</span>
+                <span>Løsning som passer bilen</span>
               </div>
-            </div>
+            </aside>
           </div>
         </section>
 
         <section className="section section--tight">
-          <div className="section-heading section-heading--compact" data-reveal="">
-            <p className="eyebrow">Det du merker</p>
-            <h2>Hva som gjør at jobben føles mer profesjonell</h2>
+          <div className="detail-grid">
+            <article className="page-hero__media" data-reveal="">
+              <Image
+                src={subInstallImageOne}
+                alt="Montering av lydanlegg i bil"
+                sizes="(max-width: 1100px) 100vw, 58vw"
+              />
+            </article>
+
+            <article className="detail-card" data-reveal="">
+              <p className="mini-title">Hva dette betyr i praksis</p>
+              <h3>Vi prøver å gjøre jobben skikkelig, ikke bare få utstyret på plass.</h3>
+              <ul className="info-list">
+                <li>Kabling og plassering vurderes før noe bygges inn</li>
+                <li>Du får beskjed om hva som er lurt å gjøre først</li>
+                <li>Vi sier fra hvis bilen eller delene gir begrensninger</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section className="section section--spread">
+          <div className="section-heading" data-reveal="">
+            <p className="eyebrow">Hva vi legger vekt på</p>
+            <h2>Det du merker når jobben er ferdig.</h2>
           </div>
 
-          <div className="trust-grid">
+          <div className="values-grid">
             {trustSignals.map((signal) => (
-              <article className="trust-card" data-reveal="" key={signal.title}>
-                <h3>{signal.title}</h3>
+              <article className="detail-card" data-reveal="" key={signal.title}>
+                <p className="mini-title">{signal.title}</p>
                 <p>{signal.description}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="section section--tight">
-          <div className="section-heading section-heading--compact" data-reveal="">
+        <section className="section section--spread section--last">
+          <div className="section-heading" data-reveal="">
             <p className="eyebrow">Prosess</p>
-            <h2>Slik holder vi det ryddig fra første melding til ferdig bil</h2>
+            <h2>Slik jobber vi.</h2>
           </div>
 
-          <div className="steps">
+          <div className="timeline">
             {steps.map((step) => (
-              <article className="step-card" data-reveal="" key={step.number}>
-                <span className="step-card__number">{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
+              <article className="timeline__item" data-reveal="" key={step.number}>
+                <span className="service-row__number">{step.number}</span>
+                <div>
+                  <strong>{step.title}</strong>
+                  <p>{step.description}</p>
+                </div>
               </article>
             ))}
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );

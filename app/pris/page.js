@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+import afterRadioImage from "../../etterradio.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, pricingFactors, pricingIncludes } from "../data";
@@ -8,46 +11,47 @@ export default function PricingPage() {
     <>
       <SiteEffects />
       <Header />
+
       <main>
         <section className="section">
-          <div className="page-intro" data-reveal="">
-            <div className="page-intro__content">
+          <div className="page-hero">
+            <div data-reveal="">
               <p className="eyebrow">Pris</p>
-              <h1>Timepris som er tydelig, og vurdering som er ærlig.</h1>
+              <h1>Pris vurderes ut fra bil, utstyr og arbeid.</h1>
               <p className="lead">
-                Vi holder det enkelt: 650 kr per time. Endelig pris avhenger av bilen,
-                utstyret og hvor mye som må bygges, trekkes eller justeres for at
-                installasjonen skal bli riktig.
+                Timepris er 650 kr. Endelig pris avhenger av hva som skal monteres og hvor
+                krevende bilen er å jobbe i.
               </p>
             </div>
 
-            <div className="page-intro__aside">
-              <p className="page-intro__label">Det viktigste</p>
-              <div className="tag-list">
+            <aside className="page-hero__side" data-reveal="">
+              <p className="mini-title">Kort fortalt</p>
+              <div className="page-hero__meta">
                 <span>650 kr/time</span>
-                <span>Tydelig vurdering</span>
-                <span>Ingen butikkpakker</span>
+                <span>Vurderes før start</span>
+                <span>Pris etter omfang</span>
               </div>
-            </div>
+            </aside>
           </div>
         </section>
 
         <section className="section section--tight">
-          <div className="pricing-layout">
-            <article className="pricing-panel pricing-panel--rate" data-reveal="">
-              <p className="card-kicker">Timepris</p>
-              <h2>650 kr/time</h2>
+          <div className="pricing-grid">
+            <article className="pricing-rate" data-reveal="">
+              <p className="mini-title">Timepris</p>
+              <div className="pricing-rate__value">650 kr/time</div>
               <p>
-                Du får beskjed hvis bilen, utstyret eller ønsket løsning gjør jobben mer
-                omfattende enn først antatt. Målet er at du skal forstå hvorfor jobben tar
-                den tiden den tar.
+                Vi sier fra dersom bilen eller oppsettet gjør jobben større enn det som
+                først ser ut til å være nødvendig.
               </p>
+              <Link className="button button--secondary" href="/kontakt">
+                Be om vurdering
+              </Link>
             </article>
 
-            <div className="pricing-layout__stack">
-              <article className="pricing-panel" data-reveal="">
-                <p className="card-kicker">Hva som påvirker tid</p>
-                <h3>Prisen styres mest av dette</h3>
+            <div className="pricing-grid__stack">
+              <article className="pricing-card" data-reveal="">
+                <p className="mini-title">Dette påvirker prisen</p>
                 <ul className="plain-list">
                   {pricingFactors.map((item) => (
                     <li key={item}>{item}</li>
@@ -55,9 +59,8 @@ export default function PricingPage() {
                 </ul>
               </article>
 
-              <article className="pricing-panel pricing-panel--note" data-reveal="">
-                <p className="card-kicker">Inkludert</p>
-                <h3>Det du kan forvente fra oss</h3>
+              <article className="pricing-card" data-reveal="">
+                <p className="mini-title">Dette kan du forvente</p>
                 <ul className="plain-list">
                   {pricingIncludes.map((item) => (
                     <li key={item}>{item}</li>
@@ -65,11 +68,23 @@ export default function PricingPage() {
                 </ul>
               </article>
             </div>
+          </div>
+        </section>
 
-            <article className="pricing-panel pricing-panel--wide" data-reveal="">
-              <p className="card-kicker">Typiske jobber</p>
-              <h3>Oppdrag vi ofte gir pris på</h3>
-              <ul className="plain-list">
+        <section className="section section--spread section--last">
+          <div className="detail-grid">
+            <article className="page-hero__media" data-reveal="">
+              <Image
+                src={afterRadioImage}
+                alt="CarPlay-skjerm montert i bil"
+                sizes="(max-width: 1100px) 100vw, 58vw"
+              />
+            </article>
+
+            <article className="detail-card" data-reveal="">
+              <p className="mini-title">Vanlige jobber</p>
+              <h3>Typiske ting vi får spørsmål om.</h3>
+              <ul className="info-list">
                 {commonJobs.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -78,6 +93,7 @@ export default function PricingPage() {
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );
