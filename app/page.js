@@ -5,6 +5,7 @@ import beforeRadioImage from "../førradio.png";
 import subInstallImageOne from "../monteringavsub1.png";
 import subInstallImageTwo from "../monteringavsub2.png";
 import speakerUpgradeImage from "../standarhøytaler.png";
+import { CinematicStage } from "./components/cinematic-stage";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import {
@@ -18,29 +19,6 @@ import {
 import { SiteEffects } from "./site-effects";
 
 const featuredServices = services.slice(0, 4);
-
-const moodStripImages = [
-  {
-    image: speakerUpgradeImage,
-    alt: "Høyttaler i dørpanel",
-  },
-  {
-    image: beforeRadioImage,
-    alt: "Original radio i bil",
-  },
-  {
-    image: afterRadioImage,
-    alt: "CarPlay-skjerm i bil",
-  },
-  {
-    image: subInstallImageOne,
-    alt: "Montering av forsterker og subwoofer",
-  },
-  {
-    image: subInstallImageTwo,
-    alt: "Skjult subwooferinstallasjon",
-  },
-];
 
 const projectImages = [
   {
@@ -89,24 +67,7 @@ export default function HomePage() {
 
       <main>
         <section className="section hero">
-          <div className="mood-strip" data-reveal="">
-            <div className="mood-strip__grid">
-              {moodStripImages.map((item, index) => (
-                <div className="mood-strip__panel" key={item.alt}>
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    sizes="(max-width: 860px) 20vw, 18vw"
-                    priority={index < 2}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="mood-strip__copy">
-              <span className="story-shot__tag">Instalyd</span>
-              <p>Montering av bilstereo, CarPlay og oppgraderinger tilpasset bilen.</p>
-            </div>
-          </div>
+          <CinematicStage />
 
           <div className="hero__intro">
             <div data-reveal="">
