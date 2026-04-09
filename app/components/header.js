@@ -13,6 +13,14 @@ export function Header() {
     setIsOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", isOpen);
+
+    return () => {
+      document.body.classList.remove("menu-open");
+    };
+  }, [isOpen]);
+
   return (
     <header className="site-header">
       <div className="utilitybar">
