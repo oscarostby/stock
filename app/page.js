@@ -19,6 +19,29 @@ import { SiteEffects } from "./site-effects";
 
 const featuredServices = services.slice(0, 4);
 
+const moodStripImages = [
+  {
+    image: speakerUpgradeImage,
+    alt: "Høyttaler i dørpanel",
+  },
+  {
+    image: beforeRadioImage,
+    alt: "Original radio i bil",
+  },
+  {
+    image: afterRadioImage,
+    alt: "CarPlay-skjerm i bil",
+  },
+  {
+    image: subInstallImageOne,
+    alt: "Montering av forsterker og subwoofer",
+  },
+  {
+    image: subInstallImageTwo,
+    alt: "Skjult subwooferinstallasjon",
+  },
+];
+
 const projectImages = [
   {
     image: speakerUpgradeImage,
@@ -66,6 +89,25 @@ export default function HomePage() {
 
       <main>
         <section className="section hero">
+          <div className="mood-strip" data-reveal="">
+            <div className="mood-strip__grid">
+              {moodStripImages.map((item, index) => (
+                <div className="mood-strip__panel" key={item.alt}>
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    sizes="(max-width: 860px) 20vw, 18vw"
+                    priority={index < 2}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="mood-strip__copy">
+              <span className="story-shot__tag">Instalyd</span>
+              <p>Montering av bilstereo, CarPlay og oppgraderinger tilpasset bilen.</p>
+            </div>
+          </div>
+
           <div className="hero__intro">
             <div data-reveal="">
               <p className="eyebrow">Bilstereo og CarPlay</p>
@@ -89,20 +131,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero__layout">
-            <article className="hero__shot" data-reveal="">
-              <Image
-                src={subInstallImageTwo}
-                alt="Subwooferinstallasjon i bagasjerom"
-                sizes="(max-width: 1100px) 100vw, 60vw"
-                priority
-              />
-              <div className="hero__caption">
-                <span className="story-shot__tag">Nylig jobb</span>
-                <strong>Subwoofer og forsterker montert skjult og ryddig.</strong>
-              </div>
-            </article>
-
+          <div className="hero__layout hero__layout--no-shot">
             <div className="hero__aside">
               <div className="hero__stats" data-reveal="">
                 {heroStats.map((stat) => (
@@ -123,6 +152,16 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+
+            <article className="detail-card hero__detail" data-reveal="">
+              <p className="mini-title">Kort fortalt</p>
+              <h3>Vanlige jobber, tydelig kontakt og vurdering før vi setter i gang.</h3>
+              <ul className="plain-list">
+                <li>Høyttalere, subwoofer, forsterker og DSP</li>
+                <li>Bytte fra originalradio til skjerm og CarPlay</li>
+                <li>Ryddig montering tilpasset bilen du har</li>
+              </ul>
+            </article>
           </div>
         </section>
 
