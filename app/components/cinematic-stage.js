@@ -66,6 +66,8 @@ const scenes = [
   },
 ];
 
+const SCENE_DURATION_MS = 20000;
+
 const themeKeys = [
   "--accent",
   "--accent-strong",
@@ -73,20 +75,40 @@ const themeKeys = [
   "--theme-glow-rgb",
 ];
 
+function pickRandomSceneIndex(excludedIndex) {
+  if (scenes.length < 2) {
+    return 0;
+  }
+
+  let nextIndex = excludedIndex;
+
+  while (nextIndex === excludedIndex) {
+    nextIndex = Math.floor(Math.random() * scenes.length);
+  }
+
+  return nextIndex;
+}
+
 export function CinematicStage() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
     setActiveIndex(Math.floor(Math.random() * scenes.length));
+    setHasInitialized(true);
   }, []);
 
   useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((currentIndex) => (currentIndex + 1) % scenes.length);
-    }, 5200);
+    if (!hasInitialized) {
+      return undefined;
+    }
 
-    return () => window.clearInterval(intervalId);
-  }, []);
+    const timeoutId = window.setTimeout(() => {
+      setActiveIndex((currentIndex) => pickRandomSceneIndex(currentIndex));
+    }, SCENE_DURATION_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeIndex, hasInitialized]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -145,13 +167,13 @@ export function CinematicStage() {
       </div>
 
       <div className="cinematic-stage__content">
-        <div className="cinematic-stage__copy">
+        <div className="cinematic-stage__copy" key={`copy-${activeScene.key}`}>
           <span className="story-shot__tag">{activeScene.label}</span>
           <p className="cinematic-stage__title">{activeScene.title}</p>
           <p className="cinematic-stage__text">{activeScene.description}</p>
         </div>
 
-        <div className="cinematic-stage__meta">
+        <div className="cinematic-stage__meta" key={`meta-${activeScene.key}`}>
           <span className="cinematic-stage__count">
             {String(activeIndex + 1).padStart(2, "0")} / {String(scenes.length).padStart(2, "0")}
           </span>

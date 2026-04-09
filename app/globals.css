@@ -387,6 +387,7 @@ main {
 }
 
 .cinematic-stage {
+  --scene-duration: 20s;
   position: relative;
   overflow: hidden;
   margin-bottom: 2rem;
@@ -429,8 +430,8 @@ main {
   opacity: 0;
   transform: scale(1.06);
   transition:
-    opacity 1000ms ease,
-    transform 5200ms ease;
+    opacity 1400ms ease,
+    transform var(--scene-duration) ease-out;
 }
 
 .cinematic-stage__frame.is-active {
@@ -474,26 +475,48 @@ main {
 }
 
 .cinematic-stage__controls button {
+  position: relative;
+  overflow: hidden;
   width: 2.8rem;
   height: 0.22rem;
   padding: 0;
   border: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.24);
+  opacity: 0.5;
   transition:
-    transform 180ms ease,
-    background 180ms ease,
-    opacity 180ms ease;
+    transform 320ms ease,
+    background 800ms ease,
+    opacity 800ms ease;
+}
+
+.cinematic-stage__controls button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition:
+    opacity 800ms ease,
+    background 800ms ease;
 }
 
 .cinematic-stage__controls button:hover,
 .cinematic-stage__controls button:focus-visible {
   transform: scaleX(1.06);
-  background: rgba(255, 255, 255, 0.45);
+  opacity: 0.9;
 }
 
 .cinematic-stage__controls button.is-active {
-  background: var(--accent);
+  opacity: 1;
+}
+
+.cinematic-stage__controls button.is-active::after {
+  opacity: 1;
+  animation: cinematic-stage-progress var(--scene-duration) linear forwards;
 }
 
 .cinematic-stage__content {
@@ -509,6 +532,7 @@ main {
   max-width: 38rem;
   display: grid;
   gap: 0.6rem;
+  animation: cinematic-stage-copy-in 900ms ease both;
 }
 
 .cinematic-stage__title {
@@ -531,6 +555,7 @@ main {
   display: grid;
   justify-items: end;
   gap: 0.8rem;
+  animation: cinematic-stage-copy-in 900ms ease both;
 }
 
 .cinematic-stage__tags {
@@ -1140,6 +1165,28 @@ main {
 [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes cinematic-stage-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cinematic-stage-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1100px) {
