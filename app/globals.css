@@ -251,7 +251,7 @@ main {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 70;
   border-bottom: 1px solid var(--line);
   background: rgba(10, 11, 13, 0.88);
   backdrop-filter: blur(22px);
@@ -1180,7 +1180,7 @@ main {
   .mobile-menu {
     position: fixed;
     inset: 0;
-    z-index: 58;
+    z-index: 60;
     display: flex;
     justify-content: center;
     align-items: center;
