@@ -1,32 +1,38 @@
 import Link from "next/link";
-import { contact } from "../data";
+import { contact, navItems } from "../data";
 
 export function Footer() {
   return (
     <footer className="footer">
-      <div className="footer__wave" aria-hidden="true" />
-
       <div className="footer__content">
         <div className="footer__brand">
           <p className="footer__title">Instalyd</p>
-          <p>Montering av billyd i Akershus og Buskerud</p>
-          <p>&copy; {new Date().getFullYear()} Instalyd</p>
+          <p>Montering av bilstereo, subwoofer, DSP og CarPlay i Akershus og Buskerud.</p>
         </div>
 
-        <div className="footer__actions" aria-label="Kontaktknapper">
-          <a className="footer__button" href={`tel:${contact.phoneHref}`}>
-            Ring oss
-          </a>
-          <a className="footer__button" href={`sms:${contact.phoneHref}`}>
-            Send SMS
-          </a>
-          <a className="footer__button" href={`mailto:${contact.email}`}>
-            Send e-post
-          </a>
-          <Link className="footer__button footer__button--ghost" href="/kontakt">
-            Kontaktskjema
-          </Link>
+        <div className="footer__column">
+          <p className="footer__label">Sider</p>
+          <nav className="footer__nav" aria-label="Sidelinker">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
+
+        <div className="footer__column">
+          <p className="footer__label">Kontakt</p>
+          <div className="footer__links">
+            <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <Link href="/kontakt">Bestillingsskjema</Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="footer__bottom">
+        <p>&copy; {new Date().getFullYear()} Instalyd</p>
       </div>
     </footer>
   );

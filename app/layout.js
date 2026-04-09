@@ -1,9 +1,14 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Instalyd | Billyd montert riktig",
+  title: "Instalyd | Bilstereo montert riktig",
   description:
-    "Instalyd monterer billyd, subwoofer, skjerm, DSP og lyddemping. Ryddig arbeid, riktig oppsett og ærlig prisvurdering.",
+    "Instalyd monterer bilstereo, subwoofer, DSP, skjerm og lyddemping med fokus på ryddig finish, riktig oppsett og ærlig prisvurdering.",
+};
+
+export const viewport = {
+  themeColor: "#090b10",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }) {
@@ -13,7 +18,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
