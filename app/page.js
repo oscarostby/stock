@@ -13,9 +13,22 @@ import {
   heroStats,
   services,
 } from "./data";
+import { createPageMetadata } from "./seo";
 import { SiteEffects } from "./site-effects";
 
 const featuredServices = services.slice(0, 4);
+
+export const metadata = createPageMetadata({
+  title: "Lydinstallasjon, bilstereo og CarPlay i Akershus og Buskerud",
+  description:
+    "Instalyd hjelper deg med lydinstallasjon i bil, montering av bilstereo, høyttalere, subwoofer, forsterker, DSP og CarPlay i Akershus og Buskerud.",
+  path: "/",
+  keywords: [
+    "montering av lyd i bil",
+    "oppgradering av bilstereo",
+    "bilstereo installasjon",
+  ],
+});
 
 const projectImages = [
   {
@@ -68,12 +81,19 @@ export default function HomePage() {
 
           <div className="hero__intro hero__intro--compact">
             <div data-reveal="">
-              <p className="eyebrow">Bilstereo og CarPlay</p>
-              <h1>Montering av bilstereo og CarPlay.</h1>
+              <p className="eyebrow">Lydinstallasjon, bilstereo og CarPlay</p>
+              <h1>Lydinstallasjon i bil med ryddig montering.</h1>
             </div>
 
             <div className="hero__summary" data-reveal="">
-              <p className="lead">Ryddig montering for biler i {contact.area}.</p>
+              <p className="lead">
+                Vi hjelper kunder i {contact.area} med montering av bilstereo, CarPlay,
+                høyttalere, subwoofer, forsterker og DSP.
+              </p>
+              <p>
+                Trenger du installasjon av lyd i bil eller vil rydde opp i et eldre
+                anlegg, bygger vi en løsning som passer bilen og utstyret ditt.
+              </p>
 
               <div className="hero__actions">
                 <a className="button" href={`tel:${contact.phoneHref}`}>

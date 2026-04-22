@@ -4,7 +4,20 @@ import afterRadioImage from "../../etterradio.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, pricingFactors, pricingIncludes } from "../data";
+import { createPageMetadata } from "../seo";
 import { SiteEffects } from "../site-effects";
+
+export const metadata = createPageMetadata({
+  title: "Pris på lydinstallasjon og bilstereo",
+  description:
+    "Se hvordan pris på lydinstallasjon i bil vurderes hos Instalyd. Timepris er 650 kr, og vi vurderer bil, utstyr og omfang før montering.",
+  path: "/pris",
+  keywords: [
+    "pris lydinstallasjon",
+    "pris bilstereo montering",
+    "timepris bilstereo",
+  ],
+});
 
 export default function PricingPage() {
   return (

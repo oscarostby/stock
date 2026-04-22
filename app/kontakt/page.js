@@ -1,6 +1,7 @@
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { contact, contactChecklist } from "../data";
+import { createPageMetadata } from "../seo";
 import { SiteEffects } from "../site-effects";
 
 const contactLinks = [
@@ -23,6 +24,18 @@ const contactLinks = [
     href: `sms:${contact.phoneHref}?body=Hei!%20Jeg%20vil%20ha%20pris%20p%C3%A5%20montering.`,
   },
 ];
+
+export const metadata = createPageMetadata({
+  title: "Kontakt oss for lydinstallasjon i bil",
+  description:
+    "Ta kontakt med Instalyd for pris på lydinstallasjon i bil, bilstereo, subwoofer, forsterker eller CarPlay i Akershus og Buskerud.",
+  path: "/kontakt",
+  keywords: [
+    "kontakt lydinstallasjon",
+    "bestille bilstereo montering",
+    "kontakt CarPlay montering",
+  ],
+});
 
 export default function ContactPage() {
   return (

@@ -3,11 +3,42 @@ import speakerUpgradeImage from "../../standarhøytaler.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, faqItems, services } from "../data";
+import { createPageMetadata } from "../seo";
 import { SiteEffects } from "../site-effects";
+
+export const metadata = createPageMetadata({
+  title: "Tjenester for lydinstallasjon i bil",
+  description:
+    "Tjenester for lydinstallasjon i bil: montering av bilstereo, høyttalere, subwoofer, forsterker, DSP, lyddemping og CarPlay i Akershus og Buskerud.",
+  path: "/tjenester",
+  keywords: [
+    "tjenester lydinstallasjon",
+    "subwoofer montering bil",
+    "forsterker installasjon bil",
+    "CarPlay montering bil",
+  ],
+});
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <SiteEffects />
       <Header />
 
@@ -18,7 +49,8 @@ export default function ServicesPage() {
               <p className="eyebrow">Tjenester</p>
               <h1>Montering og oppgradering av lyd i bil.</h1>
               <p className="lead">
-                Vi jobber med høyttalere, subwoofer, forsterker, DSP, skjerm og CarPlay.
+                Vi jobber med lydinstallasjon i bil, fra høyttalere og subwoofer til
+                forsterker, DSP, skjerm og CarPlay.
               </p>
             </div>
 

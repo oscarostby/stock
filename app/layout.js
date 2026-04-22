@@ -1,9 +1,45 @@
 import "./globals.css";
+import {
+  defaultDescription,
+  defaultKeywords,
+  localBusinessJsonLd,
+  siteName,
+  siteUrl,
+  websiteJsonLd,
+} from "./seo";
 
 export const metadata = {
-  title: "Instalyd | Bilstereo og CarPlay",
-  description:
-    "Instalyd monterer høyttalere, subwoofer, forsterker, DSP og CarPlay med ryddig finish og tydelig prisvurdering.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: defaultDescription,
+  applicationName: siteName,
+  authors: [{ name: siteName }],
+  creator: siteName,
+  publisher: siteName,
+  keywords: defaultKeywords,
+  category: "Automotive",
+  openGraph: {
+    title: `${siteName} | Lydinstallasjon, bilstereo og CarPlay`,
+    description: defaultDescription,
+    url: siteUrl,
+    siteName,
+    locale: "nb_NO",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      maxSnippet: -1,
+      maxImagePreview: "large",
+      maxVideoPreview: -1,
+    },
+  },
 };
 
 export const viewport = {
@@ -20,6 +56,14 @@ export default function RootLayout({ children }) {
         <link
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
       </head>
       <body>{children}</body>

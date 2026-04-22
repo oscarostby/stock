@@ -3,7 +3,20 @@ import subInstallImageOne from "../../monteringavsub1.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { steps, trustSignals } from "../data";
+import { createPageMetadata } from "../seo";
 import { SiteEffects } from "../site-effects";
+
+export const metadata = createPageMetadata({
+  title: "Arbeidsmåte for bilstereo og lydinstallasjon",
+  description:
+    "Instalyd legger vekt på ryddig montering, riktig oppkobling og tydelig dialog når vi jobber med lydinstallasjon i bil og CarPlay.",
+  path: "/hvorfor",
+  keywords: [
+    "ryddig lydinstallasjon",
+    "arbeidsmåte bilstereo",
+    "montering CarPlay",
+  ],
+});
 
 export default function WhyPage() {
   return (
