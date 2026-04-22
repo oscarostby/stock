@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import speakerUpgradeImage from "../../standarhøytaler.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, faqItems, services } from "../data";
 import { createPageMetadata } from "../seo";
+import { featuredServiceLandingPages } from "../service-pages";
 import { SiteEffects } from "../site-effects";
 
 export const metadata = createPageMetadata({
@@ -99,6 +101,35 @@ export default function ServicesPage() {
                 </div>
                 <p className="service-row__meta">{service.meta}</p>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section--spread">
+          <div className="section-heading section-heading--split" data-reveal="">
+            <div>
+              <p className="eyebrow">Fordypning</p>
+              <h2>Egne sider for de mest søkte jobbene.</h2>
+            </div>
+            <p className="lead">
+              Disse sidene er laget for deg som vil lese mer om akkurat den typen
+              lydjobb du vurderer i bilen.
+            </p>
+          </div>
+
+          <div className="content-link-grid">
+            {featuredServiceLandingPages.map((item) => (
+              <Link
+                className="content-link-card"
+                data-reveal=""
+                href={`/tjenester/${item.slug}`}
+                key={item.slug}
+              >
+                <p className="mini-title">{item.eyebrow}</p>
+                <strong>{item.cardTitle}</strong>
+                <p>{item.summary}</p>
+                <span className="content-link-card__meta">Gå til side</span>
+              </Link>
             ))}
           </div>
         </section>

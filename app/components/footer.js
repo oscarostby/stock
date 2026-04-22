@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { contact, navItems } from "../data";
+import { featuredServiceLandingPages } from "../service-pages";
 
 export function Footer() {
   return (
@@ -35,6 +36,17 @@ export function Footer() {
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
                   {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="site-footer__block">
+            <p className="mini-title">Vanlige jobber</p>
+            <nav className="site-footer__nav" aria-label="Vanlige tjenester">
+              {featuredServiceLandingPages.map((item) => (
+                <Link key={item.slug} href={`/tjenester/${item.slug}`}>
+                  {item.cardTitle}
                 </Link>
               ))}
             </nav>

@@ -1,4 +1,5 @@
 import { siteUrl } from "./seo";
+import { serviceLandingPages } from "./service-pages";
 
 const routes = [
   { path: "/", priority: 1 },
@@ -6,6 +7,10 @@ const routes = [
   { path: "/pris", priority: 0.8 },
   { path: "/hvorfor", priority: 0.8 },
   { path: "/kontakt", priority: 0.9 },
+  ...serviceLandingPages.map((page) => ({
+    path: `/tjenester/${page.slug}`,
+    priority: 0.85,
+  })),
 ];
 
 export default function sitemap() {

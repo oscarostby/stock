@@ -14,6 +14,7 @@ import {
   services,
 } from "./data";
 import { createPageMetadata } from "./seo";
+import { featuredServiceLandingPages } from "./service-pages";
 import { SiteEffects } from "./site-effects";
 
 const featuredServices = services.slice(0, 4);
@@ -128,6 +129,36 @@ export default function HomePage() {
                 <span className="service-row__number">{service.label}</span>
                 <h3>{service.title}</h3>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section section--spread">
+          <div className="section-heading section-heading--split" data-reveal="">
+            <div>
+              <p className="eyebrow">Det folk søker etter</p>
+              <h2>Egne sider for de vanligste jobbene.</h2>
+            </div>
+            <p className="lead">
+              Hvis du leter etter lydinstallasjon i bil, montering av bilstereo,
+              CarPlay eller subwoofer, har vi egne sider som forklarer hva jobben
+              innebærer.
+            </p>
+          </div>
+
+          <div className="content-link-grid">
+            {featuredServiceLandingPages.map((item) => (
+              <Link
+                className="content-link-card"
+                data-reveal=""
+                href={`/tjenester/${item.slug}`}
+                key={item.slug}
+              >
+                <p className="mini-title">{item.eyebrow}</p>
+                <strong>{item.cardTitle}</strong>
+                <p>{item.lead}</p>
+                <span className="content-link-card__meta">Les mer</span>
+              </Link>
             ))}
           </div>
         </section>
