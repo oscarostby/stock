@@ -7,6 +7,7 @@ const routes = [
   { path: "/pris", priority: 0.8 },
   { path: "/hvorfor", priority: 0.8 },
   { path: "/kontakt", priority: 0.9 },
+  { path: "/personvern", priority: 0.4 },
   ...serviceLandingPages.map((page) => ({
     path: `/tjenester/${page.slug}`,
     priority: 0.85,

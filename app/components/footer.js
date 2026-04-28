@@ -38,6 +38,7 @@ export function Footer() {
                   {item.label}
                 </Link>
               ))}
+              <Link href="/personvern">Personvern</Link>
             </nav>
           </div>
 
@@ -63,7 +64,7 @@ export function Footer() {
         </div>
 
         <div className="site-footer__bottom">
-          <p>&copy; {new Date().getFullYear()} Instalyd</p>
+          <p>&copy; {new Date().getFullYear()} Instalyd. Alle rettigheter reservert.</p>
         </div>
       </div>
     </footer>

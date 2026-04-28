@@ -259,6 +259,11 @@ export default function HomePage() {
                 </label>
 
                 <label>
+                  <span>E-post</span>
+                  <input type="email" name="email" placeholder="navn@epost.no" required />
+                </label>
+
+                <label>
                   <span>Telefon</span>
                   <input type="tel" name="phone" placeholder="902 54 100" required />
                 </label>

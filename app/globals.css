@@ -1027,6 +1027,25 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.policy-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.policy-card {
+  gap: 0.9rem;
+}
+
+.policy-card h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  letter-spacing: -0.04em;
+}
+
+.policy-card p,
+.policy-card li {
+  max-width: 72ch;
+}
+
 .timeline {
   display: grid;
   gap: 0;

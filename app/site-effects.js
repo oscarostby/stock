@@ -59,6 +59,7 @@ export function SiteEffects() {
       const formData = new FormData(form);
       const name = (formData.get("name") || "").toString().trim();
       const car = (formData.get("car") || "").toString().trim();
+      const email = (formData.get("email") || "").toString().trim();
       const phone = (formData.get("phone") || "").toString().trim();
       const service = (formData.get("service") || "").toString().trim();
       const details = (formData.get("details") || "").toString().trim();
@@ -76,6 +77,7 @@ export function SiteEffects() {
           "",
           `Navn: ${name}`,
           `Bil: ${car}`,
+          `E-post: ${email}`,
           `Telefon: ${phone}`,
           `Hva gjelder det: ${service}`,
           "",
@@ -89,11 +91,14 @@ export function SiteEffects() {
           {
             name,
             car,
+            email,
             phone,
             service,
             details,
             message,
             from_name: name,
+            from_email: email,
+            reply_to: email,
             car_model: car,
             phone_number: phone,
             requested_service: service,
