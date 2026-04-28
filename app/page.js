@@ -247,8 +247,6 @@ export default function HomePage() {
             </div>
 
             <form className="contact-form" data-contact-form="" data-recipient={contact.email} data-reveal="">
-              <p className="form-intro">Skjemaet åpner e-post med ferdig utfylt tekst.</p>
-
               <div className="contact-form__grid">
                 <label>
                   <span>Navn</span>
@@ -289,6 +287,7 @@ export default function HomePage() {
               <button className="button" type="submit">
                 Send forespørsel
               </button>
+              <p className="form-status" data-form-status="" hidden />
             </form>
           </div>
         </section>

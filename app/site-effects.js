@@ -1,6 +1,11 @@
 "use client";
 
+import emailjs from "@emailjs/browser";
 import { useEffect } from "react";
+
+const EMAILJS_SERVICE_ID = "service_22rkcei";
+const EMAILJS_TEMPLATE_ID = "template_unvus5v";
+const EMAILJS_PUBLIC_KEY = "lCW2i7u25DHceNqXC";
 
 export function SiteEffects() {
   useEffect(() => {
@@ -28,53 +33,63 @@ export function SiteEffects() {
       revealed.forEach((element) => element.classList.add("is-visible"));
     }
 
-    const form = document.querySelector("[data-contact-form]");
+    const forms = document.querySelectorAll("[data-contact-form]");
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
+    const setFormStatus = (form, message, state = "") => {
+      const status = form.querySelector("[data-form-status]");
 
-      const formData = new FormData(form);
-      const name = (formData.get("name") || "").toString().trim();
-      const car = (formData.get("car") || "").toString().trim();
-      const phone = (formData.get("phone") || "").toString().trim();
-      const service = (formData.get("service") || "").toString().trim();
-      const details = (formData.get("details") || "").toString().trim();
-      const recipient =
-        form.getAttribute("data-recipient") || "kontakt@dittfirma.no";
+      if (!status) {
+        return;
+      }
 
-      const subject = `Forespørsel billyd - ${car || "ny kunde"}`;
-      const body = [
-        "Hei,",
-        "",
-        "Jeg ønsker pris på følgende jobb:",
-        "",
-        `Navn: ${name}`,
-        `Bil: ${car}`,
-        `Telefon: ${phone}`,
-        `Ønsket jobb: ${service}`,
-        "",
-        "Detaljer:",
-        details,
-        "",
-        "Mvh",
-        name,
-      ].join("\n");
+      status.textContent = message;
+      status.hidden = !message;
 
-      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
-        subject,
-      )}&body=${encodeURIComponent(body)}`;
+      if (state) {
+        status.setAttribute("data-state", state);
+      } else {
+        status.removeAttribute("data-state");
+      }
     };
 
-    if (form) {
-      form.addEventListener("submit", handleSubmit);
-    }
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+
+      setFormStatus(form, "Sender forespørsel ...");
+
+      try {
+        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+          publicKey: EMAILJS_PUBLIC_KEY,
+        });
+
+        form.reset();
+        setFormStatus(form, "Forespørselen er sendt. Vi tar kontakt så snart vi kan.", "success");
+      } catch (error) {
+        setFormStatus(
+          form,
+          "Kunne ikke sende forespørselen akkurat nå. Prøv igjen om litt eller ring oss.",
+          "error",
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+      }
+    };
+
+    forms.forEach((form) => form.addEventListener("submit", handleSubmit));
 
     return () => {
       observer?.disconnect();
 
-      if (form) {
-        form.removeEventListener("submit", handleSubmit);
-      }
+      forms.forEach((form) => form.removeEventListener("submit", handleSubmit));
     };
   }, []);
 
