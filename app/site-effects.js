@@ -56,6 +56,12 @@ export function SiteEffects() {
       event.preventDefault();
 
       const form = event.currentTarget;
+      const formData = new FormData(form);
+      const name = (formData.get("name") || "").toString().trim();
+      const car = (formData.get("car") || "").toString().trim();
+      const phone = (formData.get("phone") || "").toString().trim();
+      const service = (formData.get("service") || "").toString().trim();
+      const details = (formData.get("details") || "").toString().trim();
       const submitButton = form.querySelector('button[type="submit"]');
 
       if (submitButton) {
@@ -65,9 +71,38 @@ export function SiteEffects() {
       setFormStatus(form, "Sender forespørsel ...");
 
       try {
-        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
-          publicKey: EMAILJS_PUBLIC_KEY,
-        });
+        const message = [
+          "Ny forespørsel fra nettsiden",
+          "",
+          `Navn: ${name}`,
+          `Bil: ${car}`,
+          `Telefon: ${phone}`,
+          `Hva gjelder det: ${service}`,
+          "",
+          "Beskrivelse:",
+          details,
+        ].join("\n");
+
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            name,
+            car,
+            phone,
+            service,
+            details,
+            message,
+            from_name: name,
+            car_model: car,
+            phone_number: phone,
+            requested_service: service,
+            subject: `Forespørsel billyd - ${car || "ny kunde"}`,
+          },
+          {
+            publicKey: EMAILJS_PUBLIC_KEY,
+          },
+        );
 
         form.reset();
         setFormStatus(form, "Forespørselen er sendt. Vi tar kontakt så snart vi kan.", "success");
