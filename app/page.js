@@ -246,7 +246,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            <form className="contact-form" data-contact-form="" data-recipient={contact.email} data-reveal="">
+            <form
+              className="contact-form"
+              data-contact-form=""
+              data-recipient={contact.email}
+              data-request-source="Forside"
+              data-reveal=""
+            >
               <div className="contact-form__grid">
                 <label>
                   <span>Navn</span>

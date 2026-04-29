@@ -7,6 +7,32 @@ const EMAILJS_SERVICE_ID = "service_22rkcei";
 const EMAILJS_TEMPLATE_ID = "template_unvus5v";
 const EMAILJS_PUBLIC_KEY = "lCW2i7u25DHceNqXC";
 
+const fieldLabels = {
+  name: "Navn",
+  customer: "Kunde",
+  car: "Bil",
+  email: "E-post",
+  phone: "Telefon",
+  service: "Tjeneste",
+  details: "Beskrivelse",
+  bookingDate: "Dato",
+  timeSlot: "Tid",
+  owner: "Ansvarlig",
+  status: "Status",
+  source: "Kilde",
+};
+
+function toLabel(fieldName) {
+  if (fieldLabels[fieldName]) {
+    return fieldLabels[fieldName];
+  }
+
+  return fieldName
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/^\w/, (letter) => letter.toUpperCase());
+}
+
 export function SiteEffects() {
   useEffect(() => {
     const revealed = document.querySelectorAll("[data-reveal]");
@@ -57,13 +83,30 @@ export function SiteEffects() {
 
       const form = event.currentTarget;
       const formData = new FormData(form);
-      const name = (formData.get("name") || "").toString().trim();
-      const car = (formData.get("car") || "").toString().trim();
-      const email = (formData.get("email") || "").toString().trim();
-      const phone = (formData.get("phone") || "").toString().trim();
-      const service = (formData.get("service") || "").toString().trim();
-      const details = (formData.get("details") || "").toString().trim();
+      const entries = Array.from(formData.entries()).map(([key, value]) => [
+        key,
+        value.toString().trim(),
+      ]);
+      const values = Object.fromEntries(entries);
+      const name = values.name || values.customer || "";
+      const car = values.car || "";
+      const email = values.email || "";
+      const phone = values.phone || "";
+      const service = values.service || "";
+      const details = values.details || "";
       const submitButton = form.querySelector('button[type="submit"]');
+      const messageIntro = form.dataset.formIntro || "Ny forespørsel fra nettsiden";
+      const successMessage =
+        form.dataset.successMessage || "Forespørselen er sendt. Vi tar kontakt så snart vi kan.";
+      const subjectPrefix = form.dataset.subjectPrefix || "Forespørsel billyd";
+      const subjectFields = (form.dataset.subjectFields || "car,name")
+        .split(",")
+        .map((field) => field.trim())
+        .filter(Boolean);
+      const subjectContext = subjectFields
+        .map((field) => values[field])
+        .filter(Boolean)
+        .join(" - ");
 
       if (submitButton) {
         submitButton.disabled = true;
@@ -72,45 +115,87 @@ export function SiteEffects() {
       setFormStatus(form, "Sender forespørsel ...");
 
       try {
-        const message = [
-          "Ny forespørsel fra nettsiden",
-          "",
-          `Navn: ${name}`,
-          `Bil: ${car}`,
-          `E-post: ${email}`,
-          `Telefon: ${phone}`,
-          `Hva gjelder det: ${service}`,
-          "",
-          "Beskrivelse:",
-          details,
-        ].join("\n");
+        const fieldLines = entries
+          .filter(([, value]) => value)
+          .map(([key, value]) => `${toLabel(key)}: ${value}`);
+        const subject = subjectContext ? `${subjectPrefix} - ${subjectContext}` : subjectPrefix;
+        const message = [messageIntro, "", ...fieldLines].join("\n");
+        const shouldStoreRequest = form.dataset.storeRequest !== "false";
+        const isCustomerInquiry = form.dataset.requestKind !== "internal";
+        const saveRequestPromise =
+          shouldStoreRequest && isCustomerInquiry
+            ? fetch("/api/contact-requests", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name,
+                  car,
+                  email,
+                  phone,
+                  service,
+                  details,
+                  source: form.dataset.requestSource || window.location.pathname || "website",
+                }),
+              })
+            : Promise.resolve(null);
 
-        await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          {
-            name,
-            car,
-            email,
-            phone,
-            service,
-            details,
-            message,
-            from_name: name,
-            from_email: email,
-            reply_to: email,
-            car_model: car,
-            phone_number: phone,
-            requested_service: service,
-            subject: `Forespørsel billyd - ${car || "ny kunde"}`,
-          },
-          {
-            publicKey: EMAILJS_PUBLIC_KEY,
-          },
-        );
+        const [emailResult, saveResult] = await Promise.allSettled([
+          emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            {
+              name,
+              car,
+              email,
+              phone,
+              service,
+              details,
+              message,
+              from_name: name,
+              from_email: email,
+              reply_to: email,
+              car_model: car,
+              phone_number: phone,
+              requested_service: service,
+              subject,
+            },
+            {
+              publicKey: EMAILJS_PUBLIC_KEY,
+            },
+          ),
+          saveRequestPromise,
+        ]);
+
+        if (emailResult.status === "rejected") {
+          throw new Error("email-failed");
+        }
+
+        if (
+          saveResult.status === "fulfilled" &&
+          saveResult.value &&
+          !saveResult.value.ok
+        ) {
+          setFormStatus(
+            form,
+            "Foresporselen er sendt pa e-post, men ble ikke lagret i kontorsystemet ennå.",
+            "error",
+          );
+          return;
+        }
+
+        if (saveResult.status === "rejected") {
+          setFormStatus(
+            form,
+            "Foresporselen er sendt pa e-post, men ble ikke lagret i kontorsystemet ennå.",
+            "error",
+          );
+          return;
+        }
 
         form.reset();
-        setFormStatus(form, "Forespørselen er sendt. Vi tar kontakt så snart vi kan.", "success");
+        setFormStatus(form, successMessage, "success");
       } catch (error) {
         setFormStatus(
           form,
