@@ -1,8 +1,9 @@
 export const officeCookieName = "instalyd-office-session";
 export const officeCookieMaxAge = 60 * 60 * 24 * 14;
 
-const officePassword = "siuronaldoisthegoatnocap";
+const officePassword = "2006";
 const officeSessionSecret = "instalyd-office-session-v1";
+const allowedOfficeUsers = new Set(["oscar", "Oscar", "alex", "Alex"]);
 
 export function normalizeOfficeUsername(value) {
   return value.toString().trim();
@@ -13,7 +14,9 @@ export function formatOfficeUsername(value) {
 }
 
 export function verifyOfficeCredentials(username, password) {
-  return Boolean(normalizeOfficeUsername(username)) && password === officePassword;
+  const normalized = normalizeOfficeUsername(username);
+
+  return allowedOfficeUsers.has(normalized) && password === officePassword;
 }
 
 export function createOfficeSessionValue(username) {

@@ -13,13 +13,24 @@ create table if not exists public.contact_requests (
 
 alter table public.contact_requests
   add column if not exists scheduled_for timestamptz,
-  add column if not exists booking_notes text;
+  add column if not exists booking_notes text,
+  add column if not exists archived_at timestamptz,
+  add column if not exists receipt_reference text,
+  add column if not exists receipt_issued_at timestamptz,
+  add column if not exists receipt_location text,
+  add column if not exists receipt_price text,
+  add column if not exists receipt_payment_method text,
+  add column if not exists receipt_work_summary text,
+  add column if not exists receipt_notes text;
 
 create index if not exists contact_requests_created_at_idx
   on public.contact_requests (created_at desc);
 
 create index if not exists contact_requests_scheduled_for_idx
   on public.contact_requests (scheduled_for asc);
+
+create index if not exists contact_requests_archived_at_idx
+  on public.contact_requests (archived_at desc);
 
 alter table public.contact_requests enable row level security;
 

@@ -6,6 +6,7 @@ const supabaseKey =
 const contactRequestsTable = "contact_requests";
 const baseSelectColumns = "id,name,car,email,phone,service,details,status,source,created_at";
 const scheduleSelectColumns = `${baseSelectColumns},scheduled_for,booking_notes`;
+const officeSelectColumns = `${scheduleSelectColumns},archived_at,receipt_reference,receipt_issued_at,receipt_location,receipt_price,receipt_payment_method,receipt_work_summary,receipt_notes`;
 
 function getSupabaseHeaders(extraHeaders = {}) {
   return {
@@ -46,12 +47,37 @@ async function fetchContactRequests(limit, selectColumns) {
 
 }
 
+async function fetchSingleContactRequest(id, selectColumns) {
+  const query = new URLSearchParams({
+    select: selectColumns,
+    id: `eq.${id}`,
+    limit: "1",
+  });
+
+  return fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`, {
+    headers: getSupabaseHeaders(),
+    cache: "no-store",
+  });
+}
+
 export async function listContactRequests(limit = 50) {
   if (!isSupabaseConfigured()) {
     return {
       data: [],
       error: "Supabase er ikke konfigurert.",
       supportsScheduling: false,
+      supportsOfficeManagement: false,
+    };
+  }
+
+  const officeResponse = await fetchContactRequests(limit, officeSelectColumns);
+
+  if (officeResponse.ok) {
+    return {
+      data: await officeResponse.json(),
+      error: null,
+      supportsScheduling: true,
+      supportsOfficeManagement: true,
     };
   }
 
@@ -62,6 +88,7 @@ export async function listContactRequests(limit = 50) {
       data: await scheduleResponse.json(),
       error: null,
       supportsScheduling: true,
+      supportsOfficeManagement: false,
     };
   }
 
@@ -72,6 +99,7 @@ export async function listContactRequests(limit = 50) {
       data: [],
       error: formatSupabaseError(await fallbackResponse.text()),
       supportsScheduling: false,
+      supportsOfficeManagement: false,
     };
   }
 
@@ -79,6 +107,45 @@ export async function listContactRequests(limit = 50) {
     data: await fallbackResponse.json(),
     error: null,
     supportsScheduling: false,
+    supportsOfficeManagement: false,
+  };
+}
+
+export async function getContactRequestById(id) {
+  if (!isSupabaseConfigured()) {
+    return {
+      data: null,
+      error: "Supabase er ikke konfigurert.",
+      supportsOfficeManagement: false,
+    };
+  }
+
+  const officeResponse = await fetchSingleContactRequest(id, officeSelectColumns);
+
+  if (officeResponse.ok) {
+    const rows = await officeResponse.json();
+    return {
+      data: rows[0] || null,
+      error: null,
+      supportsOfficeManagement: true,
+    };
+  }
+
+  const scheduleResponse = await fetchSingleContactRequest(id, scheduleSelectColumns);
+
+  if (scheduleResponse.ok) {
+    const rows = await scheduleResponse.json();
+    return {
+      data: rows[0] || null,
+      error: null,
+      supportsOfficeManagement: false,
+    };
+  }
+
+  return {
+    data: null,
+    error: formatSupabaseError(await scheduleResponse.text()),
+    supportsOfficeManagement: false,
   };
 }
 
@@ -159,4 +226,29 @@ export async function updateContactRequest(id, payload) {
     data: result[0] || null,
     error: null,
   };
+}
+
+export async function deleteExpiredArchivedContactRequests() {
+  if (!isSupabaseConfigured()) {
+    return;
+  }
+
+  const expiryDate = new Date();
+  expiryDate.setFullYear(expiryDate.getFullYear() - 5);
+
+  const query = new URLSearchParams({
+    archived_at: `lt.${expiryDate.toISOString()}`,
+  });
+
+  try {
+    await fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`, {
+      method: "DELETE",
+      headers: getSupabaseHeaders({
+        Prefer: "return=minimal",
+      }),
+      cache: "no-store",
+    });
+  } catch {
+    // Ignore cleanup failures so the admin page still loads.
+  }
 }

@@ -924,22 +924,60 @@ main {
   padding-bottom: 4rem;
 }
 
+.office-shell .section {
+  width: min(calc(100% - 1.5rem), 1480px);
+  padding: 1.4rem 0;
+}
+
+.office-shell h1,
+.office-shell h2,
+.office-shell h3,
+.office-shell p {
+  margin: 0;
+}
+
+.office-skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 50;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: #111;
+  transform: translateY(-140%);
+}
+
+.office-skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 .office-shell h1 {
   max-width: 11ch;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-size: clamp(2rem, 3vw, 2.9rem);
   line-height: 0.98;
 }
 
 .office-shell h2 {
   max-width: none;
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-size: clamp(1.08rem, 1.55vw, 1.4rem);
   line-height: 1.1;
 }
 
 .office-shell .lead {
   max-width: 52ch;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.office-shell .eyebrow {
+  gap: 0.45rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+}
+
+.office-shell .eyebrow::before {
+  width: 1.2rem;
 }
 
 .office-login {
@@ -978,15 +1016,8 @@ main {
   gap: 0.9rem;
 }
 
-.office-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  gap: 1.4rem;
-  padding-top: 5.1rem;
-}
-
-.office-hero__copy,
-.office-card {
+.office-card,
+.office-header__main {
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
   background:
@@ -995,21 +1026,67 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-.office-hero__copy {
+.office-header {
   display: grid;
-  gap: 0.8rem;
-  padding: 1rem;
+  padding-top: 4.1rem;
+}
+
+.office-header__main {
+  display: grid;
+  gap: 1rem;
+  padding: 0.95rem 1rem;
 }
 
 .office-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
-.office-hero__copy code {
-  color: var(--muted-soft);
+.office-header__title {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.office-header__title h1 {
+  max-width: none;
+}
+
+.office-header__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+
+.office-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.office-kpi {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.office-kpi span {
+  color: #c8d1dd;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.office-kpi strong {
+  color: var(--text-strong);
+  font-size: 1rem;
 }
 
 .office-logout {
@@ -1023,11 +1100,6 @@ main {
   color: var(--text-strong);
 }
 
-.office-hero__stats {
-  align-self: start;
-}
-
-.office-hero__aside,
 .office-desk,
 .office-toolbar,
 .office-toolbar__heading,
@@ -1038,20 +1110,25 @@ main {
   gap: 1rem;
 }
 
-.office-hero__aside {
-  align-content: start;
-}
-
 .office-desk {
   gap: 1rem;
 }
 
 .office-toolbar__heading {
   margin-bottom: 0;
+  gap: 0.45rem;
+}
+
+.office-toolbar__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: end;
 }
 
 .office-desk__grid {
   grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
 }
 
 .office-grid {
@@ -1061,7 +1138,7 @@ main {
 
 .office-card {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.6rem;
   padding: 0.95rem;
 }
 
@@ -1083,12 +1160,46 @@ main {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.8rem;
+}
+
+.office-card__head > div,
+.office-card__heading > div,
+.office-toolbar__heading > div {
+  display: grid;
+  gap: 0.18rem;
 }
 
 .office-card__head strong {
   color: var(--text-strong);
-  font-size: 0.92rem;
+  font-size: 0.98rem;
+}
+
+.office-segmented {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.22rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.office-segmented__item {
+  min-height: 2.7rem;
+  padding: 0.6rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #d3dae4;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.office-segmented__item.is-active {
+  background: rgba(var(--theme-glow-rgb), 0.24);
+  color: #fff;
 }
 
 .office-pill {
@@ -1099,14 +1210,14 @@ main {
   border: 1px solid rgba(var(--theme-glow-rgb), 0.35);
   border-radius: 999px;
   background: rgba(var(--theme-glow-rgb), 0.12);
-  color: var(--muted-soft);
-  font-size: 0.74rem;
+  color: #eef4ff;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
 .office-pill--soft {
-  border-color: var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .office-pill--contacted {
@@ -1152,8 +1263,8 @@ main {
 
 .office-request__meta {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  color: var(--muted);
-  font-size: 0.8rem;
+  color: #cdd5e0;
+  font-size: 0.86rem;
 }
 
 .office-request__grid {
@@ -1168,8 +1279,8 @@ main {
 
 .office-request__item span,
 .office-request__body span {
-  color: var(--muted);
-  font-size: 0.68rem;
+  color: #c8d1dd;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1186,45 +1297,45 @@ main {
 
 .office-filters {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px 180px auto;
-  gap: 0.7rem;
+  grid-template-columns: minmax(220px, 1fr) 160px 160px auto;
+  gap: 0.65rem;
   align-items: end;
 }
 
 .office-filters label {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .office-filters span {
-  color: var(--muted-soft);
-  font-size: 0.76rem;
+  color: #e1e7ef;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
 .office-filters input,
 .office-filters select {
   width: 100%;
-  min-height: 2.65rem;
-  padding: 0.68rem 0.78rem;
-  border: 1px solid var(--line-strong);
+  min-height: 2.9rem;
+  padding: 0.75rem 0.86rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
 }
 
 .office-inbox {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.55rem;
 }
 
 .office-inbox__item {
   display: grid;
-  gap: 0.55rem;
-  padding: 0.75rem 0.8rem;
-  border: 1px solid var(--line);
+  gap: 0.35rem;
+  padding: 0.68rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.035);
   transition:
     border-color 180ms ease,
     transform 180ms ease,
@@ -1242,44 +1353,44 @@ main {
 .office-inbox__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem 0.9rem;
-  color: var(--muted);
-  font-size: 0.78rem;
+  gap: 0.25rem 0.75rem;
+  color: #ccd4df;
+  font-size: 0.82rem;
 }
 
 .office-inbox__meta--booking {
-  color: var(--muted-soft);
+  color: #edf3ff;
   font-weight: 700;
 }
 
 .office-inbox__service {
   color: var(--text-strong);
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
 }
 
 .office-inbox__details {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-height: 1.5;
+  -webkit-line-clamp: 2;
+  line-height: 1.4;
   font-size: 0.84rem;
 }
 
 .office-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 0.65rem;
 }
 
 .office-notice {
   padding: 0.7rem 0.82rem;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.04);
-  font-size: 0.84rem;
-  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .office-notice--success {
@@ -1303,16 +1414,16 @@ main {
 
 .office-schedule {
   display: grid;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
 .office-schedule__item {
   display: grid;
-  gap: 0.2rem;
-  padding: 0.68rem 0.78rem;
-  border: 1px solid var(--line);
+  gap: 0.12rem;
+  padding: 0.72rem 0.82rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .office-schedule__item strong,
@@ -1336,24 +1447,24 @@ main {
 
 .office-booking-summary {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.65rem;
   padding: 0.8rem;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .office-schedule-form {
   display: grid;
-  gap: 0.85rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--line);
+  gap: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .office-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .office-form-grid__full {
@@ -1362,12 +1473,12 @@ main {
 
 .office-schedule-form label {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .office-schedule-form span {
-  color: var(--muted-soft);
-  font-size: 0.76rem;
+  color: #e1e7ef;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
@@ -1375,21 +1486,60 @@ main {
 .office-schedule-form select,
 .office-schedule-form textarea {
   width: 100%;
-  min-height: 2.65rem;
-  padding: 0.68rem 0.78rem;
-  border: 1px solid var(--line-strong);
+  min-height: 2.9rem;
+  padding: 0.75rem 0.86rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
 }
 
 .office-schedule-form textarea {
   min-height: 6rem;
 }
 
+.office-help {
+  color: #d3dae4;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.office-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.office-summary-chip {
+  display: grid;
+  gap: 0.22rem;
+  padding: 0.72rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.office-summary-chip span {
+  color: #c8d1dd;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.office-summary-chip strong {
+  color: var(--text-strong);
+  font-size: 0.94rem;
+  line-height: 1.35;
+}
+
+.office-summary-chip--wide {
+  grid-column: 1 / -1;
+}
+
 .office-empty {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.45rem;
   min-height: 14rem;
   align-content: center;
   justify-items: start;
@@ -1402,16 +1552,16 @@ main {
 .office-calendar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.8rem;
+  gap: 0.65rem;
 }
 
 .office-calendar__day {
   display: grid;
-  gap: 0.8rem;
-  padding: 0.78rem;
-  border: 1px solid var(--line);
+  gap: 0.6rem;
+  padding: 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .office-calendar__day.is-today {
@@ -1423,16 +1573,16 @@ main {
 
 .office-calendar__day-head {
   display: grid;
-  gap: 0.22rem;
+  gap: 0.14rem;
 }
 
 .office-calendar__day-head span,
 .office-calendar__day-head small {
-  color: var(--muted-soft);
+  color: #d8e0ea;
 }
 
 .office-calendar__day-head span {
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1444,21 +1594,21 @@ main {
 }
 
 .office-calendar__day-head small {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
 }
 
 .office-calendar__items {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.45rem;
 }
 
 .office-calendar__item {
   display: grid;
-  gap: 0.16rem;
-  padding: 0.62rem 0.7rem;
-  border: 1px solid var(--line);
+  gap: 0.1rem;
+  padding: 0.58rem 0.66rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.045);
   transition:
     border-color 180ms ease,
     transform 180ms ease,
@@ -1478,18 +1628,18 @@ main {
 }
 
 .office-calendar__item time {
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
 .office-calendar__item strong {
-  font-size: 0.84rem;
+  font-size: 0.9rem;
 }
 
 .office-calendar__item span,
 .office-calendar__empty {
-  color: var(--muted-soft);
-  font-size: 0.78rem;
+  color: #d6deea;
+  font-size: 0.82rem;
 }
 
 .office-reset-button {
@@ -1501,11 +1651,1533 @@ main {
   cursor: pointer;
 }
 
+.office-reset-button:focus-visible,
+.office-segmented__item:focus-visible,
+.office-filters input:focus-visible,
+.office-filters select:focus-visible,
+.office-schedule-form input:focus-visible,
+.office-schedule-form select:focus-visible,
+.office-schedule-form textarea:focus-visible,
+.button:focus-visible,
+.office-logout:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.office-hero .hero__actions {
+  gap: 0.6rem;
+  margin-top: 0.15rem;
+}
+
+.office-card > .office-segmented--detail {
+  margin-top: 0.1rem;
+}
+
 .office-form {
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.office-shell {
+  min-height: 100vh;
+  padding: 1rem 0 2rem;
+  background: #eef2f6;
+}
+
+.office-shell .section {
+  width: min(calc(100% - 1.5rem), 1520px);
+  padding: 0;
+}
+
+.office-shell h1,
+.office-shell h2,
+.office-shell h3,
+.office-shell p,
+.office-shell strong,
+.office-shell span,
+.office-shell label,
+.office-shell a,
+.office-shell button {
+  color: inherit;
+}
+
+.office-shell h1,
+.office-shell h2,
+.office-shell h3 {
+  color: #152033;
+  letter-spacing: -0.04em;
+}
+
+.office-shell h1 {
+  font-size: 1.6rem;
+  line-height: 1.05;
+}
+
+.office-shell h2 {
+  font-size: 1.22rem;
+  line-height: 1.15;
+}
+
+.office-shell h3 {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.office-shell p {
+  color: #5f6c80;
+  line-height: 1.55;
+}
+
+.office-shell .eyebrow {
+  color: #7d8aa0;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.office-shell .eyebrow::before {
+  background: #d8e0ea;
+}
+
+.office-shell .button {
+  min-height: 2.75rem;
+  padding: 0.72rem 1rem;
+  border-radius: 12px;
+  font-size: 0.92rem;
+}
+
+.office-shell .button--secondary,
+.office-shell .button--ghost {
+  border-color: #d7e0ea;
+  background: #fff;
+  color: #203049;
+}
+
+.office-shell .button--secondary:hover,
+.office-shell .button--secondary:focus-visible,
+.office-shell .button--ghost:hover,
+.office-shell .button--ghost:focus-visible {
+  background: #f7f9fc;
+  border-color: #c7d3e0;
+}
+
+.office-workspace {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.office-sidebar,
+.office-topbar-panel,
+.office-toolbar--flat,
+.office-card {
+  border: 1px solid #dbe3ec;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+}
+
+.office-sidebar {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 1rem;
+  padding: 1.1rem;
+}
+
+.office-sidebar__brand {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.office-sidebar__brand p:last-child {
+  color: #6a778b;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.office-nav {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.office-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.82rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #f6f8fb;
+  color: #334155;
+  font: inherit;
+  text-align: left;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.office-nav__item span {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.office-nav__item strong {
+  min-width: 2rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #e9eef5;
+  color: #203049;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.office-nav__item:hover,
+.office-nav__item:focus-visible {
+  border-color: #d0d9e4;
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+
+.office-nav__item.is-active {
+  border-color: rgba(184, 139, 87, 0.32);
+  background: rgba(184, 139, 87, 0.12);
+  color: #182233;
+}
+
+.office-nav__item.is-active strong {
+  background: rgba(184, 139, 87, 0.22);
+}
+
+.office-sidebar__footer {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.office-sidebar__footer .button {
+  width: 100%;
+}
+
+.office-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  color: #6d7a8f;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.office-main {
+  display: grid;
+  gap: 1rem;
+}
+
+.office-topbar-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) auto;
+  gap: 1rem;
+  padding: 1.15rem 1.2rem;
+}
+
+.office-topbar-panel__intro {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.office-topbar-panel__intro p:last-child {
+  max-width: 58ch;
+  font-size: 0.94rem;
+}
+
+.office-topbar-panel__meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.2rem;
+  color: #6f7d92;
+  font-size: 0.84rem;
+}
+
+.office-topbar-panel__meta strong {
+  color: #203049;
+  font-size: 0.92rem;
+}
+
+.office-kpis {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.office-kpi {
+  gap: 0.28rem;
+  padding: 0.9rem 0.95rem;
+  border: 1px solid #e3e8ef;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.office-kpi span {
+  color: #738197;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.office-kpi strong {
+  color: #111c2d;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.office-board {
+  display: grid;
+  gap: 1rem;
+}
+
+.office-toolbar--flat {
+  padding: 0.95rem 1rem;
+}
+
+.office-filters {
+  grid-template-columns: minmax(220px, 1fr) 160px 160px auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.office-filters span,
+.office-schedule-form span,
+.office-summary-chip span,
+.office-request__body span,
+.office-calendar__day-head span,
+.receipt-card span,
+.receipt-meta span {
+  color: #708096;
+}
+
+.office-filters input,
+.office-filters select,
+.office-schedule-form input,
+.office-schedule-form select,
+.office-schedule-form textarea {
+  border: 1px solid #d7e0ea;
+  background: #fff;
+  color: #162031;
+}
+
+.office-filters input::placeholder,
+.office-schedule-form textarea::placeholder,
+.office-schedule-form input::placeholder {
+  color: #93a0b2;
+}
+
+.office-filters input:focus,
+.office-filters select:focus,
+.office-schedule-form input:focus,
+.office-schedule-form select:focus,
+.office-schedule-form textarea:focus {
+  border-color: rgba(184, 139, 87, 0.48);
+  background: #fffdfa;
+}
+
+.office-board__grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.92fr) minmax(0, 1.08fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.office-card {
+  gap: 0.9rem;
+  padding: 1rem;
+  color: #203049;
+}
+
+.office-card--detail {
+  min-height: 100%;
+}
+
+.office-card__head,
+.office-card__heading {
+  align-items: center;
+}
+
+.office-card__head strong {
+  color: #172334;
+}
+
+.office-pill {
+  border-color: rgba(184, 139, 87, 0.28);
+  background: rgba(184, 139, 87, 0.12);
+  color: #6a4d24;
+  font-size: 0.75rem;
+}
+
+.office-pill--soft {
+  border-color: #d8e1ea;
+  background: #f3f6fa;
+  color: #546274;
+}
+
+.office-pill--contacted {
+  border-color: rgba(81, 140, 255, 0.24);
+  background: rgba(81, 140, 255, 0.12);
+  color: #31559b;
+}
+
+.office-pill--booked {
+  border-color: rgba(36, 150, 87, 0.22);
+  background: rgba(36, 150, 87, 0.12);
+  color: #22663f;
+}
+
+.office-pill--done {
+  border-color: #d8e1ea;
+  background: #eef3f7;
+  color: #4d6079;
+}
+
+.office-inbox {
+  gap: 0.7rem;
+}
+
+.office-inbox__item {
+  gap: 0.45rem;
+  padding: 0.95rem;
+  border: 1px solid #dfe6ee;
+  border-radius: 18px;
+  background: #fbfcfd;
+}
+
+.office-inbox__item:hover,
+.office-inbox__item:focus-visible,
+.office-inbox__item.is-active {
+  border-color: rgba(184, 139, 87, 0.34);
+  background: #fffdfa;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.office-listing__row,
+.office-listing__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.office-listing__row strong {
+  color: #162133;
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.office-listing__meta {
+  flex-wrap: wrap;
+  color: #738197;
+  font-size: 0.82rem;
+}
+
+.office-listing__meta--accent {
+  color: #8b6333;
+  font-weight: 700;
+}
+
+.office-listing__service {
+  color: #233247;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.office-listing__details {
+  margin: 0;
+  color: #657387;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.office-summary-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.office-summary-chip,
+.office-booking-summary,
+.office-schedule__item,
+.office-calendar__day,
+.office-calendar__item {
+  border-color: #dfe6ee;
+  background: #f8fafc;
+}
+
+.office-summary-chip {
+  padding: 0.82rem 0.9rem;
+}
+
+.office-summary-chip strong {
+  color: #152033;
+  font-size: 0.94rem;
+}
+
+.office-actions {
+  gap: 0.7rem;
+}
+
+.office-request__body p {
+  color: #344255;
+  font-size: 0.95rem;
+}
+
+.office-schedule-form {
+  gap: 0.8rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.office-form-grid {
+  gap: 0.8rem;
+}
+
+.office-schedule-form textarea {
+  min-height: 7rem;
+}
+
+.office-help {
+  color: #6d7b90;
+}
+
+.office-empty {
+  min-height: 12rem;
+}
+
+.office-empty h3 {
+  color: #1b2737;
+}
+
+.office-notice {
+  border-color: #d8e1ea;
+  background: #fff;
+  color: #304055;
+}
+
+.office-notice--success {
+  border-color: rgba(36, 150, 87, 0.22);
+  color: #22663f;
+  background: rgba(36, 150, 87, 0.08);
+}
+
+.office-notice--error {
+  border-color: rgba(204, 70, 70, 0.22);
+  color: #9e2b2b;
+  background: rgba(204, 70, 70, 0.08);
+}
+
+.office-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 1rem;
+}
+
+.office-calendar {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.office-calendar__day {
+  gap: 0.7rem;
+  padding: 0.8rem;
+}
+
+.office-calendar__day.is-today {
+  border-color: rgba(184, 139, 87, 0.34);
+  background: rgba(184, 139, 87, 0.08);
+}
+
+.office-calendar__day-head strong,
+.office-calendar__item strong,
+.office-calendar__item time,
+.office-schedule__item strong,
+.office-schedule__item time {
+  color: #172334;
+}
+
+.office-calendar__item,
+.office-schedule__item {
+  padding: 0.68rem 0.72rem;
+}
+
+.office-calendar__item span,
+.office-calendar__empty {
+  color: #617188;
+}
+
+.office-reset-button:focus-visible,
+.office-segmented__item:focus-visible,
+.office-filters input:focus-visible,
+.office-filters select:focus-visible,
+.office-schedule-form input:focus-visible,
+.office-schedule-form select:focus-visible,
+.office-schedule-form textarea:focus-visible,
+.office-shell .button:focus-visible,
+.office-logout:focus-visible {
+  outline: 3px solid rgba(184, 139, 87, 0.32);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1180px) {
+  .office-workspace {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .office-board__grid,
+  .office-grid,
+  .office-topbar-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .office-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .office-calendar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .office-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .office-sidebar {
+    position: static;
+  }
+
+  .office-sidebar__footer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  .office-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .office-filters__search {
+    grid-column: 1 / -1;
+  }
+
+  .office-board__grid,
+  .office-summary-strip,
+  .office-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .office-calendar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .office-shell {
+    padding: 0.75rem 0 1.5rem;
+  }
+
+  .office-shell .section {
+    width: min(calc(100% - 1rem), 100%);
+  }
+
+  .office-sidebar,
+  .office-topbar-panel,
+  .office-toolbar--flat,
+  .office-card {
+    border-radius: 18px;
+  }
+
+  .office-sidebar,
+  .office-topbar-panel,
+  .office-card {
+    padding: 0.9rem;
+  }
+
+  .office-kpis,
+  .office-filters,
+  .office-sidebar__footer,
+  .office-calendar {
+    grid-template-columns: 1fr;
+  }
+
+  .office-listing__row,
+  .office-listing__meta,
+  .office-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .office-actions .button,
+  .office-actions a {
+    width: 100%;
+  }
+}
+
+.office-shell {
+  background:
+    radial-gradient(circle at top left, rgba(var(--theme-glow-rgb), 0.14), transparent 20rem),
+    radial-gradient(circle at bottom right, rgba(var(--theme-glow-rgb), 0.1), transparent 22rem),
+    #0b1017;
+}
+
+.office-shell h1,
+.office-shell h2,
+.office-shell h3 {
+  color: #f5f7fb;
+}
+
+.office-shell p {
+  color: #9aa9bd;
+}
+
+.office-shell .eyebrow,
+.office-filters span,
+.office-schedule-form span,
+.office-summary-chip span,
+.office-request__body span,
+.office-calendar__day-head span,
+.receipt-card span,
+.receipt-meta span {
+  color: #7e8da3;
+}
+
+.office-shell .eyebrow::before {
+  background: #253244;
+}
+
+.office-sidebar,
+.office-topbar-panel,
+.office-toolbar--flat,
+.office-card {
+  border: 1px solid #1b2431;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    #121923;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.28);
+}
+
+.office-sidebar {
+  gap: 1.15rem;
+}
+
+.office-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.office-sidebar__logo-mark {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.95rem;
+  object-fit: contain;
+  background: linear-gradient(180deg, var(--accent-strong), var(--accent));
+  padding: 0.5rem;
+  box-shadow: 0 14px 28px rgba(var(--theme-glow-rgb), 0.22);
+}
+
+.office-sidebar__logo-copy {
+  display: grid;
+  gap: 0.14rem;
+}
+
+.office-sidebar__logo-copy span {
+  color: #dbe5f1;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.office-sidebar__logo-copy strong {
+  color: #90a0b8;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.office-user-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.95rem;
+  border: 1px solid #202a39;
+  border-radius: 18px;
+  background: #0e151e;
+}
+
+.office-user-card__avatar {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(var(--theme-glow-rgb), 0.5), rgba(var(--theme-glow-rgb), 0.24));
+  color: #eef4ff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.office-user-card__copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.office-user-card__copy strong {
+  color: #f3f7fc;
+  font-size: 0.98rem;
+}
+
+.office-user-card__copy span {
+  color: #96a5ba;
+  font-size: 0.88rem;
+}
+
+.office-nav__item {
+  padding: 0.88rem 0.95rem;
+  border-color: transparent;
+  background: transparent;
+  color: #aeb9c8;
+}
+
+.office-nav__label {
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.office-nav__item strong {
+  background: #182230;
+  color: #dbe4f0;
+}
+
+.office-nav__item:hover,
+.office-nav__item:focus-visible {
+  border-color: #243142;
+  background: #131d29;
+}
+
+.office-nav__item.is-active {
+  border-color: rgba(var(--theme-glow-rgb), 0.4);
+  background: linear-gradient(180deg, rgba(var(--theme-glow-rgb), 0.32), rgba(var(--theme-glow-rgb), 0.2));
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(var(--theme-glow-rgb), 0.18);
+}
+
+.office-nav__item.is-active strong {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.office-sidebar__footer .button {
+  border-color: #273344;
+  background: #101824;
+  color: #d8e3ef;
+}
+
+.office-sidebar__footer .button:hover,
+.office-sidebar__footer .button:focus-visible {
+  background: #172131;
+  border-color: #324157;
+}
+
+.office-logout {
+  color: #8d9db2;
+}
+
+.office-topbar-panel {
+  grid-template-columns: minmax(280px, 1fr) auto;
+  gap: 1.1rem;
+  padding: 1.35rem;
+}
+
+.office-topbar-panel__meta {
+  color: #98a7ba;
+}
+
+.office-topbar-panel__meta strong {
+  color: #eef4fb;
+}
+
+.office-kpis {
+  gap: 0.9rem;
+}
+
+.office-kpi {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #202b39;
+  background: #0e151e;
+}
+
+.office-kpi__icon {
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 14px;
+  background: #182332;
+}
+
+.office-kpi__icon--1 {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.2), rgba(var(--theme-glow-rgb), 0.7));
+}
+
+.office-kpi__icon--2 {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.18), rgba(var(--theme-glow-rgb), 0.55));
+}
+
+.office-kpi__icon--3 {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.16), rgba(var(--theme-glow-rgb), 0.45));
+}
+
+.office-kpi__icon--4 {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.16), rgba(var(--theme-glow-rgb), 0.36));
+}
+
+.office-kpi__icon--5 {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.18), rgba(var(--theme-glow-rgb), 0.62));
+}
+
+.office-kpi__copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.office-kpi span {
+  color: #90a0b6;
+}
+
+.office-kpi strong {
+  color: #f5f7fb;
+}
+
+.office-toolbar--flat {
+  padding: 1.1rem;
+}
+
+.office-filters input,
+.office-filters select,
+.office-schedule-form input,
+.office-schedule-form select,
+.office-schedule-form textarea {
+  border-color: #263344;
+  background: #0d141d;
+  color: #eef3fb;
+}
+
+.office-filters input::placeholder,
+.office-schedule-form textarea::placeholder,
+.office-schedule-form input::placeholder {
+  color: #72849b;
+}
+
+.office-filters input:focus,
+.office-filters select:focus,
+.office-schedule-form input:focus,
+.office-schedule-form select:focus,
+.office-schedule-form textarea:focus {
+  border-color: rgba(var(--theme-glow-rgb), 0.48);
+  background: #101a25;
+}
+
+.office-card {
+  color: #dbe6f2;
+}
+
+.office-card__head strong,
+.office-listing__row strong,
+.office-summary-chip strong,
+.office-calendar__day-head strong,
+.office-calendar__item strong,
+.office-calendar__item time,
+.office-schedule__item strong,
+.office-schedule__item time {
+  color: #f5f7fb;
+}
+
+.office-pill {
+  border-color: rgba(245, 171, 93, 0.28);
+  background: rgba(245, 171, 93, 0.12);
+  color: #f2c38d;
+}
+
+.office-pill--soft {
+  border-color: #273344;
+  background: #101823;
+  color: #b0bfd0;
+}
+
+.office-pill--contacted {
+  border-color: rgba(93, 147, 255, 0.26);
+  background: rgba(93, 147, 255, 0.14);
+  color: #a9c6ff;
+}
+
+.office-pill--booked {
+  border-color: rgba(66, 216, 143, 0.26);
+  background: rgba(66, 216, 143, 0.14);
+  color: #9ce3be;
+}
+
+.office-pill--done {
+  border-color: #273344;
+  background: #101823;
+  color: #c5d0dd;
+}
+
+.office-inbox__item,
+.office-summary-chip,
+.office-booking-summary,
+.office-schedule__item,
+.office-calendar__day,
+.office-calendar__item {
+  border-color: #243141;
+  background: #0f1721;
+}
+
+.office-inbox__item:hover,
+.office-inbox__item:focus-visible,
+.office-inbox__item.is-active {
+  border-color: rgba(var(--theme-glow-rgb), 0.34);
+  background: #131e2b;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+}
+
+.office-listing__meta,
+.office-listing__details,
+.office-calendar__item span,
+.office-calendar__empty,
+.office-help,
+.office-request__body p,
+.office-topbar-panel__intro p:last-child {
+  color: #97a5b8;
+}
+
+.office-listing__meta--accent {
+  color: #f1c38d;
+}
+
+.office-listing__service {
+  color: #e8eef8;
+}
+
+.office-summary-chip strong,
+.office-request__body p {
+  color: #e8eef8;
+}
+
+.office-notice {
+  border-color: #253244;
+  background: #0f1721;
+  color: #d4deea;
+}
+
+.office-notice--success {
+  border-color: rgba(66, 216, 143, 0.22);
+  background: rgba(66, 216, 143, 0.1);
+  color: #9ce3be;
+}
+
+.office-notice--error {
+  border-color: rgba(255, 100, 100, 0.24);
+  background: rgba(255, 100, 100, 0.1);
+  color: #ffb4b4;
+}
+
+.office-calendar__day.is-today {
+  border-color: rgba(var(--theme-glow-rgb), 0.34);
+  background:
+    linear-gradient(180deg, rgba(var(--theme-glow-rgb), 0.12), rgba(255, 255, 255, 0.01)),
+    #101924;
+}
+
+.office-reset-button:focus-visible,
+.office-segmented__item:focus-visible,
+.office-filters input:focus-visible,
+.office-filters select:focus-visible,
+.office-schedule-form input:focus-visible,
+.office-schedule-form select:focus-visible,
+.office-schedule-form textarea:focus-visible,
+.office-shell .button:focus-visible,
+.office-logout:focus-visible {
+  outline: 3px solid rgba(var(--theme-glow-rgb), 0.34);
+}
+
+@media (max-width: 1180px) {
+  .office-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .office-sidebar__footer {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .office-topbar-panel,
+  .office-toolbar--flat,
+  .office-card,
+  .office-sidebar {
+    padding: 1rem;
+  }
+
+  .office-kpis,
+  .office-sidebar__footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.receipt-shell {
+  min-height: 100vh;
+  padding: 2rem 0 4rem;
+}
+
+.receipt-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.receipt-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.receipt-sheet {
+  display: grid;
+  gap: 1rem;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: #fff;
+  color: #121212;
+  box-shadow: var(--shadow-md);
+}
+
+.receipt-header,
+.receipt-grid,
+.receipt-brand,
+.receipt-meta,
+.receipt-card {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.receipt-header {
+  grid-template-columns: minmax(0, 1fr) 240px;
+  align-items: start;
+}
+
+.receipt-brand {
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+}
+
+.receipt-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.receipt-meta {
+  justify-items: start;
+  padding: 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.receipt-meta span,
+.receipt-card span {
+  color: rgba(0, 0, 0, 0.56);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.receipt-meta strong,
+.receipt-card strong,
+.receipt-sheet h1 {
+  color: #101010;
+}
+
+.receipt-sheet h1 {
+  font-size: 2rem;
+}
+
+.receipt-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.receipt-card {
+  padding: 0.95rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.receipt-card p,
+.receipt-card li {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.receipt-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.1rem;
+}
+
+/* Admin refinement: darker monochrome dashboard */
+.office-shell {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.05), transparent 22rem),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.03), transparent 24rem),
+    linear-gradient(180deg, #0a0e13 0%, #0b1016 100%);
+}
+
+.office-sidebar,
+.office-topbar-panel,
+.office-toolbar--flat,
+.office-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+    #121821;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 18px 44px rgba(0, 0, 0, 0.24);
+}
+
+.office-sidebar {
+  padding: 1.25rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01)),
+    #10161f;
+}
+
+.office-sidebar__logo-mark {
+  background: linear-gradient(180deg, #f2f5f8, #cfd7df);
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.08);
+}
+
+.office-sidebar__logo-copy span {
+  color: #f5f7fb;
+}
+
+.office-sidebar__logo-copy strong {
+  color: #94a1b3;
+}
+
+.office-user-card {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  background: #0d131b;
+}
+
+.office-user-card__avatar {
+  background: linear-gradient(180deg, #f0f3f7, #bcc7d1);
+  color: #121821;
+}
+
+.office-nav {
+  gap: 0.45rem;
+}
+
+.office-nav__item {
+  min-height: 3.35rem;
+  padding: 0.92rem 1rem;
+  border-radius: 16px;
+  background: transparent;
+  color: #a8b4c4;
+}
+
+.office-nav__item strong {
+  min-width: 2.1rem;
+  background: #18202a;
+  color: #eef3f8;
+}
+
+.office-nav__item:hover,
+.office-nav__item:focus-visible {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #141c26;
+}
+
+.office-nav__item.is-active {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #f5f7fa, #dde4eb);
+  color: #121821;
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.08);
+}
+
+.office-nav__item.is-active strong {
+  background: rgba(18, 24, 33, 0.08);
+  color: #121821;
+}
+
+.office-main {
+  gap: 1.15rem;
+}
+
+.office-topbar-panel {
+  padding: 1.45rem;
+}
+
+.office-topbar-panel__intro {
+  gap: 0.45rem;
+}
+
+.office-topbar-panel__intro h2 {
+  font-size: 2rem;
+}
+
+.office-topbar-panel__intro p:last-child {
+  font-size: 1rem;
+}
+
+.office-topbar-panel__meta {
+  align-content: start;
+  padding-top: 0.2rem;
+}
+
+.office-kpis {
+  gap: 1rem;
+}
+
+.office-kpi {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: #0d131b;
+}
+
+.office-kpi__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.office-kpi__icon--1,
+.office-kpi__icon--2,
+.office-kpi__icon--3,
+.office-kpi__icon--4,
+.office-kpi__icon--5 {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+}
+
+.office-kpi span {
+  color: #97a4b5;
+}
+
+.office-kpi strong {
+  color: #f7f9fc;
+  font-size: 1.55rem;
+}
+
+.office-toolbar--flat,
+.office-card {
+  padding: 1.15rem;
+}
+
+.office-filters {
+  gap: 0.9rem;
+}
+
+.office-filters input,
+.office-filters select,
+.office-schedule-form input,
+.office-schedule-form select,
+.office-schedule-form textarea {
+  min-height: 3.1rem;
+  padding: 0.82rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  background: #0c1219;
+}
+
+.office-board__grid,
+.office-grid {
+  gap: 1.15rem;
+}
+
+.office-inbox {
+  gap: 0.8rem;
+}
+
+.office-inbox__item {
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: #0d131b;
+}
+
+.office-inbox__item:hover,
+.office-inbox__item:focus-visible,
+.office-inbox__item.is-active {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: #131b25;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.office-listing__row strong {
+  font-size: 1.02rem;
+}
+
+.office-listing__service {
+  font-size: 0.95rem;
+}
+
+.office-summary-strip {
+  gap: 0.8rem;
+}
+
+.office-summary-chip,
+.office-booking-summary,
+.office-schedule__item,
+.office-calendar__day,
+.office-calendar__item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: #0d131b;
+}
+
+.office-summary-chip {
+  padding: 0.95rem 1rem;
+}
+
+.office-actions {
+  gap: 0.8rem;
+}
+
+.office-shell .button {
+  min-height: 3rem;
+  border-radius: 14px;
+}
+
+.office-shell .button:not(.button--secondary):not(.button--ghost) {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, #f6f8fb, #dfe6ed);
+  color: #111821;
+}
+
+.office-shell .button:not(.button--secondary):not(.button--ghost):hover,
+.office-shell .button:not(.button--secondary):not(.button--ghost):focus-visible {
+  background: linear-gradient(180deg, #ffffff, #e7edf3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.office-shell .button--secondary,
+.office-shell .button--ghost {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #0d131b;
+  color: #eef3f8;
+}
+
+.office-shell .button--secondary:hover,
+.office-shell .button--secondary:focus-visible,
+.office-shell .button--ghost:hover,
+.office-shell .button--ghost:focus-visible {
+  background: #141c26;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.office-pill,
+.office-pill--soft,
+.office-pill--contacted,
+.office-pill--booked,
+.office-pill--done {
+  border-radius: 999px;
+}
+
+.office-pill {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5f7fb;
+}
+
+.office-pill--soft {
+  background: rgba(255, 255, 255, 0.04);
+  color: #c0cbda;
+}
+
+.office-pill--contacted,
+.office-pill--booked,
+.office-pill--done {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f4f8;
+}
+
+.office-notice {
+  border-radius: 18px;
+  background: #111823;
+}
+
+.office-calendar {
+  gap: 0.85rem;
+}
+
+.office-calendar__day {
+  padding: 0.9rem;
+}
+
+.office-calendar__item,
+.office-schedule__item {
+  padding: 0.75rem 0.8rem;
+}
+
+.office-calendar__day.is-today {
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
+    #101722;
+}
+
+.office-reset-button:focus-visible,
+.office-segmented__item:focus-visible,
+.office-filters input:focus-visible,
+.office-filters select:focus-visible,
+.office-schedule-form input:focus-visible,
+.office-schedule-form select:focus-visible,
+.office-schedule-form textarea:focus-visible,
+.office-shell .button:focus-visible,
+.office-logout:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 640px) {
+  .office-sidebar,
+  .office-topbar-panel,
+  .office-toolbar--flat,
+  .office-card {
+    border-radius: 22px;
+  }
+
+  .office-topbar-panel__intro h2 {
+    font-size: 1.55rem;
+  }
 }
 
 .page-hero {
@@ -1793,7 +3465,7 @@ main {
   .detail-grid,
   .pricing-grid,
   .contact-stage,
-  .office-hero,
+  .office-kpis,
   .office-desk__grid,
   .office-grid,
   .story-grid,
@@ -1823,6 +3495,11 @@ main {
 
   .site-footer__lead {
     align-items: start;
+  }
+
+  .office-toolbar__row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
   }
 
   .office-filters {
@@ -1958,6 +3635,7 @@ main {
   .office-form-grid,
   .office-request__grid,
   .office-request__meta,
+  .office-summary-strip,
   .contact-form__grid,
   .values-grid,
   .service-strip,
@@ -1970,6 +3648,11 @@ main {
     flex-direction: column;
   }
 
+  .office-header__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .office-toolbar__heading {
     gap: 0.8rem;
   }
@@ -1978,6 +3661,11 @@ main {
   .office-card__heading {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .receipt-header,
+  .receipt-grid {
+    grid-template-columns: 1fr;
   }
 
   .office-inbox__item {
@@ -1990,6 +3678,10 @@ main {
 
   .office-actions .button {
     width: 100%;
+  }
+
+  .office-kpi {
+    min-height: 5rem;
   }
 
   .cinematic-stage {
@@ -2089,11 +3781,45 @@ main {
     gap: 0.45rem;
   }
 
+  .receipt-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .receipt-sheet {
+    padding: 1rem;
+  }
+
   .site-header__inner {
     padding: 0.88rem 0;
   }
 
   .mobile-menu {
     padding-top: calc(env(safe-area-inset-top, 0px) + 5.2rem);
+  }
+}
+
+@media print {
+  .receipt-actions,
+  .site-header,
+  .utilitybar {
+    display: none !important;
+  }
+
+  .receipt-shell {
+    padding: 0;
+    background: #fff;
+  }
+
+  .receipt-page.section {
+    width: 100%;
+    padding: 0;
+  }
+
+  .receipt-sheet {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    min-height: 100vh;
   }
 }

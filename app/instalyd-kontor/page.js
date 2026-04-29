@@ -5,7 +5,7 @@ import {
   readOfficeSessionValue,
 } from "./auth";
 import { OfficeDashboard } from "./office-dashboard";
-import { listContactRequests } from "../lib/contact-requests";
+import { deleteExpiredArchivedContactRequests, listContactRequests } from "../lib/contact-requests";
 import { contact } from "../data";
 import { SiteEffects } from "../site-effects";
 
@@ -29,6 +29,7 @@ export default async function InstalydOfficePage() {
   const cookieStore = await cookies();
   const sessionUser = readOfficeSessionValue(cookieStore.get(officeCookieName)?.value);
   const displayUser = sessionUser ? formatOfficeUsername(sessionUser) : "Ansatt";
+  await deleteExpiredArchivedContactRequests();
   const { data: requests, error, supportsScheduling } = await listContactRequests();
 
   return (
