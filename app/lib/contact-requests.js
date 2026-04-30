@@ -157,6 +157,9 @@ export async function createContactRequest(payload) {
     };
   }
 
+  const normalizedEmail = payload.email?.toString().trim() || "";
+  const normalizedDetails = payload.details?.toString().trim() || "";
+
   const response = await fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}`, {
     method: "POST",
     headers: getSupabaseHeaders({
@@ -164,12 +167,12 @@ export async function createContactRequest(payload) {
       Prefer: "return=representation",
     }),
     body: JSON.stringify({
-      name: payload.name,
-      car: payload.car,
-      email: payload.email,
-      phone: payload.phone,
-      service: payload.service,
-      details: payload.details,
+      name: payload.name?.toString().trim(),
+      car: payload.car?.toString().trim(),
+      email: normalizedEmail,
+      phone: payload.phone?.toString().trim(),
+      service: payload.service?.toString().trim(),
+      details: normalizedDetails,
       source: payload.source || "website",
       status: payload.status || "new",
     }),

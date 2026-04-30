@@ -9,57 +9,11 @@ const statusLabels = {
   done: "Ferdig",
 };
 
-const workspaceConfig = {
-  inbox: {
-    title: "Innboks",
-    lead: "Nye saker og henvendelser fra nettsiden.",
-    listTitle: "Nye og aktive saker",
-  },
-  booking: {
-    title: "Booking",
-    lead: "Sett avtalt tid, status og interne notater.",
-    listTitle: "Saker for booking",
-  },
-  planner: {
-    title: "Kalender",
-    lead: "Se plan, kommende avtaler og saker som mangler tid.",
-    listTitle: "Planlagte og aktive saker",
-  },
-  receipt: {
-    title: "Kvitteringer",
-    lead: "Fyll ut og klargjor kvittering for kunden.",
-    listTitle: "Saker med kvittering",
-  },
-  history: {
-    title: "Historikk",
-    lead: "Arkiverte saker. Eldre enn fem ar slettes automatisk.",
-    listTitle: "Arkiverte saker",
-  },
-};
-
 const osloDateTimeFormatter = new Intl.DateTimeFormat("sv-SE", {
   timeZone: "Europe/Oslo",
   year: "numeric",
   month: "2-digit",
   day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  hourCycle: "h23",
-});
-
-const osloDayFormatter = new Intl.DateTimeFormat("nb-NO", {
-  timeZone: "Europe/Oslo",
-  weekday: "short",
-});
-
-const osloDateFormatter = new Intl.DateTimeFormat("nb-NO", {
-  timeZone: "Europe/Oslo",
-  day: "numeric",
-  month: "short",
-});
-
-const osloTimeFormatter = new Intl.DateTimeFormat("nb-NO", {
-  timeZone: "Europe/Oslo",
   hour: "2-digit",
   minute: "2-digit",
   hourCycle: "h23",
@@ -158,33 +112,6 @@ function getStartOfWeek() {
   return now;
 }
 
-function getCalendarStartDate() {
-  const now = new Date();
-  now.setHours(12, 0, 0, 0);
-  return now;
-}
-
-function getOsloDateKey(value) {
-  const parts = osloDateTimeFormatter.formatToParts(new Date(value));
-  const year = parts.find((part) => part.type === "year")?.value;
-  const month = parts.find((part) => part.type === "month")?.value;
-  const day = parts.find((part) => part.type === "day")?.value;
-
-  return `${year}-${month}-${day}`;
-}
-
-function isSameCalendarDay(left, right) {
-  return getOsloDateKey(left) === getOsloDateKey(right);
-}
-
-function formatCalendarDay(date) {
-  return osloDayFormatter.format(date).replace(".", "");
-}
-
-function formatCalendarDate(date) {
-  return osloDateFormatter.format(date);
-}
-
 function isArchived(request) {
   return Boolean(request.archived_at);
 }
@@ -267,34 +194,6 @@ function getUpcomingBookings(requests) {
     .slice(0, 6);
 }
 
-function getCalendarDays(requests, length = 7) {
-  const start = getCalendarStartDate();
-
-  return Array.from({ length }, (_, index) => {
-    const date = new Date(start);
-    date.setDate(start.getDate() + index);
-    const items = requests
-      .filter(
-        (request) =>
-          !isArchived(request) &&
-          request.scheduled_for &&
-          isSameCalendarDay(request.scheduled_for, date),
-      )
-      .sort(
-        (left, right) =>
-          new Date(left.scheduled_for).getTime() - new Date(right.scheduled_for).getTime(),
-      );
-
-    return {
-      key: date.toISOString(),
-      label: formatCalendarDay(date),
-      dateLabel: formatCalendarDate(date),
-      isToday: isSameCalendarDay(date, start),
-      items,
-    };
-  });
-}
-
 function getHistoryDeleteDate(archivedAt) {
   if (!archivedAt) {
     return null;
@@ -306,6 +205,7 @@ function getHistoryDeleteDate(archivedAt) {
 }
 
 function buildReceiptMailto(request) {
+  const recipient = request.email || "";
   const subject = encodeURIComponent(
     `Kvittering fra Instalyd${request.receipt_reference ? ` - ${request.receipt_reference}` : ""}`,
   );
@@ -313,7 +213,7 @@ function buildReceiptMailto(request) {
     `Hei ${request.name},\n\nHer er kvitteringen fra Instalyd.\n\nHusk å legge ved PDF-en før du sender denne e-posten.\n\nMed vennlig hilsen\nInstalyd`,
   );
 
-  return `mailto:${request.email}?subject=${subject}&body=${body}`;
+  return `mailto:${recipient}?subject=${subject}&body=${body}`;
 }
 
 export function OfficeDashboard({
@@ -325,9 +225,10 @@ export function OfficeDashboard({
 }) {
   const [requests, setRequests] = useState(initialRequests);
   const [query, setQuery] = useState("");
+  const [scopeFilter, setScopeFilter] = useState("active");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
-  const [workspace, setWorkspace] = useState("inbox");
+  const [isManualBookingOpen, setIsManualBookingOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(
     initialRequests[0] ? String(initialRequests[0].id) : "",
   );
@@ -335,20 +236,21 @@ export function OfficeDashboard({
   const [pendingAction, setPendingAction] = useState("");
   const deferredQuery = useDeferredValue(query);
 
-  const isHistoryView = workspace === "history";
-  const detailMode =
-    workspace === "receipt" ? "receipt" : workspace === "booking" || workspace === "planner" ? "booking" : "overview";
   const activeRequests = requests.filter((request) => !isArchived(request));
   const archivedRequests = requests.filter((request) => isArchived(request));
-  const currentPool = isHistoryView ? archivedRequests : activeRequests;
-  const filteredRequests = filterRequests(currentPool, deferredQuery, statusFilter, sortBy);
+  const visibleRequests =
+    scopeFilter === "archived"
+      ? archivedRequests
+      : scopeFilter === "all"
+        ? requests
+        : activeRequests;
+  const filteredRequests = filterRequests(visibleRequests, deferredQuery, statusFilter, sortBy);
   const selectedRequest =
     filteredRequests.find((request) => String(request.id) === selectedId) ||
     filteredRequests[0] ||
     null;
   const selectedRequestId = selectedRequest ? String(selectedRequest.id) : "";
   const upcomingBookings = supportsScheduling ? getUpcomingBookings(activeRequests) : [];
-  const calendarDays = supportsScheduling ? getCalendarDays(activeRequests) : [];
   const officeManagementEnabled = true;
   const today = getStartOfToday();
   const weekStart = getStartOfWeek();
@@ -377,6 +279,26 @@ export function OfficeDashboard({
       setSelectedId(String(filteredRequests[0].id));
     }
   }, [filteredRequests, selectedId]);
+
+  function openRequest(id, options = {}) {
+    const nextId = String(id);
+
+    if (options.scope) {
+      setScopeFilter(options.scope);
+    }
+
+    setSelectedId(nextId);
+    setNotice(null);
+
+    if (options.scrollToDetail && typeof window !== "undefined") {
+      window.requestAnimationFrame(() => {
+        document.getElementById("office-main-panel")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  }
 
   async function patchRequest(id, payload, successMessage) {
     setNotice(null);
@@ -503,7 +425,82 @@ export function OfficeDashboard({
     );
   }
 
-  const currentView = workspaceConfig[workspace];
+  async function handleManualBookingSubmit(event) {
+    event.preventDefault();
+    setNotice(null);
+    setPendingAction("manual-booking");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const createPayload = {
+      name: (formData.get("name") || "").toString().trim(),
+      car: (formData.get("car") || "").toString().trim(),
+      email: (formData.get("email") || "").toString().trim(),
+      phone: (formData.get("phone") || "").toString().trim(),
+      service: (formData.get("service") || "").toString().trim(),
+      details: (formData.get("details") || "").toString().trim(),
+      source: "phone",
+      status: "booked",
+    };
+    const schedulePayload = {
+      status: "booked",
+      bookingNotes: (formData.get("bookingNotes") || "").toString().trim(),
+      scheduledFor: (formData.get("scheduledFor") || "").toString().trim(),
+    };
+
+    try {
+      const createResponse = await fetch("/api/contact-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(createPayload),
+      });
+      const createResult = await createResponse.json();
+
+      if (!createResponse.ok || !createResult?.data) {
+        throw new Error(createResult?.error || "Kunne ikke opprette telefonbooking.");
+      }
+
+      const scheduleResponse = await fetch(
+        `/api/contact-requests/${createResult.data.id}/schedule`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(schedulePayload),
+        },
+      );
+      const scheduleResult = await scheduleResponse.json();
+
+      if (!scheduleResponse.ok || !scheduleResult?.data) {
+        throw new Error(
+          scheduleResult?.error ||
+            "Saken ble opprettet, men bookingdata kunne ikke lagres.",
+        );
+      }
+
+      setRequests((current) => [
+        scheduleResult.data,
+        ...current.filter((request) => request.id !== scheduleResult.data.id),
+      ]);
+      setScopeFilter("active");
+      setStatusFilter("all");
+      setSortBy("scheduled");
+      openRequest(scheduleResult.data.id, { scope: "active", scrollToDetail: true });
+      setIsManualBookingOpen(false);
+      setNotice({ type: "success", message: "Telefonbooking er opprettet." });
+      form.reset();
+    } catch (saveError) {
+      setNotice({
+        type: "error",
+        message: saveError.message || "Kunne ikke opprette telefonbooking.",
+      });
+    } finally {
+      setPendingAction("");
+    }
+  }
 
   return (
     <main className="office-shell">
@@ -511,9 +508,9 @@ export function OfficeDashboard({
         Hopp til valgt sak
       </a>
 
-      <section className="section office-workspace">
-        <aside className="office-sidebar" data-reveal="">
-          <div className="office-sidebar__brand">
+      <section className="section office-dashboard-simple">
+        <header className="office-header-simple" data-reveal="">
+          <div className="office-header-simple__main">
             <div className="office-sidebar__logo">
               <img alt="Instalyd" className="office-sidebar__logo-mark" src="/icon.png" />
               <div className="office-sidebar__logo-copy">
@@ -521,7 +518,14 @@ export function OfficeDashboard({
                 <strong>Kontor</strong>
               </div>
             </div>
+            <div className="office-header-simple__copy">
+              <p className="eyebrow">Dashboard</p>
+              <h2>Alt samlet pa en side</h2>
+              <p>Finn sak, oppdater booking og fyll ut kvittering uten a bytte seksjon.</p>
+            </div>
+          </div>
 
+          <div className="office-header-simple__side">
             <div className="office-user-card">
               <div className="office-user-card__avatar">
                 <span>{displayUser.slice(0, 1)}</span>
@@ -531,562 +535,613 @@ export function OfficeDashboard({
                 <span>{displayUser}</span>
               </div>
             </div>
-          </div>
-
-          <nav className="office-nav" aria-label="Admin menyer">
-            <button
-              className={`office-nav__item ${workspace === "inbox" ? "is-active" : ""}`}
-              onClick={() => setWorkspace("inbox")}
-              type="button"
-            >
-              <span className="office-nav__label">Nye saker</span>
-              <strong>{officeStats[0].value}</strong>
-            </button>
-            <button
-              className={`office-nav__item ${workspace === "booking" ? "is-active" : ""}`}
-              onClick={() => setWorkspace("booking")}
-              type="button"
-            >
-              <span className="office-nav__label">Booking</span>
-              <strong>{officeStats[3].value}</strong>
-            </button>
-            <button
-              className={`office-nav__item ${workspace === "planner" ? "is-active" : ""}`}
-              onClick={() => setWorkspace("planner")}
-              type="button"
-            >
-              <span className="office-nav__label">Kalender</span>
-              <strong>{upcomingBookings.length}</strong>
-            </button>
-            <button
-              className={`office-nav__item ${workspace === "receipt" ? "is-active" : ""}`}
-              onClick={() => setWorkspace("receipt")}
-              type="button"
-            >
-              <span className="office-nav__label">Kvitteringer</span>
-              <strong>{activeRequests.length}</strong>
-            </button>
-            <button
-              className={`office-nav__item ${workspace === "history" ? "is-active" : ""}`}
-              onClick={() => setWorkspace("history")}
-              type="button"
-            >
-              <span className="office-nav__label">Historikk</span>
-              <strong>{officeStats[4].value}</strong>
-            </button>
-          </nav>
-
-           <div className="office-sidebar__footer">
-             <a className="button button--secondary" href={`tel:${contact.phoneHref}`}>
-               Ring
-             </a>
-             <a className="button button--secondary" href={`mailto:${contact.email}`}>
-               E-post
-             </a>
-             <a className="button button--secondary office-logout" href="/instalyd-kontor/logout">
-               Logg ut
-             </a>
-           </div>
-        </aside>
-
-        <div className="office-main">
-          <header className="office-topbar-panel" data-reveal="">
-            <div className="office-topbar-panel__intro">
-              <p className="eyebrow">Dashboard</p>
-              <h2>{currentView.title}</h2>
-              <p>{currentView.lead}</p>
-            </div>
-
-            <div className="office-topbar-panel__meta">
+            <div className="office-header-simple__meta">
               <span>{todayLabel}</span>
-              <strong>{displayUser}</strong>
             </div>
-
-            <div className="office-kpis">
-              {officeStats.map((stat, index) => (
-                <div className="office-kpi" key={stat.label}>
-                  <div className={`office-kpi__icon office-kpi__icon--${index + 1}`} />
-                  <div className="office-kpi__copy">
-                    <span>{stat.label}</span>
-                    <strong>{stat.value}</strong>
-                  </div>
-                </div>
-              ))}
+            <div className="office-header-simple__actions">
+              <a className="button button--secondary" href={`tel:${contact.phoneHref}`}>
+                Ring
+              </a>
+              <a className="button button--secondary" href={`mailto:${contact.email}`}>
+                E-post
+              </a>
+              <a className="button button--secondary office-logout" href="/instalyd-kontor/logout">
+                Logg ut
+              </a>
             </div>
-          </header>
+          </div>
+        </header>
 
-          <section className="office-board" data-reveal="">
-            <div className="office-toolbar office-toolbar--flat">
-              <div className="office-filters">
-                <label className="office-filters__search">
-                  <span>Sok</span>
-                  <input
-                    aria-label="Sok i kunder og saker"
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Navn, bil, tjeneste, telefon ..."
-                    type="search"
-                    value={query}
-                  />
-                </label>
-
-                <label className="office-filters__status">
-                  <span>Status</span>
-                  <select
-                    aria-label="Filtrer pa status"
-                    onChange={(event) => setStatusFilter(event.target.value)}
-                    value={statusFilter}
-                  >
-                    <option value="all">Alle</option>
-                    <option value="new">Ny</option>
-                    <option value="contacted">Kontaktet</option>
-                    <option value="booked">Booket</option>
-                    <option value="done">Ferdig</option>
-                  </select>
-                </label>
-
-                <label className="office-filters__status">
-                  <span>Sorter</span>
-                  <select
-                    aria-label="Sorter saker"
-                    onChange={(event) => setSortBy(event.target.value)}
-                    value={sortBy}
-                  >
-                    <option value="newest">Nyeste</option>
-                    <option value="scheduled">Avtalt tid</option>
-                  </select>
-                </label>
-
-                <button
-                  className="button button--secondary"
-                  onClick={() => {
-                    setQuery("");
-                    setStatusFilter("all");
-                    setSortBy("newest");
-                    setNotice(null);
-                  }}
-                  type="button"
-                >
-                  Nullstill
-                </button>
+        <div className="office-kpis" data-reveal="">
+          {officeStats.map((stat, index) => (
+            <div className="office-kpi" key={stat.label}>
+              <div className={`office-kpi__icon office-kpi__icon--${index + 1}`} />
+              <div className="office-kpi__copy">
+                <span>{stat.label}</span>
+                <strong>{stat.value}</strong>
               </div>
             </div>
+          ))}
+        </div>
 
-            {notice ? (
-              <div
-                aria-live="polite"
-                className={`office-notice ${
-                  notice.type === "error" ? "office-notice--error" : "office-notice--success"
-                }`}
-                role="status"
+        <section className="office-toolbar-simple" data-reveal="">
+          <div className="office-filters">
+            <label className="office-filters__search">
+              <span>Sok</span>
+              <input
+                aria-label="Sok i kunder og saker"
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Navn, bil, tjeneste, telefon ..."
+                type="search"
+                value={query}
+              />
+            </label>
+
+            <label className="office-filters__status">
+              <span>Visning</span>
+              <select
+                aria-label="Filtrer saker etter visning"
+                onChange={(event) => setScopeFilter(event.target.value)}
+                value={scopeFilter}
               >
-                {notice.message}
-              </div>
-            ) : null}
+                <option value="active">Aktive</option>
+                <option value="archived">Arkiv</option>
+                <option value="all">Alle</option>
+              </select>
+            </label>
 
-            {error ? (
-              <article className="office-card">
-                <p className="eyebrow">Supabase</p>
-                <h2>Kunne ikke hente foresporsler.</h2>
-                <p>{error}</p>
+            <label className="office-filters__status">
+              <span>Status</span>
+              <select
+                aria-label="Filtrer pa status"
+                onChange={(event) => setStatusFilter(event.target.value)}
+                value={statusFilter}
+              >
+                <option value="all">Alle</option>
+                <option value="new">Ny</option>
+                <option value="contacted">Kontaktet</option>
+                <option value="booked">Booket</option>
+                <option value="done">Ferdig</option>
+              </select>
+            </label>
+
+            <label className="office-filters__status">
+              <span>Sorter</span>
+              <select
+                aria-label="Sorter saker"
+                onChange={(event) => setSortBy(event.target.value)}
+                value={sortBy}
+              >
+                <option value="newest">Nyeste</option>
+                <option value="scheduled">Avtalt tid</option>
+              </select>
+            </label>
+
+            <button
+              className="button button--secondary"
+              onClick={() => {
+                setQuery("");
+                setScopeFilter("active");
+                setStatusFilter("all");
+                setSortBy("newest");
+                setNotice(null);
+              }}
+              type="button"
+            >
+              Nullstill
+            </button>
+          </div>
+        </section>
+
+        {notice ? (
+          <div
+            aria-live="polite"
+            className={`office-notice ${
+              notice.type === "error" ? "office-notice--error" : "office-notice--success"
+            }`}
+            role="status"
+          >
+            {notice.message}
+          </div>
+        ) : null}
+
+        {error ? (
+          <article className="office-card">
+            <p className="eyebrow">Supabase</p>
+            <h2>Kunne ikke hente foresporsler.</h2>
+            <p>{error}</p>
+          </article>
+        ) : (
+          <div className="office-simple-grid" data-reveal="">
+            <div className="office-simple-grid__side">
+              <article className="office-card office-card--inbox office-card--sidebar" aria-label="Saksliste">
+                <div className="office-card__head">
+                  <div>
+                    <p className="eyebrow">Liste</p>
+                    <h2>Saker</h2>
+                  </div>
+                  <span className="office-pill office-pill--soft">{filteredRequests.length}</span>
+                </div>
+
+                {filteredRequests.length ? (
+                  <div className="office-inbox" role="list">
+                    {filteredRequests.map((request) => {
+                      const isActive = selectedRequestId === String(request.id);
+
+                      return (
+                        <button
+                          aria-label={`${request.name}, ${request.car}, ${formatStatus(request.status)}`}
+                          aria-pressed={isActive}
+                          aria-controls="office-main-panel"
+                          className={`office-inbox__item office-reset-button ${isActive ? "is-active" : ""}`}
+                          key={request.id}
+                          onClick={() => openRequest(request.id, { scrollToDetail: true })}
+                          type="button"
+                        >
+                          <div className="office-listing__row">
+                            <strong>{request.name}</strong>
+                            <span className={getStatusClass(request.status)}>
+                              {formatStatus(request.status)}
+                            </span>
+                          </div>
+                          <div className="office-listing__meta">
+                            <span>{request.car}</span>
+                            <span>{formatCompactDate(request.created_at)}</span>
+                          </div>
+                          {request.scheduled_for ? (
+                            <div className="office-listing__meta office-listing__meta--accent">
+                              <span>Avtalt {formatCompactDate(request.scheduled_for)}</span>
+                            </div>
+                          ) : null}
+                          <p className="office-listing__service">{request.service}</p>
+                          <p className="office-listing__details">{request.details}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="office-empty">
+                    <h3>Ingen treff.</h3>
+                    <p>Prov et annet sok eller juster filtrene.</p>
+                  </div>
+                )}
               </article>
-            ) : (
-              <div className="office-board__grid">
-                <article className="office-card office-card--inbox" aria-label="Saksliste">
+
+              {supportsScheduling ? (
+                <article className="office-card office-card--overview">
                   <div className="office-card__head">
                     <div>
-                      <p className="eyebrow">Liste</p>
-                      <h2>{currentView.listTitle}</h2>
+                      <p className="eyebrow">Oversikt</p>
+                      <h2>Na og neste</h2>
                     </div>
-                    <span className="office-pill office-pill--soft">{filteredRequests.length}</span>
                   </div>
 
-                  {filteredRequests.length ? (
-                    <div className="office-inbox" role="list">
-                      {filteredRequests.map((request) => {
-                        const isActive = selectedRequestId === String(request.id);
-
-                        return (
-                          <button
-                            aria-label={`${request.name}, ${request.car}, ${formatStatus(request.status)}`}
-                            aria-pressed={isActive}
-                            className={`office-inbox__item office-reset-button ${isActive ? "is-active" : ""}`}
-                            key={request.id}
-                            onClick={() => setSelectedId(String(request.id))}
-                            type="button"
-                          >
-                            <div className="office-listing__row">
+                  <div className="office-queue">
+                    <div className="office-queue__block">
+                      <span>Kommende avtaler</span>
+                      {upcomingBookings.length ? (
+                        <div className="office-schedule">
+                          {upcomingBookings.slice(0, 4).map((request) => (
+                            <button
+                              className="office-schedule__item office-schedule__item--link office-reset-button"
+                              key={request.id}
+                              onClick={() =>
+                                openRequest(request.id, {
+                                  scope: "active",
+                                  scrollToDetail: true,
+                                })
+                              }
+                              type="button"
+                            >
                               <strong>{request.name}</strong>
-                              <span className={getStatusClass(request.status)}>
-                                {formatStatus(request.status)}
-                              </span>
-                            </div>
-                            <div className="office-listing__meta">
-                              <span>{request.car}</span>
-                              <span>{formatCompactDate(request.created_at)}</span>
-                            </div>
-                            {request.scheduled_for ? (
-                              <div className="office-listing__meta office-listing__meta--accent">
-                                <span>Avtalt {formatCompactDate(request.scheduled_for)}</span>
-                              </div>
-                            ) : null}
-                            <p className="office-listing__service">{request.service}</p>
-                            <p className="office-listing__details">{request.details}</p>
-                          </button>
-                        );
-                      })}
+                              <time>{formatCompactDate(request.scheduled_for)}</time>
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="office-calendar__empty">Ingen kommende avtaler.</p>
+                      )}
+                      <button
+                        className="button button--secondary"
+                        onClick={() => setIsManualBookingOpen((current) => !current)}
+                        type="button"
+                      >
+                        {isManualBookingOpen ? "Lukk telefonbooking" : "Ny telefonbooking"}
+                      </button>
                     </div>
-                  ) : (
-                    <div className="office-empty">
-                      <h3>Ingen treff.</h3>
-                      <p>Prov et annet sok eller juster filtrene.</p>
-                    </div>
-                  )}
-                </article>
 
-                <article className="office-card office-card--detail" id="office-main-panel">
-                  {selectedRequest ? (
-                    <>
+                    <div className="office-queue__block">
+                      <span>Mangler tid</span>
+                      {unscheduledRequests.length ? (
+                        <div className="office-schedule">
+                          {unscheduledRequests.slice(0, 4).map((request) => (
+                            <button
+                              className="office-schedule__item office-schedule__item--link office-reset-button"
+                              key={request.id}
+                              onClick={() =>
+                                openRequest(request.id, {
+                                  scope: "active",
+                                  scrollToDetail: true,
+                                })
+                              }
+                              type="button"
+                            >
+                              <strong>{request.name}</strong>
+                              <time>{request.service}</time>
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="office-calendar__empty">Alle aktive saker har avtalt tid.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {isManualBookingOpen ? (
+                    <form
+                      className="office-schedule-form office-manual-booking"
+                      onSubmit={handleManualBookingSubmit}
+                    >
                       <div className="office-card__head">
                         <div>
-                          <p className="eyebrow">Valgt sak</p>
-                          <h2>{selectedRequest.name}</h2>
+                          <p className="eyebrow">Manuell booking</p>
+                          <h2>Opprett fra telefon</h2>
                         </div>
-                        <span className={getStatusClass(selectedRequest.status)}>
-                          {formatStatus(selectedRequest.status)}
-                        </span>
+                      </div>
+
+                      <div className="office-form-grid">
+                        <label>
+                          <span>Navn</span>
+                          <input name="name" placeholder="Kundens navn" required />
+                        </label>
+
+                        <label>
+                          <span>Telefon</span>
+                          <input name="phone" placeholder="Telefonnummer" required />
+                        </label>
+
+                        <label>
+                          <span>Bil</span>
+                          <input name="car" placeholder="Bilmodell" required />
+                        </label>
+
+                        <label>
+                          <span>Tjeneste</span>
+                          <input name="service" placeholder="Hva skal gjøres" required />
+                        </label>
+
+                        <label>
+                          <span>E-post</span>
+                          <input name="email" placeholder="Valgfritt" type="email" />
+                        </label>
+
+                        <label>
+                          <span>Avtalt tid</span>
+                          <input name="scheduledFor" required type="datetime-local" />
+                        </label>
+
+                        <label className="office-form-grid__full">
+                          <span>Beskrivelse</span>
+                          <textarea
+                            name="details"
+                            placeholder="Kort beskrivelse av jobb eller behov"
+                          />
+                        </label>
+
+                        <label className="office-form-grid__full">
+                          <span>Interne notater</span>
+                          <textarea
+                            name="bookingNotes"
+                            placeholder="Pris, deler, adresse eller annet avtalt pa telefon"
+                          />
+                        </label>
+                      </div>
+
+                      <div className="office-actions">
+                        <button
+                          className="button"
+                          disabled={pendingAction === "manual-booking"}
+                          type="submit"
+                        >
+                          {pendingAction === "manual-booking"
+                            ? "Oppretter..."
+                            : "Lagre telefonbooking"}
+                        </button>
+                        <button
+                          className="button button--secondary"
+                          onClick={() => setIsManualBookingOpen(false)}
+                          type="button"
+                        >
+                          Avbryt
+                        </button>
+                      </div>
+                    </form>
+                  ) : null}
+                </article>
+              ) : null}
+            </div>
+
+            <article className="office-card office-card--detail" id="office-main-panel">
+              {selectedRequest ? (
+                <>
+                  <div className="office-card__head">
+                    <div>
+                      <p className="eyebrow">Valgt sak</p>
+                      <h2>{selectedRequest.name}</h2>
+                    </div>
+                    <span className={getStatusClass(selectedRequest.status)}>
+                      {formatStatus(selectedRequest.status)}
+                    </span>
+                  </div>
+
+                  <p className="office-selection-meta">
+                    Bytt sak i listen til venstre for a endre tid, notater eller kvittering for en annen kunde.
+                  </p>
+
+                  <div className="office-summary-strip">
+                    <div className="office-summary-chip">
+                      <span>Bil</span>
+                      <strong>{selectedRequest.car}</strong>
+                    </div>
+                    <div className="office-summary-chip">
+                      <span>Tjeneste</span>
+                      <strong>{selectedRequest.service}</strong>
+                    </div>
+                    <div className="office-summary-chip">
+                      <span>E-post</span>
+                      <strong>{selectedRequest.email || "Ikke oppgitt"}</strong>
+                    </div>
+                    <div className="office-summary-chip">
+                      <span>Telefon</span>
+                      <strong>{selectedRequest.phone}</strong>
+                    </div>
+                  </div>
+
+                  <div className="office-actions">
+                    <a className="button" href={`tel:${selectedRequest.phone}`}>
+                      Ring kunde
+                    </a>
+                    {selectedRequest.email ? (
+                      <a className="button button--secondary" href={`mailto:${selectedRequest.email}`}>
+                        Svar pa e-post
+                      </a>
+                    ) : null}
+                    {officeManagementEnabled ? (
+                      <button
+                        className="button button--secondary"
+                        disabled={pendingAction === String(selectedRequest.id)}
+                        onClick={handleArchiveToggle}
+                        type="button"
+                      >
+                        {isArchived(selectedRequest) ? "Tilbake fra arkiv" : "Arkiver"}
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <nav className="office-detail-nav" aria-label="Hopp til arbeidsflate">
+                    <a className="button button--secondary" href="#office-booking-panel">
+                      Booking
+                    </a>
+                    <a className="button button--secondary" href="#office-receipt-panel">
+                      Kvittering
+                    </a>
+                  </nav>
+
+                  <div className="office-detail-sections">
+                    <section className="office-detail-block office-detail-block--wide">
+                      <div className="office-card__head">
+                        <div>
+                          <p className="eyebrow">Detaljer</p>
+                          <h2>Kunde og jobb</h2>
+                        </div>
+                      </div>
+
+                      <div className="office-request__body">
+                        <span>Beskrivelse</span>
+                        <p>{selectedRequest.details}</p>
                       </div>
 
                       <div className="office-summary-strip">
                         <div className="office-summary-chip">
-                          <span>Bil</span>
-                          <strong>{selectedRequest.car}</strong>
+                          <span>Mottatt</span>
+                          <strong>{formatRequestDate(selectedRequest.created_at)}</strong>
                         </div>
                         <div className="office-summary-chip">
-                          <span>Tjeneste</span>
-                          <strong>{selectedRequest.service}</strong>
+                          <span>Kilde</span>
+                          <strong>{selectedRequest.source || "website"}</strong>
                         </div>
                         <div className="office-summary-chip">
-                          <span>E-post</span>
-                          <strong>{selectedRequest.email}</strong>
+                          <span>Avtalt tid</span>
+                          <strong>
+                            {selectedRequest.scheduled_for
+                              ? formatRequestDate(selectedRequest.scheduled_for)
+                              : "Ikke satt"}
+                          </strong>
                         </div>
-                        <div className="office-summary-chip">
-                          <span>Telefon</span>
-                          <strong>{selectedRequest.phone}</strong>
+                        <div className="office-summary-chip office-summary-chip--wide">
+                          <span>Interne notater</span>
+                          <strong>{selectedRequest.booking_notes || "Ingen notater enda."}</strong>
                         </div>
-                      </div>
-
-                      <div className="office-actions">
-                        <a className="button" href={`tel:${selectedRequest.phone}`}>
-                          Ring kunde
-                        </a>
-                        <a className="button button--secondary" href={`mailto:${selectedRequest.email}`}>
-                          Svar pa e-post
-                        </a>
-                        {officeManagementEnabled ? (
-                          <button
-                            className="button button--secondary"
-                            disabled={pendingAction === String(selectedRequest.id)}
-                            onClick={handleArchiveToggle}
-                            type="button"
-                          >
-                            {isArchived(selectedRequest) ? "Tilbake fra arkiv" : "Arkiver"}
-                          </button>
+                        {selectedRequest.archived_at ? (
+                          <div className="office-summary-chip office-summary-chip--wide">
+                            <span>Arkiv</span>
+                            <strong>
+                              Arkivert {formatRequestDate(selectedRequest.archived_at)}. Slettes etter{" "}
+                              {getHistoryDeleteDate(selectedRequest.archived_at)}.
+                            </strong>
+                          </div>
                         ) : null}
                       </div>
+                    </section>
 
-                      {detailMode === "overview" ? (
-                        <>
-                          <div className="office-request__body">
-                            <span>Beskrivelse</span>
-                            <p>{selectedRequest.details}</p>
+                    <div className="office-detail-grid">
+                      <form
+                        className="office-schedule-form office-detail-block"
+                        id="office-booking-panel"
+                        key={`schedule-${selectedRequest.id}`}
+                        onSubmit={handleScheduleSubmit}
+                      >
+                        <div className="office-card__head">
+                          <div>
+                            <p className="eyebrow">Booking</p>
+                            <h2>Planlegg jobb</h2>
                           </div>
+                        </div>
 
-                          <div className="office-summary-strip">
-                            <div className="office-summary-chip">
-                              <span>Mottatt</span>
-                              <strong>{formatRequestDate(selectedRequest.created_at)}</strong>
-                            </div>
-                            <div className="office-summary-chip">
-                              <span>Kilde</span>
-                              <strong>{selectedRequest.source || "website"}</strong>
-                            </div>
-                            {selectedRequest.scheduled_for ? (
-                              <div className="office-summary-chip">
-                                <span>Avtalt tid</span>
-                                <strong>{formatRequestDate(selectedRequest.scheduled_for)}</strong>
-                              </div>
-                            ) : null}
-                            {selectedRequest.booking_notes ? (
-                              <div className="office-summary-chip office-summary-chip--wide">
-                                <span>Interne notater</span>
-                                <strong>{selectedRequest.booking_notes}</strong>
-                              </div>
-                            ) : null}
-                            {selectedRequest.archived_at ? (
-                              <div className="office-summary-chip office-summary-chip--wide">
-                                <span>Arkiv</span>
-                                <strong>
-                                  Arkivert {formatRequestDate(selectedRequest.archived_at)}. Slettes etter{" "}
-                                  {getHistoryDeleteDate(selectedRequest.archived_at)}.
-                                </strong>
-                              </div>
-                            ) : null}
-                          </div>
-                        </>
-                      ) : null}
+                        <div className="office-form-grid">
+                          <label>
+                            <span>Status</span>
+                            <select defaultValue={selectedRequest.status || "new"} name="status">
+                              <option value="new">Ny</option>
+                              <option value="contacted">Kontaktet</option>
+                              <option value="booked">Booket</option>
+                              <option value="done">Ferdig</option>
+                            </select>
+                          </label>
 
-                      {detailMode === "booking" ? (
-                        <form
-                          className="office-schedule-form"
-                          key={`schedule-${selectedRequest.id}`}
-                          onSubmit={handleScheduleSubmit}
+                          <label>
+                            <span>Avtalt tid</span>
+                            <input
+                              defaultValue={toDateTimeInputValue(selectedRequest.scheduled_for)}
+                              name="scheduledFor"
+                              type="datetime-local"
+                            />
+                          </label>
+
+                          <label className="office-form-grid__full">
+                            <span>Interne notater</span>
+                            <textarea
+                              defaultValue={selectedRequest.booking_notes || ""}
+                              name="bookingNotes"
+                              placeholder="Pris, sted, deler, ekstra info"
+                            />
+                          </label>
+                        </div>
+
+                        <button
+                          className="button"
+                          disabled={pendingAction === String(selectedRequest.id)}
+                          type="submit"
                         >
-                          <div className="office-card__head">
-                            <div>
-                              <p className="eyebrow">Booking</p>
-                              <h2>Planlegg jobb</h2>
-                            </div>
+                          {pendingAction === String(selectedRequest.id) ? "Lagrer..." : "Lagre booking"}
+                        </button>
+                      </form>
+
+                      <form
+                        className="office-schedule-form office-detail-block"
+                        id="office-receipt-panel"
+                        key={`receipt-${selectedRequest.id}`}
+                        onSubmit={handleReceiptSubmit}
+                      >
+                        <div className="office-card__head">
+                          <div>
+                            <p className="eyebrow">Kvittering</p>
+                            <h2>Fyll ut kvittering</h2>
                           </div>
+                        </div>
 
-                          <div className="office-form-grid">
-                            <label>
-                              <span>Status</span>
-                              <select defaultValue={selectedRequest.status || "new"} name="status">
-                                <option value="new">Ny</option>
-                                <option value="contacted">Kontaktet</option>
-                                <option value="booked">Booket</option>
-                                <option value="done">Ferdig</option>
-                              </select>
-                            </label>
+                        <div className="office-form-grid">
+                          <label>
+                            <span>Referanse</span>
+                            <input
+                              defaultValue={selectedRequest.receipt_reference || ""}
+                              name="receiptReference"
+                              placeholder="INST-2026-001"
+                            />
+                          </label>
 
-                            <label>
-                              <span>Avtalt tid</span>
-                              <input
-                                defaultValue={toDateTimeInputValue(selectedRequest.scheduled_for)}
-                                name="scheduledFor"
-                                type="datetime-local"
-                              />
-                            </label>
+                          <label>
+                            <span>Dato</span>
+                            <input
+                              defaultValue={toDateInputValue(selectedRequest.receipt_issued_at)}
+                              name="receiptIssuedAt"
+                              type="date"
+                            />
+                          </label>
 
-                            <label className="office-form-grid__full">
-                              <span>Interne notater</span>
-                              <textarea
-                                defaultValue={selectedRequest.booking_notes || ""}
-                                name="bookingNotes"
-                                placeholder="Pris, sted, deler, ekstra info"
-                              />
-                            </label>
-                          </div>
+                          <label>
+                            <span>Pris</span>
+                            <input
+                              defaultValue={selectedRequest.receipt_price || ""}
+                              name="receiptPrice"
+                              placeholder="4 500 kr"
+                            />
+                          </label>
 
+                          <label>
+                            <span>Sted</span>
+                            <input
+                              defaultValue={selectedRequest.receipt_location || ""}
+                              name="receiptLocation"
+                              placeholder="Drammen"
+                            />
+                          </label>
+
+                          <label>
+                            <span>Betalingsmate</span>
+                            <input
+                              defaultValue={selectedRequest.receipt_payment_method || ""}
+                              name="receiptPaymentMethod"
+                              placeholder="Vipps, kort, bank"
+                            />
+                          </label>
+
+                          <label className="office-form-grid__full">
+                            <span>Arbeid utført</span>
+                            <textarea
+                              defaultValue={
+                                selectedRequest.receipt_work_summary || selectedRequest.service || ""
+                              }
+                              name="receiptWorkSummary"
+                              placeholder="Hva som ble gjort"
+                            />
+                          </label>
+
+                          <label className="office-form-grid__full">
+                            <span>Merknader</span>
+                            <textarea
+                              defaultValue={selectedRequest.receipt_notes || ""}
+                              name="receiptNotes"
+                              placeholder="Garanti, tillegg, avtaler"
+                            />
+                          </label>
+                        </div>
+
+                        <div className="office-actions">
                           <button
                             className="button"
                             disabled={pendingAction === String(selectedRequest.id)}
                             type="submit"
                           >
-                            {pendingAction === String(selectedRequest.id) ? "Lagrer..." : "Lagre booking"}
+                            {pendingAction === String(selectedRequest.id) ? "Lagrer..." : "Lagre kvittering"}
                           </button>
-                        </form>
-                      ) : null}
-
-                      {detailMode === "receipt" ? (
-                        <form
-                          className="office-schedule-form"
-                          key={`receipt-${selectedRequest.id}`}
-                          onSubmit={handleReceiptSubmit}
-                        >
-                          <div className="office-card__head">
-                            <div>
-                              <p className="eyebrow">Kvittering</p>
-                              <h2>Fyll ut kvittering</h2>
-                            </div>
-                          </div>
-
-                          <div className="office-form-grid">
-                            <label>
-                              <span>Referanse</span>
-                              <input
-                                defaultValue={selectedRequest.receipt_reference || ""}
-                                name="receiptReference"
-                                placeholder="INST-2026-001"
-                              />
-                            </label>
-
-                            <label>
-                              <span>Dato</span>
-                              <input
-                                defaultValue={toDateInputValue(selectedRequest.receipt_issued_at)}
-                                name="receiptIssuedAt"
-                                type="date"
-                              />
-                            </label>
-
-                            <label>
-                              <span>Pris</span>
-                              <input
-                                defaultValue={selectedRequest.receipt_price || ""}
-                                name="receiptPrice"
-                                placeholder="4 500 kr"
-                              />
-                            </label>
-
-                            <label>
-                              <span>Sted</span>
-                              <input
-                                defaultValue={selectedRequest.receipt_location || ""}
-                                name="receiptLocation"
-                                placeholder="Drammen"
-                              />
-                            </label>
-
-                            <label>
-                              <span>Betalingsmate</span>
-                              <input
-                                defaultValue={selectedRequest.receipt_payment_method || ""}
-                                name="receiptPaymentMethod"
-                                placeholder="Vipps, kort, bank"
-                              />
-                            </label>
-
-                            <label className="office-form-grid__full">
-                              <span>Arbeid utført</span>
-                              <textarea
-                                defaultValue={
-                                  selectedRequest.receipt_work_summary || selectedRequest.service || ""
-                                }
-                                name="receiptWorkSummary"
-                                placeholder="Hva som ble gjort"
-                              />
-                            </label>
-
-                            <label className="office-form-grid__full">
-                              <span>Merknader</span>
-                              <textarea
-                                defaultValue={selectedRequest.receipt_notes || ""}
-                                name="receiptNotes"
-                                placeholder="Garanti, tillegg, avtaler"
-                              />
-                            </label>
-                          </div>
-
-                          <div className="office-actions">
-                            <button
-                              className="button"
-                              disabled={pendingAction === String(selectedRequest.id)}
-                              type="submit"
-                            >
-                              {pendingAction === String(selectedRequest.id)
-                                ? "Lagrer..."
-                                : "Lagre kvittering"}
-                            </button>
-                            <a
-                              className="button button--secondary"
-                              href={`/instalyd-kontor/kvittering/${selectedRequest.id}`}
-                              rel="noreferrer"
-                              target="_blank"
-                            >
-                              Aapne PDF
-                            </a>
+                          <a
+                            className="button button--secondary"
+                            href={`/instalyd-kontor/kvittering/${selectedRequest.id}`}
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            Aapne PDF
+                          </a>
+                          {selectedRequest.email ? (
                             <a className="button button--secondary" href={buildReceiptMailto(selectedRequest)}>
                               Klargjor e-post
                             </a>
-                          </div>
-                        </form>
-                      ) : null}
-                    </>
-                  ) : (
-                    <div className="office-empty">
-                      <h3>Ingen saker valgt.</h3>
-                      <p>Velg en sak til venstre for å fortsette.</p>
-                    </div>
-                  )}
-                </article>
-              </div>
-            )}
-
-            {!error && supportsScheduling && workspace === "planner" ? (
-              <div className="office-grid">
-                <article className="office-card office-card--calendar">
-                  <div className="office-card__head">
-                    <div>
-                      <p className="eyebrow">Kalender</p>
-                      <h2>Kommende 7 dager</h2>
-                    </div>
-                    <span className="office-pill office-pill--soft">{calendarDays.length}</span>
-                  </div>
-
-                  <div className="office-calendar">
-                    {calendarDays.map((day) => (
-                      <div
-                        className={`office-calendar__day ${day.isToday ? "is-today" : ""}`}
-                        key={day.key}
-                      >
-                        <div className="office-calendar__day-head">
-                          <span>{day.label}</span>
-                          <strong>{day.dateLabel}</strong>
-                          <small>{day.items.length ? `${day.items.length} avtaler` : "Ledig"}</small>
+                          ) : null}
                         </div>
-
-                        {day.items.length ? (
-                          <div className="office-calendar__items">
-                            {day.items.map((request) => (
-                              <button
-                                className="office-calendar__item office-reset-button"
-                                key={request.id}
-                                onClick={() => {
-                                  setWorkspace("booking");
-                                  setSelectedId(String(request.id));
-                                }}
-                                type="button"
-                              >
-                                <time>{formatCompactDate(request.scheduled_for)}</time>
-                                <strong>{request.name}</strong>
-                                <span>{request.service}</span>
-                              </button>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="office-calendar__empty">Ingen avtaler.</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </article>
-
-                <article className="office-card">
-                  <div className="office-card__head">
-                    <div>
-                      <p className="eyebrow">Uten tid</p>
-                      <h2>Må planlegges</h2>
+                      </form>
                     </div>
-                    <span className="office-pill office-pill--soft">{unscheduledRequests.length}</span>
                   </div>
-
-                  {unscheduledRequests.length ? (
-                    <div className="office-schedule">
-                      {unscheduledRequests.slice(0, 6).map((request) => (
-                        <button
-                          className="office-schedule__item office-schedule__item--link office-reset-button"
-                          key={request.id}
-                          onClick={() => {
-                            setWorkspace("booking");
-                            setSelectedId(String(request.id));
-                          }}
-                          type="button"
-                        >
-                          <strong>{request.name}</strong>
-                          <span>{request.car}</span>
-                          <time>{request.service}</time>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <p>Alle aktive saker har avtalt tid.</p>
-                  )}
-                </article>
-              </div>
-            ) : null}
-          </section>
-        </div>
+                </>
+              ) : (
+                <div className="office-empty">
+                  <h3>Ingen saker valgt.</h3>
+                  <p>Velg en sak i listen for å se detaljer, booking og kvittering.</p>
+                </div>
+              )}
+            </article>
+          </div>
+        )}
       </section>
     </main>
   );

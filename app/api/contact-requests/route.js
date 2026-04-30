@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
 import { createContactRequest } from "../../lib/contact-requests";
 
+function getRequiredFields(payload) {
+  if (payload?.source === "phone") {
+    return ["name", "car", "phone", "service"];
+  }
+
+  return ["name", "car", "email", "phone", "service", "details"];
+}
+
 function getMissingField(payload) {
-  const requiredFields = ["name", "car", "email", "phone", "service", "details"];
+  const requiredFields = getRequiredFields(payload);
 
   return requiredFields.find((field) => !payload[field]?.toString().trim());
 }

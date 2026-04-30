@@ -2773,7 +2773,11 @@ main {
 .receipt-grid,
 .receipt-brand,
 .receipt-meta,
-.receipt-card {
+.receipt-card,
+.receipt-signoff,
+.receipt-signoff__copy,
+.receipt-signoff__meta,
+.receipt-signoff__field {
   display: grid;
   gap: 0.7rem;
 }
@@ -2836,6 +2840,35 @@ main {
 .receipt-card p,
 .receipt-card li {
   color: rgba(0, 0, 0, 0.8);
+}
+
+.receipt-signoff {
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+  align-items: end;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.receipt-signoff__copy p:last-child {
+  color: #101010;
+  font-weight: 700;
+}
+
+.receipt-signoff__field {
+  min-height: 5.4rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.receipt-signoff__field--signature strong {
+  display: inline-flex;
+  align-items: flex-end;
+  min-height: 2.4rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.34);
+  font-style: italic;
 }
 
 .receipt-list {
@@ -3821,5 +3854,491 @@ main {
     border: 0;
     border-radius: 0;
     min-height: 100vh;
+  }
+}
+
+/* Instalyd office simplified single-page layout */
+.office-shell {
+  background: #f3f5f7;
+}
+
+.office-dashboard-simple {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.office-header-simple,
+.office-toolbar-simple,
+.office-card {
+  border: 1px solid #d9e0e7;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.office-header-simple,
+.office-toolbar-simple,
+.office-card,
+.office-detail-block {
+  padding: 1.4rem;
+}
+
+.office-header-simple {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.office-header-simple__main,
+.office-header-simple__side,
+.office-header-simple__copy,
+.office-queue,
+.office-queue__block,
+.office-simple-grid__side,
+.office-detail-sections,
+.office-detail-grid {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.office-header-simple__meta {
+  color: #516072;
+  font-size: 0.95rem;
+}
+
+.office-header-simple__copy {
+  max-width: 46rem;
+  gap: 0.55rem;
+}
+
+.office-header-simple__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.office-user-card {
+  border-color: #d9e0e7;
+  background: #f8fafc;
+}
+
+.office-user-card__avatar {
+  background: #111827;
+  color: #fff;
+}
+
+.office-sidebar__logo-mark {
+  background: #111827;
+  box-shadow: none;
+}
+
+.office-sidebar__logo-copy span,
+.office-sidebar__logo-copy strong,
+.office-card,
+.office-card__head strong,
+.office-listing__row strong,
+.office-summary-chip strong,
+.office-request__body p,
+.office-kpi strong,
+.office-shell h1,
+.office-shell h2,
+.office-shell h3 {
+  color: #111827;
+}
+
+.office-shell p,
+.office-listing__meta,
+.office-listing__details,
+.office-calendar__empty,
+.office-header-simple__copy p:last-child {
+  color: #5f6d7e;
+}
+
+.office-kpis {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.office-kpi {
+  border: 1px solid #d9e0e7;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.office-kpi__icon {
+  border: 0;
+  background: #eef2f7;
+}
+
+.office-kpi__icon--1,
+.office-kpi__icon--2,
+.office-kpi__icon--3,
+.office-kpi__icon--4,
+.office-kpi__icon--5 {
+  background: #eef2f7;
+}
+
+.office-kpi span,
+.office-filters span,
+.office-schedule-form span,
+.office-summary-chip span,
+.office-request__body span,
+.office-queue__block > span {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.office-toolbar-simple {
+  padding: 1.1rem 1.4rem;
+}
+
+.office-filters {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) repeat(3, minmax(140px, 0.55fr)) auto;
+  gap: 0.9rem;
+  align-items: end;
+}
+
+.office-filters input,
+.office-filters select,
+.office-schedule-form input,
+.office-schedule-form select,
+.office-schedule-form textarea {
+  min-height: 3.2rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 14px;
+  background: #fff;
+  color: #111827;
+}
+
+.office-filters input::placeholder,
+.office-schedule-form textarea::placeholder,
+.office-schedule-form input::placeholder {
+  color: #8a98aa;
+}
+
+.office-filters input:focus,
+.office-filters select:focus,
+.office-schedule-form input:focus,
+.office-schedule-form select:focus,
+.office-schedule-form textarea:focus {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.12);
+  background: #fff;
+}
+
+.office-simple-grid {
+  display: grid;
+  grid-template-columns: minmax(21rem, 24rem) minmax(0, 1fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.office-card--sidebar {
+  position: sticky;
+  top: 1rem;
+}
+
+.office-card--overview {
+  border-style: dashed;
+}
+
+.office-card--detail {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.office-inbox {
+  max-height: calc(100vh - 16rem);
+  padding-right: 0.3rem;
+  overflow: auto;
+}
+
+.office-inbox::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+.office-inbox::-webkit-scrollbar-thumb {
+  border: 2px solid #f8fafc;
+  border-radius: 999px;
+  background: #c7d0db;
+}
+
+.office-detail-block {
+  border: 1px solid #e5eaf0;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.office-detail-block--wide {
+  grid-column: 1 / -1;
+}
+
+.office-detail-sections {
+  gap: 1.25rem;
+}
+
+.office-detail-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.office-detail-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.office-queue {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.office-queue__block {
+  padding: 1.1rem;
+  border: 1px solid #e5eaf0;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.office-manual-booking {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5eaf0;
+}
+
+.office-inbox__item,
+.office-summary-chip,
+.office-schedule__item {
+  border: 1px solid #dde4ec;
+  background: #f8fafc;
+}
+
+.office-inbox__item,
+.office-schedule__item {
+  padding: 1rem 1.05rem;
+}
+
+.office-inbox__item:hover,
+.office-inbox__item:focus-visible,
+.office-inbox__item.is-active,
+.office-schedule__item--link:hover,
+.office-schedule__item--link:focus-visible {
+  border-color: #0f172a;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+
+.office-listing__service {
+  color: #1f2937;
+}
+
+.office-listing__meta--accent {
+  color: #8b5e00;
+}
+
+.office-summary-strip {
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.9rem;
+}
+
+.office-summary-chip {
+  padding: 1rem 1.05rem;
+}
+
+.office-request__body p,
+.office-summary-chip strong,
+.office-listing__service,
+.office-listing__details {
+  line-height: 1.6;
+}
+
+.office-card__head {
+  gap: 0.75rem;
+}
+
+.office-selection-meta {
+  margin: -0.25rem 0 0;
+  color: #475569;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.office-pill {
+  border-color: #f3d19b;
+  background: #fff6e7;
+  color: #8b5e00;
+}
+
+.office-pill--soft,
+.office-pill--done {
+  border-color: #d9e0e7;
+  background: #f3f5f7;
+  color: #516072;
+}
+
+.office-pill--contacted {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.office-pill--booked {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.office-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.office-schedule-form {
+  gap: 1.1rem;
+}
+
+.office-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.office-schedule-form textarea {
+  min-height: 8.75rem;
+}
+
+.office-shell .button:not(.button--secondary):not(.button--ghost) {
+  border-color: #111827;
+  background: #111827;
+  color: #fff;
+}
+
+.office-shell .button:not(.button--secondary):not(.button--ghost):hover,
+.office-shell .button:not(.button--secondary):not(.button--ghost):focus-visible {
+  background: #1f2937;
+  border-color: #1f2937;
+}
+
+.office-shell .button--secondary,
+.office-shell .button--ghost {
+  border-color: #d1d9e2;
+  background: #fff;
+  color: #111827;
+}
+
+.office-shell .button--secondary:hover,
+.office-shell .button--secondary:focus-visible,
+.office-shell .button--ghost:hover,
+.office-shell .button--ghost:focus-visible {
+  background: #f8fafc;
+  border-color: #111827;
+}
+
+.office-notice {
+  border: 1px solid #d9e0e7;
+  border-radius: 18px;
+  background: #fff;
+  color: #111827;
+}
+
+.office-notice--success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.office-notice--error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.office-empty {
+  text-align: left;
+}
+
+.office-reset-button:focus-visible,
+.office-filters input:focus-visible,
+.office-filters select:focus-visible,
+.office-schedule-form input:focus-visible,
+.office-schedule-form select:focus-visible,
+.office-schedule-form textarea:focus-visible,
+.office-shell .button:focus-visible,
+.office-logout:focus-visible {
+  outline: 3px solid #0f172a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1180px) {
+  .office-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .office-simple-grid {
+    grid-template-columns: minmax(18rem, 21rem) minmax(0, 1fr);
+  }
+
+  .office-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .office-detail-grid,
+  .office-queue {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 920px) {
+  .office-header-simple,
+  .office-simple-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .office-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .office-card--sidebar {
+    position: static;
+  }
+
+  .office-inbox {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .office-header-simple,
+  .office-toolbar-simple,
+  .office-card,
+  .office-detail-block {
+    padding: 1rem;
+  }
+
+  .office-kpis,
+  .office-filters,
+  .office-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .office-kpis {
+    gap: 0.7rem;
+  }
+
+  .office-summary-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .office-header-simple__actions,
+  .office-actions {
+    flex-direction: column;
+  }
+
+  .office-detail-nav {
+    flex-direction: column;
   }
 }

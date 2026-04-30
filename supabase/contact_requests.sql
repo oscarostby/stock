@@ -23,6 +23,10 @@ alter table public.contact_requests
   add column if not exists receipt_work_summary text,
   add column if not exists receipt_notes text;
 
+alter table public.contact_requests
+  alter column email drop not null,
+  alter column details drop not null;
+
 create index if not exists contact_requests_created_at_idx
   on public.contact_requests (created_at desc);
 
