@@ -5,6 +5,7 @@ export default function robots() {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/api/", "/instalyd-kontor/"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,

@@ -10,9 +10,16 @@ import { contact, customerReviews, majorServiceMunicipalities } from "./data";
 import { createPageMetadata } from "./seo";
 
 export const metadata = createPageMetadata({
-  title: "Instalyd - bilstereo, CarPlay og lydmontering",
+  title: "Bilstereo montering i Akershus og Buskerud",
   description:
-    "Instalyd monterer bilstereo, høyttalere, subwoofer, forsterker, skjerm, CarPlay og lyddemping i Akershus og Buskerud. Send bilmodell og få vurdering.",
+    "Instalyd monterer bilstereo, CarPlay, høyttalere, subwoofer, forsterker og lyddemping i Akershus og Buskerud. Send bilmodell og få vurdering.",
+  keywords: [
+    "bilstereo montering Akershus",
+    "bilstereo montering Buskerud",
+    "CarPlay montering Akershus",
+    "subwoofer montering bil",
+    "lydinstallasjon i bil",
+  ],
   path: "/",
 });
 
@@ -88,9 +95,9 @@ export default function HomePage() {
           <div className="shop-container shop-hero__grid">
             <div className="shop-hero__copy">
               <p className="shop-eyebrow">Bilstereo • CarPlay • Subwoofer • Høyttalere</p>
-              <h1>Bilstereo montert ordentlig i bilen din.</h1>
+              <h1>Bilstereo montering i Akershus og Buskerud.</h1>
               <p>
-                Instalyd monterer lydutstyr du allerede har kjøpt, og hjelper deg å sjekke hva som passer før vi setter av tid.
+                Instalyd hjelper med montering av bilstereo, CarPlay, høyttalere, subwoofer og forsterker.
                 Praktisk, bilspesifikk og uten unødvendig salg.
               </p>
               <div className="shop-hero__buttons">

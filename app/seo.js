@@ -4,7 +4,31 @@ export const siteUrl = "https://instalyd.no";
 export const defaultDescription =
   "Profesjonell lydinstallasjon i bil, montering av bilstereo, CarPlay, høyttalere, subwoofer, forsterker, DSP og lyddemping i Akershus og Buskerud.";
 
+export const priorityServiceKeywords = [
+  "bilstereo montering Akershus",
+  "bilstereo montering Buskerud",
+  "montering av bilstereo Akershus",
+  "montering av bilstereo Buskerud",
+  "CarPlay montering Akershus",
+  "CarPlay montering Buskerud",
+  "subwoofer montering bil Akershus",
+  "subwoofer montering bil Buskerud",
+  "lydinstallasjon i bil Akershus",
+  "lydinstallasjon i bil Buskerud",
+  "høyttaleroppgradering bil Akershus",
+  "høyttaleroppgradering bil Buskerud",
+  "bilstereo Asker",
+  "bilstereo Bærum",
+  "bilstereo Drammen",
+  "bilstereo Lillestrøm",
+  "CarPlay Asker",
+  "CarPlay Bærum",
+  "CarPlay Drammen",
+  "CarPlay Lillestrøm",
+];
+
 export const defaultKeywords = [
+  ...priorityServiceKeywords,
   "lydinstallasjon",
   "lydinstallasjon i bil",
   "installasjon av lyd i bil",
@@ -66,6 +90,7 @@ export const websiteJsonLd = {
   "@type": "WebSite",
   "@id": `${siteUrl}/#nettside`,
   name: siteName,
+  alternateName: "Instalyd bilstereo og CarPlay montering",
   url: siteUrl,
   inLanguage: "nb-NO",
   description: defaultDescription,
@@ -78,7 +103,6 @@ export const localBusinessJsonLd = {
   name: siteName,
   url: siteUrl,
   email: "hjelp@instalyd.no",
-  telephone: "+4790254100",
   image: `${siteUrl}/icon.png`,
   description: defaultDescription,
   areaServed: [
@@ -111,6 +135,14 @@ export const localBusinessJsonLd = {
   },
   availableLanguage: ["nb-NO", "no"],
   priceRange: "650 kr/time",
+  knowsAbout: [
+    "Bilstereo montering",
+    "CarPlay montering",
+    "Subwoofer montering",
+    "Forsterker montering",
+    "Høyttaleroppgradering i bil",
+    "Lyddemping bil",
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Lydinstallasjon og bilstereotjenester",

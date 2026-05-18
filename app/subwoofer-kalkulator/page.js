@@ -4,9 +4,15 @@ import { SubwooferFitCalculator } from "../components/subwoofer-fit-calculator";
 import { createPageMetadata } from "../seo";
 
 export const metadata = createPageMetadata({
-  title: "Subwoofer-kalkulator - sjekk basskasse i bagasjerom",
+  title: "3D subwoofer-kalkulator for bil og bagasjerom",
   description:
-    "Test mål på bagasjerom og subwoofer/basskasse i en enkel 3D-kalkulator. Dra med musen for å se om boksen passer i bilen.",
+    "Gratis 3D subwoofer-kalkulator for bil: test mål på bagasjerom og basskasse før montering av subwoofer i Akershus og Buskerud.",
+  keywords: [
+    "subwoofer kalkulator",
+    "basskasse kalkulator bil",
+    "subwoofer passer i bagasjerom",
+    "3D subwoofer kalkulator",
+  ],
   path: "/subwoofer-kalkulator",
 });
 

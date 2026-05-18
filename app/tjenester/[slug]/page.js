@@ -87,7 +87,6 @@ export default function ServiceLandingPage({ params }) {
     provider: {
       "@type": "AutoRepair",
       name: siteName,
-      telephone: contact.phoneHref,
       email: contact.email,
       areaServed: contact.area,
     },
