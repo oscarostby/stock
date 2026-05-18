@@ -35,7 +35,7 @@ export async function POST(request) {
     value: createOfficeSessionValue(username),
     httpOnly: true,
     maxAge: officeCookieMaxAge,
-    path: "/instalyd-kontor",
+    path: "/",
     sameSite: "lax",
     secure: new URL(request.url).protocol === "https:",
   });

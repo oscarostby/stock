@@ -32,11 +32,11 @@ export default async function InstalydOfficeLoginPage({ searchParams }) {
         <section className="section office-login__wrap">
           <div className="office-login__card" data-reveal="">
             <p className="eyebrow">Intern innlogging</p>
-            <h1>Logg inn pa Instalyd-kontor.</h1>
-            <p className="lead">Putt inn brukernavn og passord for aa komme inn.</p>
+            <h1>Logg inn på Instalyd-kontor.</h1>
+            <p className="lead">Skriv inn brukernavn og passord for å se forespørsler, avtaler og kvitteringer.</p>
 
             {hasError ? (
-              <p className="office-login__error">Feil navn eller passord. Prov igjen.</p>
+              <p className="office-login__error">Feil brukernavn eller passord. Prøv igjen.</p>
             ) : null}
 
             <form
@@ -47,7 +47,7 @@ export default async function InstalydOfficeLoginPage({ searchParams }) {
               <input name="next" type="hidden" value={nextPath} />
 
               <label>
-                <span>Navn</span>
+                <span>Brukernavn</span>
                 <input
                   autoCapitalize="none"
                   autoComplete="username"

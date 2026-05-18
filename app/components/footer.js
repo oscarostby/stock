@@ -1,72 +1,53 @@
 import Link from "next/link";
+import { Mail, Phone } from "lucide-react";
 import { contact, navItems } from "../data";
 import { featuredServiceLandingPages } from "../service-pages";
 
+const footerTrust = ["Eksperthjelp", "Tydelig pris", "Ryddig montering", "Testet før levering"];
+
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="site-footer__wrap">
-        <div className="site-footer__lead">
-          <div>
-            <p className="eyebrow">Kontakt</p>
-            <h2>Trenger du hjelp med lyd i bilen?</h2>
-          </div>
-
-          <div className="site-footer__actions">
-            <a className="button" href={`tel:${contact.phoneHref}`}>
-              Ring oss
-            </a>
-            <Link className="button button--secondary" href="/kontakt">
-              Send forespørsel
-            </Link>
-          </div>
+    <>
+      <section className="shop-footer-trust" aria-label="Trygghet">
+        <div className="shop-container shop-footer-trust__grid">
+          {footerTrust.map((item) => <div key={item}>{item}</div>)}
         </div>
-
-        <div className="site-footer__grid">
-          <div className="site-footer__block">
-            <p className="site-footer__title">Instalyd</p>
+      </section>
+      <footer className="shop-footer">
+        <div className="shop-container shop-footer__grid">
+          <div>
+            <h2>Instalyd</h2>
             <p>
-              {contact.tagline} i {contact.area}.
+              Montering av bilstereo, høyttalere, subwoofer, forsterker, CarPlay/skjerm og lyddemping i {contact.area}.
             </p>
+            <div className="shop-footer__contact">
+              <a href={`tel:${contact.phoneHref}`}><Phone className="size-4" /> {contact.phoneDisplay}</a>
+              <a href={`mailto:${contact.email}`}><Mail className="size-4" /> {contact.email}</a>
+            </div>
           </div>
 
-          <div className="site-footer__block">
-            <p className="mini-title">Sider</p>
-            <nav className="site-footer__nav" aria-label="Sidelinker">
+          <div>
+            <strong>Sider</strong>
+            <nav>
               {navItems.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
+                <Link key={item.href} href={item.href}>{item.label}</Link>
               ))}
+              <Link href="/omrader">Områder</Link>
               <Link href="/personvern">Personvern</Link>
             </nav>
           </div>
 
-          <div className="site-footer__block">
-            <p className="mini-title">Vanlige jobber</p>
-            <nav className="site-footer__nav" aria-label="Vanlige tjenester">
-              {featuredServiceLandingPages.map((item) => (
-                <Link key={item.slug} href={`/tjenester/${item.slug}`}>
-                  {item.cardTitle}
-                </Link>
+          <div>
+            <strong>Tjenester</strong>
+            <nav>
+              {featuredServiceLandingPages.slice(0, 5).map((item) => (
+                <Link key={item.slug} href={`/tjenester/${item.slug}`}>{item.cardTitle}</Link>
               ))}
             </nav>
           </div>
-
-          <div className="site-footer__block">
-            <p className="mini-title">Direkte kontakt</p>
-            <div className="site-footer__links">
-              <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
-              <a href={`mailto:${contact.email}`}>{contact.email}</a>
-              <p>{contact.area}</p>
-            </div>
-          </div>
         </div>
-
-        <div className="site-footer__bottom">
-          <p>&copy; {new Date().getFullYear()} Instalyd. Alle rettigheter reservert.</p>
-        </div>
-      </div>
-    </footer>
+        <div className="shop-container shop-footer__bottom">© 2026 Instalyd. Bilstereo-montering i Akershus og Buskerud.</div>
+      </footer>
+    </>
   );
 }

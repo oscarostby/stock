@@ -112,7 +112,7 @@ export default function ContactPage() {
 
                 <label>
                   <span>Bil</span>
-                  <input type="text" name="car" placeholder="For eksempel Golf 7 2018" required />
+                  <input type="text" name="car" placeholder="Golf 7 2018" required />
                 </label>
 
                 <label>
@@ -125,7 +125,7 @@ export default function ContactPage() {
                   <input type="tel" name="phone" placeholder="902 54 100" required />
                 </label>
 
-                <label>
+                <label className="contact-form__full">
                   <span>Hva gjelder det</span>
                   <input
                     type="text"

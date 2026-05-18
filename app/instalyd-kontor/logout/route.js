@@ -9,7 +9,7 @@ export async function GET(request) {
     value: "",
     httpOnly: true,
     maxAge: 0,
-    path: "/instalyd-kontor",
+    path: "/",
     sameSite: "lax",
     secure: new URL(request.url).protocol === "https:",
   });

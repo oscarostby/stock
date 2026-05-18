@@ -1,255 +1,304 @@
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://valjmiveeysyovkclrhs.supabase.co";
-const supabaseKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-  "sb_publishable_o-BWIc31UfObGgzl85ACWw_EDt_ZIRS";
-const contactRequestsTable = "contact_requests";
-const baseSelectColumns = "id,name,car,email,phone,service,details,status,source,created_at";
-const scheduleSelectColumns = `${baseSelectColumns},scheduled_for,booking_notes`;
-const officeSelectColumns = `${scheduleSelectColumns},archived_at,receipt_reference,receipt_issued_at,receipt_location,receipt_price,receipt_payment_method,receipt_work_summary,receipt_notes`;
+import { MongoClient, ObjectId } from "mongodb";
 
-function getSupabaseHeaders(extraHeaders = {}) {
+const mongoUri =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://admin:admin@cluster0.34lhwaj.mongodb.net/?appName=Cluster0";
+const mongoDbName = process.env.MONGODB_DB || "instalyd";
+const contactRequestsCollection = "contact_requests";
+
+let clientPromise;
+let indexesPromise;
+
+function formatMongoError(error) {
+  return error instanceof Error ? error.message : "Kunne ikke kontakte MongoDB.";
+}
+
+export function isMongoConfigured() {
+  return Boolean(mongoUri);
+}
+
+function getMongoClient() {
+  if (!mongoUri) {
+    throw new Error("MongoDB er ikke konfigurert.");
+  }
+
+  if (!clientPromise) {
+    clientPromise = new MongoClient(mongoUri).connect();
+  }
+
+  return clientPromise;
+}
+
+async function getCollection() {
+  const client = await getMongoClient();
+  const collection = client.db(mongoDbName).collection(contactRequestsCollection);
+
+  if (!indexesPromise) {
+    indexesPromise = Promise.all([
+      collection.createIndex({ created_at: -1 }),
+      collection.createIndex({ scheduled_for: 1 }),
+      collection.createIndex({ archived_at: -1 }),
+    ]).catch(() => null);
+  }
+
+  await indexesPromise;
+
+  return collection;
+}
+
+function toIsoString(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? null : value.toISOString();
+  }
+
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+}
+
+function toNullableDate(value) {
+  if (!value) {
+    return null;
+  }
+
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function normalizeRequestDocument(document) {
+  if (!document) {
+    return null;
+  }
+
   return {
-    apikey: supabaseKey,
-    Authorization: `Bearer ${supabaseKey}`,
-    ...extraHeaders,
+    id: document._id?.toString?.() || document.id?.toString?.() || "",
+    name: document.name || "",
+    car: document.car || "",
+    email: document.email || "",
+    phone: document.phone || "",
+    service: document.service || "",
+    details: document.details || "",
+    status: document.status || "new",
+    source: document.source || "website",
+    created_at: toIsoString(document.created_at),
+    scheduled_for: toIsoString(document.scheduled_for),
+    booking_notes: document.booking_notes || null,
+    archived_at: toIsoString(document.archived_at),
+    receipt_reference: document.receipt_reference || null,
+    receipt_issued_at: toIsoString(document.receipt_issued_at),
+    receipt_location: document.receipt_location || null,
+    receipt_price: document.receipt_price || null,
+    receipt_payment_method: document.receipt_payment_method || null,
+    receipt_work_summary: document.receipt_work_summary || null,
+    receipt_notes: document.receipt_notes || null,
   };
 }
 
-function formatSupabaseError(responseText) {
-  try {
-    const parsed = JSON.parse(responseText);
-
-    return parsed.message || parsed.error_description || parsed.error || responseText;
-  } catch {
-    return responseText || "Ukjent Supabase-feil";
+function getObjectId(id) {
+  if (!ObjectId.isValid(id)) {
+    return null;
   }
+
+  return new ObjectId(id);
 }
 
-export function isSupabaseConfigured() {
-  return Boolean(supabaseUrl && supabaseKey);
+function normalizeCreatePayload(payload) {
+  return {
+    name: payload.name?.toString().trim() || "",
+    car: payload.car?.toString().trim() || "",
+    email: payload.email?.toString().trim() || "",
+    phone: payload.phone?.toString().trim() || "",
+    service: payload.service?.toString().trim() || "",
+    details: payload.details?.toString().trim() || "",
+    source: payload.source || "website",
+    status: payload.status || "new",
+    created_at: new Date(),
+    scheduled_for: null,
+    booking_notes: null,
+    archived_at: null,
+    receipt_reference: null,
+    receipt_issued_at: null,
+    receipt_location: null,
+    receipt_price: null,
+    receipt_payment_method: null,
+    receipt_work_summary: null,
+    receipt_notes: null,
+  };
 }
 
-async function fetchContactRequests(limit, selectColumns) {
-  const query = new URLSearchParams({
-    select: selectColumns,
-    order: "created_at.desc",
-    limit: String(limit),
-  });
+function normalizeUpdatePayload(payload) {
+  const update = {};
+  const dateFields = new Set(["scheduled_for", "archived_at", "receipt_issued_at"]);
 
-  return fetch(
-    `${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`,
-    {
-      headers: getSupabaseHeaders(),
-      cache: "no-store",
-    },
-  );
+  for (const [key, value] of Object.entries(payload)) {
+    if (dateFields.has(key)) {
+      update[key] = toNullableDate(value);
+    } else {
+      update[key] = value === "" ? null : value;
+    }
+  }
 
-}
-
-async function fetchSingleContactRequest(id, selectColumns) {
-  const query = new URLSearchParams({
-    select: selectColumns,
-    id: `eq.${id}`,
-    limit: "1",
-  });
-
-  return fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`, {
-    headers: getSupabaseHeaders(),
-    cache: "no-store",
-  });
+  return update;
 }
 
 export async function listContactRequests(limit = 50) {
-  if (!isSupabaseConfigured()) {
+  if (!isMongoConfigured()) {
     return {
       data: [],
-      error: "Supabase er ikke konfigurert.",
-      supportsScheduling: false,
-      supportsOfficeManagement: false,
-    };
-  }
-
-  const officeResponse = await fetchContactRequests(limit, officeSelectColumns);
-
-  if (officeResponse.ok) {
-    return {
-      data: await officeResponse.json(),
-      error: null,
+      error: "MongoDB er ikke konfigurert.",
       supportsScheduling: true,
       supportsOfficeManagement: true,
     };
   }
 
-  const scheduleResponse = await fetchContactRequests(limit, scheduleSelectColumns);
+  try {
+    const collection = await getCollection();
+    const documents = await collection
+      .find({})
+      .sort({ created_at: -1 })
+      .limit(limit)
+      .toArray();
 
-  if (scheduleResponse.ok) {
     return {
-      data: await scheduleResponse.json(),
+      data: documents.map(normalizeRequestDocument),
       error: null,
       supportsScheduling: true,
-      supportsOfficeManagement: false,
+      supportsOfficeManagement: true,
     };
-  }
-
-  const fallbackResponse = await fetchContactRequests(limit, baseSelectColumns);
-
-  if (!fallbackResponse.ok) {
+  } catch (error) {
     return {
       data: [],
-      error: formatSupabaseError(await fallbackResponse.text()),
-      supportsScheduling: false,
-      supportsOfficeManagement: false,
+      error: formatMongoError(error),
+      supportsScheduling: true,
+      supportsOfficeManagement: true,
     };
   }
-
-  return {
-    data: await fallbackResponse.json(),
-    error: null,
-    supportsScheduling: false,
-    supportsOfficeManagement: false,
-  };
 }
 
 export async function getContactRequestById(id) {
-  if (!isSupabaseConfigured()) {
+  if (!isMongoConfigured()) {
     return {
       data: null,
-      error: "Supabase er ikke konfigurert.",
-      supportsOfficeManagement: false,
-    };
-  }
-
-  const officeResponse = await fetchSingleContactRequest(id, officeSelectColumns);
-
-  if (officeResponse.ok) {
-    const rows = await officeResponse.json();
-    return {
-      data: rows[0] || null,
-      error: null,
+      error: "MongoDB er ikke konfigurert.",
       supportsOfficeManagement: true,
     };
   }
 
-  const scheduleResponse = await fetchSingleContactRequest(id, scheduleSelectColumns);
+  const objectId = getObjectId(id);
 
-  if (scheduleResponse.ok) {
-    const rows = await scheduleResponse.json();
+  if (!objectId) {
     return {
-      data: rows[0] || null,
-      error: null,
-      supportsOfficeManagement: false,
+      data: null,
+      error: "Ugyldig saks-ID.",
+      supportsOfficeManagement: true,
     };
   }
 
-  return {
-    data: null,
-    error: formatSupabaseError(await scheduleResponse.text()),
-    supportsOfficeManagement: false,
-  };
+  try {
+    const collection = await getCollection();
+    const document = await collection.findOne({ _id: objectId });
+
+    return {
+      data: normalizeRequestDocument(document),
+      error: null,
+      supportsOfficeManagement: true,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: formatMongoError(error),
+      supportsOfficeManagement: true,
+    };
+  }
 }
 
 export async function createContactRequest(payload) {
-  if (!isSupabaseConfigured()) {
+  if (!isMongoConfigured()) {
     return {
       data: null,
-      error: "Supabase er ikke konfigurert.",
+      error: "MongoDB er ikke konfigurert.",
     };
   }
 
-  const normalizedEmail = payload.email?.toString().trim() || "";
-  const normalizedDetails = payload.details?.toString().trim() || "";
+  try {
+    const collection = await getCollection();
+    const document = normalizeCreatePayload(payload);
+    const result = await collection.insertOne(document);
 
-  const response = await fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}`, {
-    method: "POST",
-    headers: getSupabaseHeaders({
-      "Content-Type": "application/json",
-      Prefer: "return=representation",
-    }),
-    body: JSON.stringify({
-      name: payload.name?.toString().trim(),
-      car: payload.car?.toString().trim(),
-      email: normalizedEmail,
-      phone: payload.phone?.toString().trim(),
-      service: payload.service?.toString().trim(),
-      details: normalizedDetails,
-      source: payload.source || "website",
-      status: payload.status || "new",
-    }),
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
+    return {
+      data: normalizeRequestDocument({ ...document, _id: result.insertedId }),
+      error: null,
+    };
+  } catch (error) {
     return {
       data: null,
-      error: formatSupabaseError(await response.text()),
+      error: formatMongoError(error),
     };
   }
-
-  const result = await response.json();
-
-  return {
-    data: result[0] || null,
-    error: null,
-  };
 }
 
 export async function updateContactRequest(id, payload) {
-  if (!isSupabaseConfigured()) {
+  if (!isMongoConfigured()) {
     return {
       data: null,
-      error: "Supabase er ikke konfigurert.",
+      error: "MongoDB er ikke konfigurert.",
     };
   }
 
-  const query = new URLSearchParams({
-    id: `eq.${id}`,
-  });
+  const objectId = getObjectId(id);
 
-  const response = await fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`, {
-    method: "PATCH",
-    headers: getSupabaseHeaders({
-      "Content-Type": "application/json",
-      Prefer: "return=representation",
-    }),
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
+  if (!objectId) {
     return {
       data: null,
-      error: formatSupabaseError(await response.text()),
+      error: "Ugyldig saks-ID.",
     };
   }
 
-  const result = await response.json();
+  try {
+    const collection = await getCollection();
+    const update = normalizeUpdatePayload(payload);
+    const result = await collection.findOneAndUpdate(
+      { _id: objectId },
+      { $set: update },
+      { returnDocument: "after" },
+    );
 
-  return {
-    data: result[0] || null,
-    error: null,
-  };
+    if (!result) {
+      return {
+        data: null,
+        error: "Fant ikke saken.",
+      };
+    }
+
+    return {
+      data: normalizeRequestDocument(result),
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: formatMongoError(error),
+    };
+  }
 }
 
 export async function deleteExpiredArchivedContactRequests() {
-  if (!isSupabaseConfigured()) {
+  if (!isMongoConfigured()) {
     return;
   }
 
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() - 5);
 
-  const query = new URLSearchParams({
-    archived_at: `lt.${expiryDate.toISOString()}`,
-  });
-
   try {
-    await fetch(`${supabaseUrl}/rest/v1/${contactRequestsTable}?${query.toString()}`, {
-      method: "DELETE",
-      headers: getSupabaseHeaders({
-        Prefer: "return=minimal",
-      }),
-      cache: "no-store",
+    const collection = await getCollection();
+    await collection.deleteMany({
+      archived_at: {
+        $lt: expiryDate,
+      },
     });
   } catch {
     // Ignore cleanup failures so the admin page still loads.

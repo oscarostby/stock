@@ -135,6 +135,107 @@ export const contactChecklist = [
   "Hvilke deler du allerede har kjøpt",
 ];
 
+export const customerReviews = [
+  {
+    name: "Marius H.",
+    place: "Lillestrøm",
+    rating: 5,
+    text: "Veldig ryddig montering av CarPlay. Alt ser originalt ut, og jeg fikk god forklaring på løsningen før jobben startet.",
+  },
+  {
+    name: "Sara K.",
+    place: "Drammen",
+    rating: 5,
+    text: "Fikk montert subwoofer og forsterker. Kablingen ble skjult pent, og bilen ble levert tilbake ren og klar.",
+  },
+  {
+    name: "Jonas B.",
+    place: "Asker",
+    rating: 4,
+    text: "God kommunikasjon og ærlig vurdering av hva som var verdt å gjøre i bilen min. Lyden ble mye bedre.",
+  },
+  {
+    name: "Emilie R.",
+    place: "Bærum",
+    rating: 5,
+    text: "Profesjonell hjelp med høyttaleroppgradering og demping i dørene. Merket stor forskjell på klarhet og trykk.",
+  },
+  {
+    name: "Thomas L.",
+    place: "Kongsberg",
+    rating: 5,
+    text: "Ryddet opp i et gammelt anlegg som var koblet dårlig. Nå fungerer alt som det skal, og bagasjerommet ser mye penere ut.",
+  },
+  {
+    name: "Nora S.",
+    place: "Nesodden",
+    rating: 4,
+    text: "Trygg og enkel prosess. Jeg sendte bilder på forhånd og fikk tydelig svar på hva som måtte gjøres.",
+  },
+  {
+    name: "Henrik A.",
+    place: "Ullensaker",
+    rating: 5,
+    text: "Monterte skjerm og CarPlay i bilen. Ser ryddig ut i dashbordet og fungerer akkurat slik jeg ønsket.",
+  },
+  {
+    name: "Andreas F.",
+    place: "Ringerike",
+    rating: 5,
+    text: "Veldig fornøyd med bassoppsettet. Fikk også tips om innstillingene så det spiller bedre med resten av anlegget.",
+  },
+  {
+    name: "Ida M.",
+    place: "Lier",
+    rating: 4,
+    text: "Rask respons og pent arbeid. Likte at jeg fikk beskjed om hva som var nødvendig og hva jeg kunne vente med.",
+  },
+  {
+    name: "Eirik T.",
+    place: "Ås",
+    rating: 5,
+    text: "Føles som en seriøs aktør. God finish, god dialog og en løsning som passer bilen i hverdagen.",
+  },
+];
+
+export const majorServiceMunicipalities = [
+  "Bærum",
+  "Drammen",
+  "Asker",
+  "Lillestrøm",
+  "Nordre Follo",
+  "Ullensaker",
+  "Ringerike",
+  "Kongsberg",
+  "Lier",
+  "Øvre Eiker",
+  "Modum",
+  "Nesodden",
+];
+
+export const serviceMunicipalities = [
+  "Asker",
+  "Bærum",
+  "Drammen",
+  "Lillestrøm",
+  "Nordre Follo",
+  "Ullensaker",
+  "Ringerike",
+  "Kongsberg",
+  "Lier",
+  "Øvre Eiker",
+  "Modum",
+  "Nesodden",
+  "Rælingen",
+  "Ås",
+  "Enebakk",
+  "Gjerdrum",
+  "Nannestad",
+  "Nittedal",
+  "Aurskog-Høland",
+  "Hole",
+];
+
 export const navItems = [
   { href: "/", label: "Hjem" },
   { href: "/tjenester", label: "Tjenester" },

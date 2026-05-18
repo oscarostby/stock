@@ -52,6 +52,7 @@ export default function ServiceLandingPage({ params }) {
 
   const pageImage = imageMap[page.imageKey];
   const relatedPages = serviceLandingPages.filter((item) => item.slug !== page.slug).slice(0, 3);
+  const faqTitle = page.title.replace("Carplay", "CarPlay").replace("carplay", "CarPlay");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -210,7 +211,7 @@ export default function ServiceLandingPage({ params }) {
           <div className="section-heading section-heading--split" data-reveal="">
             <div>
               <p className="eyebrow">Spørsmål</p>
-              <h2>Vanlige spørsmål om {page.title.toLowerCase()}.</h2>
+              <h2>Vanlige spørsmål om {faqTitle}.</h2>
             </div>
             <p className="lead">
               Hvis du er usikker på om dette passer bilen din, er det enklest å sende

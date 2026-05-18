@@ -520,8 +520,8 @@ export function OfficeDashboard({
             </div>
             <div className="office-header-simple__copy">
               <p className="eyebrow">Dashboard</p>
-              <h2>Alt samlet pa en side</h2>
-              <p>Finn sak, oppdater booking og fyll ut kvittering uten a bytte seksjon.</p>
+              <h2>Alt samlet på én side</h2>
+              <p>Finn sak, oppdater booking og fyll ut kvittering uten å bytte seksjon.</p>
             </div>
           </div>
 
@@ -567,9 +567,9 @@ export function OfficeDashboard({
         <section className="office-toolbar-simple" data-reveal="">
           <div className="office-filters">
             <label className="office-filters__search">
-              <span>Sok</span>
+              <span>Søk</span>
               <input
-                aria-label="Sok i kunder og saker"
+                aria-label="Søk i kunder og saker"
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Navn, bil, tjeneste, telefon ..."
                 type="search"
@@ -593,7 +593,7 @@ export function OfficeDashboard({
             <label className="office-filters__status">
               <span>Status</span>
               <select
-                aria-label="Filtrer pa status"
+                aria-label="Filtrer på status"
                 onChange={(event) => setStatusFilter(event.target.value)}
                 value={statusFilter}
               >
@@ -647,8 +647,8 @@ export function OfficeDashboard({
 
         {error ? (
           <article className="office-card">
-            <p className="eyebrow">Supabase</p>
-            <h2>Kunne ikke hente foresporsler.</h2>
+            <p className="eyebrow">MongoDB</p>
+            <h2>Kunne ikke hente forespørsler.</h2>
             <p>{error}</p>
           </article>
         ) : (
@@ -712,7 +712,7 @@ export function OfficeDashboard({
                   <div className="office-card__head">
                     <div>
                       <p className="eyebrow">Oversikt</p>
-                      <h2>Na og neste</h2>
+                      <h2>Nå og neste</h2>
                     </div>
                   </div>
 
@@ -875,7 +875,7 @@ export function OfficeDashboard({
                   </div>
 
                   <p className="office-selection-meta">
-                    Bytt sak i listen til venstre for a endre tid, notater eller kvittering for en annen kunde.
+                    Bytt sak i listen til venstre for å endre tid, notater eller kvittering for en annen kunde.
                   </p>
 
                   <div className="office-summary-strip">
@@ -1121,11 +1121,11 @@ export function OfficeDashboard({
                             rel="noreferrer"
                             target="_blank"
                           >
-                            Aapne PDF
+                            Åpne PDF
                           </a>
                           {selectedRequest.email ? (
                             <a className="button button--secondary" href={buildReceiptMailto(selectedRequest)}>
-                              Klargjor e-post
+                              Klargjør e-post
                             </a>
                           ) : null}
                         </div>

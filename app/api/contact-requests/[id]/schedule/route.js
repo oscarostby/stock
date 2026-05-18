@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { updateContactRequest } from "../../../../lib/contact-requests";
+import { officeCookieName, readOfficeSessionValue } from "../../../../instalyd-kontor/auth";
+
+function hasOfficeSession(request) {
+  return Boolean(readOfficeSessionValue(request.cookies.get(officeCookieName)?.value));
+}
 
 function getTimeZoneOffsetMs(date, timeZone) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -60,6 +65,10 @@ function buildUpdatePayload({ bookingNotes, scheduledFor, status }) {
 }
 
 export async function POST(request, { params }) {
+  if (!hasOfficeSession(request)) {
+    return NextResponse.json({ error: "Ikke innlogget." }, { status: 401 });
+  }
+
   const { id } = await params;
   const contentType = request.headers.get("content-type") || "";
 

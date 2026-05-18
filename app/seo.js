@@ -2,7 +2,7 @@ export const siteName = "Instalyd";
 export const siteUrl = "https://instalyd.no";
 
 export const defaultDescription =
-  "Instalyd hjelper deg med lydinstallasjon i bil, montering av bilstereo, høyttalere, subwoofer, forsterker, DSP og CarPlay i Akershus og Buskerud.";
+  "Profesjonell lydinstallasjon i bil, montering av bilstereo, CarPlay, høyttalere, subwoofer, forsterker, DSP og lyddemping i Akershus og Buskerud.";
 
 export const defaultKeywords = [
   "lydinstallasjon",
@@ -19,6 +19,18 @@ export const defaultKeywords = [
   "lyddemping bil",
   "Akershus",
   "Buskerud",
+  "Asker",
+  "Bærum",
+  "Drammen",
+  "Lillestrøm",
+  "Nordre Follo",
+  "Ullensaker",
+  "Ringerike",
+  "Kongsberg",
+  "Lier",
+  "Øvre Eiker",
+  "Modum",
+  "Nesodden",
 ];
 
 export function withSiteName(title) {
@@ -69,7 +81,30 @@ export const localBusinessJsonLd = {
   telephone: "+4790254100",
   image: `${siteUrl}/icon.png`,
   description: defaultDescription,
-  areaServed: ["Akershus", "Buskerud"],
+  areaServed: [
+    "Akershus",
+    "Buskerud",
+    "Asker",
+    "Bærum",
+    "Drammen",
+    "Lillestrøm",
+    "Nordre Follo",
+    "Ullensaker",
+    "Ringerike",
+    "Kongsberg",
+    "Lier",
+    "Øvre Eiker",
+    "Modum",
+    "Nesodden",
+    "Rælingen",
+    "Ås",
+    "Enebakk",
+    "Gjerdrum",
+    "Nannestad",
+    "Nittedal",
+    "Aurskog-Høland",
+    "Hole",
+  ],
   address: {
     "@type": "PostalAddress",
     addressCountry: "NO",
