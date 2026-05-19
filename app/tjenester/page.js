@@ -109,11 +109,11 @@ export default function ServicesPage() {
           <div className="section-heading section-heading--split" data-reveal="">
             <div>
               <p className="eyebrow">Fordypning</p>
-              <h2>Egne sider for de mest søkte jobbene.</h2>
+              <h2>Finn riktig type montering.</h2>
             </div>
             <p className="lead">
-              Disse sidene er laget for deg som vil lese mer om akkurat den typen
-              lydjobb du vurderer i bilen.
+              Velg tjenesten som ligner mest på jobben du vurderer, så ser du hva vi
+              sjekker før montering og hva som er lurt å sende inn.
             </p>
           </div>
 

@@ -241,12 +241,12 @@ export default function ServiceLandingPage({ params }) {
         <section className="section section--last">
           <div className="section-heading section-heading--split" data-reveal="">
             <div>
-              <p className="eyebrow">Relaterte sider</p>
-              <h2>Les mer om andre jobber vi gjør.</h2>
+              <p className="eyebrow">Flere tjenester</p>
+              <h2>Andre monteringer som kan være relevante.</h2>
             </div>
             <p className="lead">
-              Flere egne sider gjør det lettere å finne riktig type jobb, både for deg og
-              for Google.
+              Hvis jobben din gjelder mer enn én del av anlegget, kan det være nyttig å
+              se hvordan vi vurderer de andre løsningene også.
             </p>
           </div>
 
