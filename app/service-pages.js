@@ -277,7 +277,7 @@ export const serviceLandingPages = [
       "Vi ser på originalt oppsett, signal, strøm, jord og hvordan forsterkeren bør kobles inn uten halvveis løsninger.",
     imageKey: "audiOriginalAmplifier",
     imageAlt: "Original forsterker i Audi under bilstereoarbeid",
-    tags: ["Original amp", "Signal og strøm", "Riktig jord", "Ryddig oppkobling"],
+    tags: ["Original forsterker", "Signal og strøm", "Riktig jord", "Ryddig oppkobling"],
     highlights: [
       {
         title: "Signal og integrasjon",
@@ -292,7 +292,7 @@ export const serviceLandingPages = [
       {
         title: "Originalt eller ettermontert",
         description:
-          "Vi kan vurdere både originale amp-oppsett og ettermontert forsterker når bilen og utstyret passer.",
+          "Vi kan vurdere både originalt forsterkeroppsett og ettermontert forsterker når bilen og utstyret passer.",
       },
       {
         title: "Testing før levering",
@@ -305,7 +305,7 @@ export const serviceLandingPages = [
         label: "01",
         title: "Du sender bilmodell og forsterkerinfo",
         description:
-          "Fortell om det er original amp, ny forsterker eller feilsøking av eksisterende oppsett.",
+          "Fortell om det er original forsterker, ny forsterker eller feilsøking av eksisterende oppsett.",
         meta: "Bilder av utstyr og koblinger hjelper.",
       },
       {
@@ -340,7 +340,7 @@ export const serviceLandingPages = [
           "Ja. Forsterker kan også brukes til høyttalere eller frontsystem, ikke bare subwoofer.",
       },
     ],
-    keywords: ["forsterker montering bil", "bilforsterker installasjon", "original amp bil"],
+    keywords: ["forsterker montering bil", "bilforsterker installasjon", "original forsterker bil"],
   },
   {
     slug: "subwoofer-og-forsterker",
@@ -525,14 +525,14 @@ export const serviceLandingPages = [
     eyebrow: "Feilsøking",
     heroTitle: "Feilsøking av bilstereo når lyden ikke oppfører seg riktig.",
     description:
-      "Instalyd hjelper med feilsøking av bilstereo i Akershus og Buskerud, fra signalfeil og dårlig jord til tweeters, forsterker og eldre anlegg.",
+      "Instalyd hjelper med feilsøking av bilstereo i Akershus og Buskerud, fra signalfeil og dårlig jord til diskanter, forsterker og eldre anlegg.",
     lead:
       "For deg som har støy, manglende lyd, rare koblinger eller et gammelt anlegg som ikke spiller som det skal.",
     summary:
       "Vi måler, ser på koblinger og prøver å finne årsaken før vi anbefaler å bytte deler.",
     imageKey: "tweeterOhmResistors",
-    imageAlt: "Måling og motstander brukt ved feilsøking av tweeters i bilstereo",
-    tags: ["Signalfeil", "Dårlig jord", "Tweeters", "Gamle anlegg"],
+    imageAlt: "Måling og motstander brukt ved feilsøking av diskanter i bilstereo",
+    tags: ["Signalfeil", "Dårlig jord", "Diskanter", "Gamle anlegg"],
     highlights: [
       {
         title: "Måling før bytting",
@@ -542,7 +542,7 @@ export const serviceLandingPages = [
       {
         title: "Koblinger og motstand",
         description:
-          "Tweeters, delefilter, forsterker og høyttalere kan kreve kontroll av kobling og belastning.",
+          "Diskanter, delefilter, forsterker og høyttalere kan kreve kontroll av kobling og belastning.",
       },
       {
         title: "Støy og dårlig jord",

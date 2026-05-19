@@ -53,7 +53,7 @@ export default function WhyPage() {
             <article className="page-hero__media" data-reveal="">
               <Image
                 src={tweeterOhmResistorsImage}
-                alt="Motstander-oppsett for å ohme ned tweeters i bilstereo"
+                alt="Motstander-oppsett for å ohme ned diskanter i bilstereo"
                 sizes="(max-width: 1100px) 100vw, 58vw"
               />
             </article>

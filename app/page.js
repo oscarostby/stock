@@ -31,7 +31,7 @@ const categoryLinks = [
   { title: "CarPlay", text: "3D-printet ramme og skjerm", image: customCarplayFrameImage, href: "/tjenester/carplay-montering" },
   { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage, href: "/tjenester/hoyttaleroppgradering-i-bil" },
   { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage, href: "/tjenester/subwoofer-og-forsterker" },
-  { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage, href: "/tjenester/forsterker-montering" },
+  { title: "Forsterker", text: "Original forsterker og oppkobling", image: audiOriginalAmplifierImage, href: "/tjenester/forsterker-montering" },
   { title: "Lyddemping", text: "Dører og paneler", image: soundDeadeningImage, href: "/tjenester/lyddemping-i-bil" },
   { title: "Feilsøking", text: "Måling og signalfeil", image: tweeterOhmResistorsImage, href: "/tjenester/feilsoking-bilstereo" },
 ];
@@ -248,7 +248,7 @@ export default function HomePage() {
             <h2>Send forespørsel</h2>
             <p>Legg ved bilmodell, årsmodell, hva du har kjøpt og hva du vil få montert. Bilder av delene gjør vurderingen bedre.</p>
           </div>
-          <form className="shop-contact__form" data-contact-form="" data-recipient={contact.email} data-request-source="Forside bilradio-inspirert kontaktskjema">
+          <form className="shop-contact__form" data-contact-form="" data-recipient={contact.email} data-request-source="Forside kontaktskjema">
             <label>Navn<input type="text" name="name" required /></label>
             <label>Bil<input type="text" name="car" placeholder="Eks: Audi A4 2013" required /></label>
             <label>E-post<input type="email" name="email" required /></label>
