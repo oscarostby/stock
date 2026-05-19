@@ -264,6 +264,85 @@ export const serviceLandingPages = [
     ],
   },
   {
+    slug: "forsterker-montering",
+    title: "Forsterker montering",
+    cardTitle: "Forsterker montering",
+    eyebrow: "Forsterker",
+    heroTitle: "Forsterker montering med riktig signal, strøm og oppkobling.",
+    description:
+      "Instalyd hjelper med forsterker montering i Akershus og Buskerud, enten det gjelder original forsterker, oppgradering eller oppkobling mot resten av anlegget.",
+    lead:
+      "For deg som trenger mer kontroll, mer effekt eller ryddig oppkobling av forsterker i bilen.",
+    summary:
+      "Vi ser på originalt oppsett, signal, strøm, jord og hvordan forsterkeren bør kobles inn uten halvveis løsninger.",
+    imageKey: "audiOriginalAmplifier",
+    imageAlt: "Original forsterker i Audi under bilstereoarbeid",
+    tags: ["Original amp", "Signal og strøm", "Riktig jord", "Ryddig oppkobling"],
+    highlights: [
+      {
+        title: "Signal og integrasjon",
+        description:
+          "Vi vurderer hvordan forsterkeren skal få signal fra originalradio, skjerm eller eksisterende anlegg.",
+      },
+      {
+        title: "Strøm, jord og sikring",
+        description:
+          "Forsterkerjobber handler ikke bare om lyd, men også trygg strømføring og gode jordpunkter.",
+      },
+      {
+        title: "Originalt eller ettermontert",
+        description:
+          "Vi kan vurdere både originale amp-oppsett og ettermontert forsterker når bilen og utstyret passer.",
+      },
+      {
+        title: "Testing før levering",
+        description:
+          "Vi sjekker at forsterkeren spiller riktig sammen med høyttalere, subwoofer eller resten av anlegget.",
+      },
+    ],
+    steps: [
+      {
+        label: "01",
+        title: "Du sender bilmodell og forsterkerinfo",
+        description:
+          "Fortell om det er original amp, ny forsterker eller feilsøking av eksisterende oppsett.",
+        meta: "Bilder av utstyr og koblinger hjelper.",
+      },
+      {
+        label: "02",
+        title: "Vi vurderer signal og strømopplegg",
+        description:
+          "Vi ser på hva bilen støtter, hva som må til av kabler og hvordan jobben bør gjøres ryddig.",
+        meta: "Gir færre overraskelser underveis.",
+      },
+      {
+        label: "03",
+        title: "Montering og funksjonstest",
+        description:
+          "Forsterkeren kobles opp og testes mot resten av anlegget før bilen leveres.",
+        meta: "Nivå og funksjon kontrolleres.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Kan dere koble opp original forsterker?",
+        answer:
+          "Ja, når løsningen passer bilen og det finnes en ryddig måte å integrere den på.",
+      },
+      {
+        question: "Trenger jeg ny strømledning til forsterker?",
+        answer:
+          "Det kommer an på effekt, plassering og oppsett. Vi vurderer strøm og sikring før jobben starter.",
+      },
+      {
+        question: "Kan forsterker monteres uten subwoofer?",
+        answer:
+          "Ja. Forsterker kan også brukes til høyttalere eller frontsystem, ikke bare subwoofer.",
+      },
+    ],
+    keywords: ["forsterker montering bil", "bilforsterker installasjon", "original amp bil"],
+  },
+  {
     slug: "subwoofer-og-forsterker",
     title: "Subwoofer og forsterker",
     cardTitle: "Subwoofer og forsterker",
@@ -350,6 +429,173 @@ export const serviceLandingPages = [
       "forsterker montering bil",
       "subwoofer og forsterker",
     ],
+  },
+  {
+    slug: "lyddemping-i-bil",
+    title: "Lyddemping i bil",
+    cardTitle: "Lyddemping i bil",
+    eyebrow: "Lyddemping",
+    heroTitle: "Lyddemping i bil for mindre resonans og bedre kontroll.",
+    description:
+      "Instalyd hjelper med lyddemping i bil i Akershus og Buskerud, spesielt i dører og paneler der resonans og vibrasjon påvirker lyden.",
+    lead:
+      "For deg som vil ha mer kontrollert lyd, mindre skrangling og et bedre grunnlag for høyttaleroppgradering.",
+    summary:
+      "Vi vurderer hvor demping faktisk gir effekt, slik at bilen blir roligere uten unødvendig arbeid.",
+    imageKey: "soundDeadening",
+    imageAlt: "Lyddemping montert i bildør og panel",
+    tags: [
+      "Dører og paneler",
+      "Mindre resonans",
+      "Bedre høyttalergrunnlag",
+      "Ryddig montering",
+    ],
+    highlights: [
+      {
+        title: "Demping der det trengs",
+        description:
+          "Vi ser på dører, paneler og flater som kan lage resonans før vi anbefaler hvor det bør dempes.",
+      },
+      {
+        title: "Bedre grunnlag for høyttalere",
+        description:
+          "Riktig demping kan gjøre at høyttalerne jobber mer kontrollert og at resultatet føles strammere.",
+      },
+      {
+        title: "Ryddig demontering og montering",
+        description:
+          "Paneler tas av og monteres tilbake med fokus på at bilen skal se ordentlig ut etterpå.",
+      },
+      {
+        title: "Ingen unødvendig overdrivelse",
+        description:
+          "Vi vurderer bilen og målet ditt, og sier fra hvis full demping ikke er nødvendig for jobben.",
+      },
+    ],
+    steps: [
+      {
+        label: "01",
+        title: "Du beskriver lydproblemet eller målet",
+        description:
+          "Fortell om det gjelder skrangling, dørlyd, høyttaleroppgradering eller mer kontroll i lyden.",
+        meta: "Bilder av dør/panel hjelper.",
+      },
+      {
+        label: "02",
+        title: "Vi vurderer hvor demping gir mening",
+        description:
+          "Vi ser på biltype, paneler og hva som bør gjøres samtidig med eventuell høyttalerjobb.",
+        meta: "Målet er riktig nivå, ikke mest mulig materiale.",
+      },
+      {
+        label: "03",
+        title: "Demping og kontroll før levering",
+        description:
+          "Materialet monteres ryddig, og panelene settes tilbake slik at bilen fungerer som den skal.",
+        meta: "Finish og funksjon sjekkes til slutt.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Bør jeg dempe dørene samtidig som nye høyttalere?",
+        answer:
+          "Ofte ja. Demping kan være en viktig del av resultatet, men vi vurderer det ut fra bilen og målet ditt.",
+      },
+      {
+        question: "Fjerner lyddemping all støy?",
+        answer:
+          "Nei. Det kan redusere resonans og vibrasjon, men det er ikke det samme som å gjøre bilen helt stille.",
+      },
+      {
+        question: "Må hele bilen dempes?",
+        answer:
+          "Som regel ikke. Mange jobber handler om dører eller paneler der det gir mest effekt for lyden.",
+      },
+    ],
+    keywords: [
+      "lyddemping bil",
+      "demping av bildører",
+      "lyddemping høyttalere bil",
+    ],
+  },
+  {
+    slug: "feilsoking-bilstereo",
+    title: "Feilsøking av bilstereo",
+    cardTitle: "Feilsøking bilstereo",
+    eyebrow: "Feilsøking",
+    heroTitle: "Feilsøking av bilstereo når lyden ikke oppfører seg riktig.",
+    description:
+      "Instalyd hjelper med feilsøking av bilstereo i Akershus og Buskerud, fra signalfeil og dårlig jord til tweeters, forsterker og eldre anlegg.",
+    lead:
+      "For deg som har støy, manglende lyd, rare koblinger eller et gammelt anlegg som ikke spiller som det skal.",
+    summary:
+      "Vi måler, ser på koblinger og prøver å finne årsaken før vi anbefaler å bytte deler.",
+    imageKey: "tweeterOhmResistors",
+    imageAlt: "Måling og motstander brukt ved feilsøking av tweeters i bilstereo",
+    tags: ["Signalfeil", "Dårlig jord", "Tweeters", "Gamle anlegg"],
+    highlights: [
+      {
+        title: "Måling før bytting",
+        description:
+          "Vi prøver å finne hva som faktisk er feil før det kjøpes unødvendige deler.",
+      },
+      {
+        title: "Koblinger og motstand",
+        description:
+          "Tweeters, delefilter, forsterker og høyttalere kan kreve kontroll av kobling og belastning.",
+      },
+      {
+        title: "Støy og dårlig jord",
+        description:
+          "Dårlig jord, løse kabler eller feil signalvei kan gi ulyd eller ustabilt anlegg.",
+      },
+      {
+        title: "Rydding av eldre oppsett",
+        description:
+          "Hvis bilen har et gammelt eller halvferdig anlegg, kan vi rydde opp og forklare hva som bør gjøres videre.",
+      },
+    ],
+    steps: [
+      {
+        label: "01",
+        title: "Du beskriver symptomet",
+        description:
+          "Fortell hva som ikke fungerer: støy, manglende lyd, sikringer, høyttalere eller forsterker.",
+        meta: "Video eller bilder hjelper ofte.",
+      },
+      {
+        label: "02",
+        title: "Vi måler og kontrollerer koblinger",
+        description:
+          "Vi ser etter åpenbare feil i kabling, signal, jord og komponenter før vi foreslår løsning.",
+        meta: "Målet er å finne årsaken.",
+      },
+      {
+        label: "03",
+        title: "Du får forslag til utbedring",
+        description:
+          "Når feilen er forstått, kan vi rydde opp, koble om eller si hva som bør byttes.",
+        meta: "Ingen unødvendig mersalg.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Kan dere finne feil i et anlegg noen andre har montert?",
+        answer:
+          "Ja, vi kan se over eksisterende installasjoner og vurdere hva som er feil eller bør ryddes opp i.",
+      },
+      {
+        question: "Må jeg vite hva som er galt på forhånd?",
+        answer:
+          "Nei. Det holder å beskrive symptomet så godt du kan, gjerne med bilder eller video.",
+      },
+      {
+        question: "Kan feilsøking bli dyrt?",
+        answer:
+          "Vi prøver å avklare omfanget tidlig. Noen feil er enkle, andre krever mer tid å spore.",
+      },
+    ],
+    keywords: ["feilsøking bilstereo", "bilstereo virker ikke", "støy i bilanlegg"],
   },
   {
     slug: "hoyttaleroppgradering-i-bil",
@@ -441,7 +687,7 @@ export const serviceLandingPages = [
   },
 ];
 
-export const featuredServiceLandingPages = serviceLandingPages.slice(0, 4);
+export const featuredServiceLandingPages = serviceLandingPages;
 
 export function getServiceLandingPageBySlug(slug) {
   return serviceLandingPages.find((page) => page.slug === slug);

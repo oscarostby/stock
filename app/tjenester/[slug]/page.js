@@ -9,6 +9,7 @@ import speakerUpgradeImage from "../../assets/images/work/factory-speaker.png";
 import subInstallImageOne from "../../assets/images/work/subwoofer-install-1.png";
 import subInstallImageTwo from "../../assets/images/work/subwoofer-install-2.png";
 import subwooferYellowImage from "../../assets/images/work/subwoofer-yellow-install.png";
+import soundDeadeningImage from "../../assets/images/work/sound-deadening.png";
 import tweeterOhmResistorsImage from "../../assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
@@ -29,6 +30,7 @@ const imageMap = {
   subInstallOne: subInstallImageOne,
   subInstallTwo: subInstallImageTwo,
   subwooferYellow: subwooferYellowImage,
+  soundDeadening: soundDeadeningImage,
   tweeterOhmResistors: tweeterOhmResistorsImage,
 };
 

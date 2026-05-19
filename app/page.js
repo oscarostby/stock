@@ -28,12 +28,12 @@ export const metadata = createPageMetadata({
 });
 
 const categoryLinks = [
-  { title: "CarPlay", text: "3D-printet ramme og skjerm", image: customCarplayFrameImage },
-  { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage },
-  { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage },
-  { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage },
-  { title: "Lyddemping", text: "Dører og paneler", image: soundDeadeningImage },
-  { title: "Feilsøking", text: "Måling og signalfeil", image: tweeterOhmResistorsImage },
+  { title: "CarPlay", text: "3D-printet ramme og skjerm", image: customCarplayFrameImage, href: "/tjenester/carplay-montering" },
+  { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage, href: "/tjenester/hoyttaleroppgradering-i-bil" },
+  { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage, href: "/tjenester/subwoofer-og-forsterker" },
+  { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage, href: "/tjenester/forsterker-montering" },
+  { title: "Lyddemping", text: "Dører og paneler", image: soundDeadeningImage, href: "/tjenester/lyddemping-i-bil" },
+  { title: "Feilsøking", text: "Måling og signalfeil", image: tweeterOhmResistorsImage, href: "/tjenester/feilsoking-bilstereo" },
 ];
 
 const servicePackages = [
@@ -134,7 +134,7 @@ export default function HomePage() {
           </div>
           <div className="shop-category-grid">
             {categoryLinks.map((category) => (
-              <Link href="/#kontakt" className="shop-category" key={category.title}>
+              <Link href={category.href} className="shop-category" key={category.title}>
                 <span className="shop-category__image"><Image src={category.image} alt="" sizes="9rem" /></span>
                 <strong>{category.title}</strong>
                 <small>{category.text}</small>
