@@ -96,6 +96,20 @@ function projectPoint(point, yaw, pitch) {
   return { x: zx, y: -py, depth };
 }
 
+function getStableSceneScale(trunk, box) {
+  const maxWidth = Math.max(trunk.width, box.width);
+  const maxDepth = Math.max(trunk.depth, box.depth);
+  const maxHeight = Math.max(trunk.height, box.height);
+  const footprintDiagonal = Math.hypot(maxWidth, maxDepth);
+  const safeHorizontalRange = footprintDiagonal * 1.08;
+  const safeVerticalRange = (footprintDiagonal + maxHeight) * 1.08;
+
+  return Math.min(
+    620 / Math.max(1, safeHorizontalRange),
+    330 / Math.max(1, safeVerticalRange)
+  );
+}
+
 function buildScene(trunk, box, yaw, pitch) {
   const trunkPoints = cuboidPoints(trunk.width, trunk.depth, trunk.height).map((point) => projectPoint(point, yaw, pitch));
   const boxPoints = cuboidPoints(box.width, box.depth, box.height).map((point) => projectPoint(point, yaw, pitch));
@@ -104,7 +118,7 @@ function buildScene(trunk, box, yaw, pitch) {
   const maxX = Math.max(...allPoints.map((point) => point.x));
   const minY = Math.min(...allPoints.map((point) => point.y));
   const maxY = Math.max(...allPoints.map((point) => point.y));
-  const scale = Math.min(620 / Math.max(1, maxX - minX), 330 / Math.max(1, maxY - minY));
+  const scale = getStableSceneScale(trunk, box);
   const centerX = 360 - ((minX + maxX) / 2) * scale;
   const centerY = 230 - ((minY + maxY) / 2) * scale;
   const screen = (point) => ({ ...point, sx: point.x * scale + centerX, sy: point.y * scale + centerY });
@@ -170,11 +184,14 @@ export function SubwooferFitCalculator() {
   }
 
   function startDrag(event) {
+    event.preventDefault();
+    event.currentTarget.setPointerCapture?.(event.pointerId);
     dragRef.current = { x: event.clientX, y: event.clientY };
   }
 
   function drag(event) {
     if (!dragRef.current) return;
+    event.preventDefault();
     const deltaX = event.clientX - dragRef.current.x;
     const deltaY = event.clientY - dragRef.current.y;
     dragRef.current = { x: event.clientX, y: event.clientY };
@@ -182,8 +199,13 @@ export function SubwooferFitCalculator() {
     setPitch((current) => Math.max(12, Math.min(70, current - deltaY * 0.35)));
   }
 
-  function stopDrag() {
+  function stopDrag(event) {
+    event?.currentTarget?.releasePointerCapture?.(event.pointerId);
     dragRef.current = null;
+  }
+
+  function preventViewerWheel(event) {
+    event.preventDefault();
   }
 
   return (
@@ -252,6 +274,8 @@ export function SubwooferFitCalculator() {
             onPointerMove={drag}
             onPointerUp={stopDrag}
             onPointerCancel={stopDrag}
+            onLostPointerCapture={stopDrag}
+            onWheel={preventViewerWheel}
           >
             <title>3D-visning av subwooferboks inni bagasjerom</title>
             <defs>
