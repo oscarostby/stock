@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import speakerUpgradeImage from "../assets/images/work/door-panel-wiring.png";
+import speakerUpgradeImage from "../assets/images/work/custom-3d-printed-speaker-frame.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, faqItems, services } from "../data";

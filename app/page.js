@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, Clock, Mail, MapPin, Phone, Star } from "lucide-react";
 import afterRadioImage from "./assets/images/work/radio-after.png";
-import doorPanelWiringImage from "./assets/images/work/door-panel-wiring.png";
-import panelSoundTreatmentImage from "./assets/images/work/panel-sound-treatment.png";
+import audiOriginalAmplifierImage from "./assets/images/work/audi-original-amplifier.png";
+import customSpeakerFrameImage from "./assets/images/work/custom-3d-printed-speaker-frame.png";
 import speakerUpgradeImage from "./assets/images/work/factory-speaker.png";
-import subInstallImage from "./assets/images/work/subwoofer-install-1.png";
 import subwooferYellowImage from "./assets/images/work/subwoofer-yellow-install.png";
-import wiringModulesImage from "./assets/images/work/wiring-modules.png";
+import tweeterOhmResistorsImage from "./assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import { contact, customerReviews, majorServiceMunicipalities } from "./data";
@@ -29,11 +28,11 @@ export const metadata = createPageMetadata({
 
 const categoryLinks = [
   { title: "CarPlay", text: "Skjerm og adaptere", image: afterRadioImage },
-  { title: "Høyttalere", text: "Dører og frontsystem", image: doorPanelWiringImage },
+  { title: "Høyttalere", text: "3D-printet custom ramme", image: customSpeakerFrameImage },
   { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage },
-  { title: "Forsterker", text: "Strøm, jord og signal", image: wiringModulesImage },
-  { title: "Lyddemping", text: "Dører og paneler", image: panelSoundTreatmentImage },
-  { title: "Feilsøking", text: "Rydd opp i gammelt anlegg", image: subInstallImage },
+  { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage },
+  { title: "Lyddemping", text: "Dører og paneler", image: speakerUpgradeImage },
+  { title: "Feilsøking", text: "Måling og signalfeil", image: tweeterOhmResistorsImage },
 ];
 
 const servicePackages = [
@@ -59,7 +58,7 @@ const servicePackages = [
     text: "Bytte av originalhøyttalere med adaptere, demping og ryddig montering.",
     price: "Fra 650 kr/time",
     status: "Bil og dørpanel avgjør tid",
-    image: speakerUpgradeImage,
+    image: customSpeakerFrameImage,
   },
   {
     badge: "Rydding",
@@ -67,7 +66,7 @@ const servicePackages = [
     text: "Feilsøking, løse kabler, dårlig jording og anlegg som ikke spiller riktig.",
     price: "Etter avtale",
     status: "Forklar problemet kort",
-    image: wiringModulesImage,
+    image: tweeterOhmResistorsImage,
   },
 ];
 
@@ -155,7 +154,7 @@ export default function HomePage() {
               </div>
             </article>
             <article>
-              <Image src={speakerUpgradeImage} alt="Høyttaleroppgradering i bildør" sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={customSpeakerFrameImage} alt="3D-printet custom ramme for høyttaler i bildør" sizes="(max-width: 900px) 100vw, 50vw" />
               <div>
                 <span>Oppgradering</span>
                 <h2>Høyttalere og demping i dører</h2>

@@ -3,13 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import afterRadioImage from "../../assets/images/work/radio-after.png";
 import beforeRadioImage from "../../assets/images/work/radio-before.png";
-import doorPanelWiringImage from "../../assets/images/work/door-panel-wiring.png";
-import panelSoundTreatmentImage from "../../assets/images/work/panel-sound-treatment.png";
+import audiOriginalAmplifierImage from "../../assets/images/work/audi-original-amplifier.png";
+import customSpeakerFrameImage from "../../assets/images/work/custom-3d-printed-speaker-frame.png";
 import speakerUpgradeImage from "../../assets/images/work/factory-speaker.png";
 import subInstallImageOne from "../../assets/images/work/subwoofer-install-1.png";
 import subInstallImageTwo from "../../assets/images/work/subwoofer-install-2.png";
 import subwooferYellowImage from "../../assets/images/work/subwoofer-yellow-install.png";
-import wiringModulesImage from "../../assets/images/work/wiring-modules.png";
+import tweeterOhmResistorsImage from "../../assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { contact } from "../../data";
@@ -23,13 +23,13 @@ import { SiteEffects } from "../../site-effects";
 const imageMap = {
   afterRadio: afterRadioImage,
   beforeRadio: beforeRadioImage,
-  doorPanelWiring: doorPanelWiringImage,
-  panelSoundTreatment: panelSoundTreatmentImage,
+  audiOriginalAmplifier: audiOriginalAmplifierImage,
+  customSpeakerFrame: customSpeakerFrameImage,
   speakerUpgrade: speakerUpgradeImage,
   subInstallOne: subInstallImageOne,
   subInstallTwo: subInstallImageTwo,
   subwooferYellow: subwooferYellowImage,
-  wiringModules: wiringModulesImage,
+  tweeterOhmResistors: tweeterOhmResistorsImage,
 };
 
 export function generateStaticParams() {

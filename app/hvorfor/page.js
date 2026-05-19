@@ -1,5 +1,5 @@
 import Image from "next/image";
-import panelSoundTreatmentImage from "../assets/images/work/panel-sound-treatment.png";
+import tweeterOhmResistorsImage from "../assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { steps, trustSignals } from "../data";
@@ -52,8 +52,8 @@ export default function WhyPage() {
           <div className="detail-grid">
             <article className="page-hero__media" data-reveal="">
               <Image
-                src={panelSoundTreatmentImage}
-                alt="Demontert panel under ryddig bilstereo- og lydinstallasjon"
+                src={tweeterOhmResistorsImage}
+                alt="Motstander-oppsett for å ohme ned tweeters i bilstereo"
                 sizes="(max-width: 1100px) 100vw, 58vw"
               />
             </article>

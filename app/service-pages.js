@@ -11,8 +11,8 @@ export const serviceLandingPages = [
       "For deg som vil bygge nytt lydanlegg, oppgradere original lyd eller rydde opp i et eldre oppsett i bilen.",
     summary:
       "Vi ser på hva bilen tåler, hvor utstyret bør stå og hvordan jobben kan gjøres ryddig fra start.",
-    imageKey: "panelSoundTreatment",
-    imageAlt: "Panel demontert for ryddig lydinstallasjon og kabling i bil",
+    imageKey: "subInstallOne",
+    imageAlt: "Subwoofer, forsterker og kabling under lydinstallasjon i bil",
     tags: [
       "Oppgradering av original lyd",
       "Ryddig kabling",
@@ -363,8 +363,8 @@ export const serviceLandingPages = [
       "For deg som vil ha mer klarhet, mer trykk og mindre slapp original lyd uten å bygge hele anlegget på nytt.",
     summary:
       "Vi ser på høyttalere, dører, adaptere og om lyddemping eller ekstra effekt bør vurderes samtidig.",
-    imageKey: "doorPanelWiring",
-    imageAlt: "Dørpanel demontert for høyttaleroppgradering og kabling",
+    imageKey: "customSpeakerFrame",
+    imageAlt: "3D-printet custom ramme for høyttaler i bildør",
     tags: [
       "Original lyd",
       "Dører og adaptere",
