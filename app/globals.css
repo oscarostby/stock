@@ -67,7 +67,7 @@ p { margin-bottom: 0; }
 .shop-topbar a { color: #fff; }
 
 .shop-header { position: sticky; top: 0; z-index: 60; background: #fff; border-bottom: 1px solid var(--shop-line); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-.shop-header__main { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; min-height: 4.8rem; }
+.shop-header__main { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1rem; min-height: 4.8rem; }
 .shop-header__brand { display: flex; align-items: center; gap: .7rem; min-width: 0; }
 .shop-header__brand strong { display: block; font-size: 1.35rem; font-weight: 900; line-height: 1; text-transform: uppercase; }
 .shop-header__brand small { display: none; color: var(--shop-muted); font-size: .78rem; font-weight: 700; }
@@ -78,7 +78,7 @@ p { margin-bottom: 0; }
 .shop-header__actions { display: none; align-items: center; gap: .8rem; font-weight: 800; }
 .shop-header__actions a { white-space: nowrap; }
 .shop-header__cta { background: var(--shop-red); color: #fff !important; padding: .72rem .95rem; }
-.shop-header__menu { border: 1px solid var(--shop-line); background: #fff; padding: .7rem; }
+.shop-header__menu { justify-self: end; border: 1px solid var(--shop-line); background: #fff; padding: .7rem; }
 .shop-nav { display: none; background: var(--shop-dark); color: #fff; }
 .shop-nav__inner { display: flex; align-items: center; gap: 0; }
 .shop-nav a { border-right: 1px solid rgba(255,255,255,.12); color: #fff; font-size: .86rem; font-weight: 900; letter-spacing: .02em; padding: .9rem 1rem; text-transform: uppercase; }
@@ -341,6 +341,13 @@ main:not(.shop-site) { background: var(--shop-bg); }
 .area-cta strong { font-size: 1.15rem; font-weight: 950; text-transform: uppercase; }
 .area-cta p { color: var(--shop-muted); }
 .area-cta a { background: var(--shop-red); color: #fff; font-weight: 950; padding: .8rem 1rem; text-align: center; text-transform: uppercase; width: fit-content; }
+
+@media (max-width: 899px) {
+  .shop-header__search,
+  .shop-header__actions {
+    display: none !important;
+  }
+}
 
 @media (min-width: 640px) {
   .shop-benefits__grid, .shop-footer-trust__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
