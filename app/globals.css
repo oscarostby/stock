@@ -39,17 +39,17 @@ p { margin-bottom: 0; }
 .brand-mark--compact { width: 3rem; }
 .brand-mark--header {
   position: relative;
-  width: clamp(9rem, 28vw, 13rem);
-  height: 3.65rem;
+  width: clamp(10.5rem, 34vw, 16.5rem);
+  height: 4.15rem;
   overflow: hidden;
 }
 .brand-mark img { width: 100%; height: auto; object-fit: contain; }
 .brand-mark--header img {
   position: absolute;
-  left: 0;
-  top: 50%;
+  left: 50%;
+  top: 51%;
   max-width: none;
-  transform: translateY(-50%) scale(1.02);
+  transform: translate(-50%, -50%) scale(1.22);
 }
 
 .shop-container { width: min(100% - 2rem, 73rem); margin: 0 auto; }
