@@ -62,7 +62,6 @@ export default function ServiceLandingPage({ params }) {
 
   const pageImage = imageMap[page.imageKey];
   const relatedPages = serviceLandingPages.filter((item) => item.slug !== page.slug).slice(0, 3);
-  const faqTitle = page.title.replace("Carplay", "CarPlay").replace("carplay", "CarPlay");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -220,11 +219,11 @@ export default function ServiceLandingPage({ params }) {
           <div className="section-heading section-heading--split" data-reveal="">
             <div>
               <p className="eyebrow">Spørsmål</p>
-              <h2>Vanlige spørsmål om {faqTitle}.</h2>
+              <h2>Lurer du på noe før montering?</h2>
             </div>
             <p className="lead">
-              Hvis du er usikker på om dette passer bilen din, er det enklest å sende
-              bilmodell, årsmodell og hva du vil få gjort.
+              Send bilmodell, årsmodell og hva du ønsker gjort. Da kan vi gi en mer
+              konkret vurdering før du setter av tid.
             </p>
           </div>
 
@@ -242,11 +241,11 @@ export default function ServiceLandingPage({ params }) {
           <div className="section-heading section-heading--split" data-reveal="">
             <div>
               <p className="eyebrow">Flere tjenester</p>
-              <h2>Andre monteringer som kan være relevante.</h2>
+              <h2>Dette kan også høre sammen med jobben.</h2>
             </div>
             <p className="lead">
-              Hvis jobben din gjelder mer enn én del av anlegget, kan det være nyttig å
-              se hvordan vi vurderer de andre løsningene også.
+              Mange lydjobber berører flere deler av bilen. Her er noen sider som kan
+              være nyttige hvis du planlegger mer enn én oppgradering.
             </p>
           </div>
 
