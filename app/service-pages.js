@@ -11,8 +11,8 @@ export const serviceLandingPages = [
       "For deg som vil bygge nytt lydanlegg, oppgradere original lyd eller rydde opp i et eldre oppsett i bilen.",
     summary:
       "Vi ser på hva bilen tåler, hvor utstyret bør stå og hvordan jobben kan gjøres ryddig fra start.",
-    imageKey: "subInstallOne",
-    imageAlt: "Lydinstallasjon med subwoofer og kabling i bil",
+    imageKey: "panelSoundTreatment",
+    imageAlt: "Panel demontert for ryddig lydinstallasjon og kabling i bil",
     tags: [
       "Oppgradering av original lyd",
       "Ryddig kabling",
@@ -275,7 +275,7 @@ export const serviceLandingPages = [
       "Passer når du vil ha mer bass, mer kontroll eller et mer komplett oppsett enn original lyd klarer å levere.",
     summary:
       "Vi vurderer strøm, plassering, bagasjerom og hvordan anlegget bør bygges for å fungere godt i bilen.",
-    imageKey: "subInstallTwo",
+    imageKey: "subwooferYellow",
     imageAlt: "Subwoofer og forsterker montert i bagasjerom",
     tags: [
       "Mer bass i bilen",
@@ -363,8 +363,8 @@ export const serviceLandingPages = [
       "For deg som vil ha mer klarhet, mer trykk og mindre slapp original lyd uten å bygge hele anlegget på nytt.",
     summary:
       "Vi ser på høyttalere, dører, adaptere og om lyddemping eller ekstra effekt bør vurderes samtidig.",
-    imageKey: "speakerUpgrade",
-    imageAlt: "Oppgradering av høyttaler i bildør",
+    imageKey: "doorPanelWiring",
+    imageAlt: "Dørpanel demontert for høyttaleroppgradering og kabling",
     tags: [
       "Original lyd",
       "Dører og adaptere",

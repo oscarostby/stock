@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import afterRadioImage from "../../etterradio.png";
+import afterRadioImage from "../assets/images/work/radio-after.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { commonJobs, pricingFactors, pricingIncludes } from "../data";

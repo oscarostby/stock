@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, Clock, Mail, MapPin, Phone, Star } from "lucide-react";
-import afterRadioImage from "../etterradio.png";
-import subInstallImage from "../monteringavsub1.png";
-import speakerUpgradeImage from "../standarhøytaler.png";
+import afterRadioImage from "./assets/images/work/radio-after.png";
+import doorPanelWiringImage from "./assets/images/work/door-panel-wiring.png";
+import panelSoundTreatmentImage from "./assets/images/work/panel-sound-treatment.png";
+import speakerUpgradeImage from "./assets/images/work/factory-speaker.png";
+import subInstallImage from "./assets/images/work/subwoofer-install-1.png";
+import subwooferYellowImage from "./assets/images/work/subwoofer-yellow-install.png";
+import wiringModulesImage from "./assets/images/work/wiring-modules.png";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import { contact, customerReviews, majorServiceMunicipalities } from "./data";
@@ -25,11 +29,11 @@ export const metadata = createPageMetadata({
 
 const categoryLinks = [
   { title: "CarPlay", text: "Skjerm og adaptere", image: afterRadioImage },
-  { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage },
-  { title: "Subwoofer", text: "Basskasse og kabler", image: subInstallImage },
-  { title: "Forsterker", text: "Strøm, jord og signal", image: subInstallImage },
-  { title: "Lyddemping", text: "Dører og paneler", image: speakerUpgradeImage },
-  { title: "Feilsøking", text: "Rydd opp i gammelt anlegg", image: afterRadioImage },
+  { title: "Høyttalere", text: "Dører og frontsystem", image: doorPanelWiringImage },
+  { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage },
+  { title: "Forsterker", text: "Strøm, jord og signal", image: wiringModulesImage },
+  { title: "Lyddemping", text: "Dører og paneler", image: panelSoundTreatmentImage },
+  { title: "Feilsøking", text: "Rydd opp i gammelt anlegg", image: subInstallImage },
 ];
 
 const servicePackages = [
@@ -47,7 +51,7 @@ const servicePackages = [
     text: "Strømkabel, sikring, jordpunkt, signal og plassering i bil/bagasjerom.",
     price: "Fra 650 kr/time",
     status: "Send bilde av utstyr",
-    image: subInstallImage,
+    image: subwooferYellowImage,
   },
   {
     badge: "God oppgradering",
@@ -63,7 +67,7 @@ const servicePackages = [
     text: "Feilsøking, løse kabler, dårlig jording og anlegg som ikke spiller riktig.",
     price: "Etter avtale",
     status: "Forklar problemet kort",
-    image: subInstallImage,
+    image: wiringModulesImage,
   },
 ];
 
@@ -142,7 +146,7 @@ export default function HomePage() {
         <section className="shop-offer">
           <div className="shop-container shop-offer__grid">
             <article>
-              <Image src={subInstallImage} alt="Subwoofer og forsterker montert i bil" sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={subwooferYellowImage} alt="Subwoofer og forsterker montert i bil" sizes="(max-width: 900px) 100vw, 50vw" />
               <div>
                 <span>Pakkejobb</span>
                 <h2>Subwoofer, forsterker og kabelsett</h2>

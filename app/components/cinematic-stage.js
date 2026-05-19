@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import carImageOne from "../../photo-1728060693031-5999c4ee6c3b.jpeg";
-import carImageTwo from "../../wgAoH9.jpg";
-import carImageThree from "../../skoda-superb-2017-hd-wallpaper-silhouette-dark-black-23-11-2024-1732393608-hd-wallpaper.jpg";
-import carImageFour from "../../b-Tom356n.jpg";
+import carImageOne from "../assets/images/background/dark-car-front.jpeg";
+import carImageTwo from "../assets/images/background/audi-front.jpg";
+import carImageThree from "../assets/images/background/skoda-silhouette.jpg";
+import carImageFour from "../assets/images/background/dark-car-road.jpg";
 
 const scenes = [
   {

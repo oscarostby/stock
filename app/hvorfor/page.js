@@ -1,5 +1,5 @@
 import Image from "next/image";
-import subInstallImageOne from "../../monteringavsub1.png";
+import panelSoundTreatmentImage from "../assets/images/work/panel-sound-treatment.png";
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { steps, trustSignals } from "../data";
@@ -52,8 +52,8 @@ export default function WhyPage() {
           <div className="detail-grid">
             <article className="page-hero__media" data-reveal="">
               <Image
-                src={subInstallImageOne}
-                alt="Montering av lydanlegg i bil"
+                src={panelSoundTreatmentImage}
+                alt="Demontert panel under ryddig bilstereo- og lydinstallasjon"
                 sizes="(max-width: 1100px) 100vw, 58vw"
               />
             </article>

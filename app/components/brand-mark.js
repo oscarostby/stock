@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoImage from "../../logo.png";
+import logoImage from "../assets/images/brand/logo.png";
 
 export function BrandMark({ className = "", compact = false, priority = false }) {
   return (
