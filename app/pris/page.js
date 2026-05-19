@@ -8,16 +8,69 @@ import { createPageMetadata } from "../seo";
 import { SiteEffects } from "../site-effects";
 
 export const metadata = createPageMetadata({
-  title: "Pris på lydinstallasjon og bilstereo",
+  title: "Pris på bilstereo montering og lydinstallasjon",
   description:
-    "Se hvordan pris på lydinstallasjon i bil vurderes hos Instalyd. Timepris er 650 kr, og vi vurderer bil, utstyr og omfang før montering.",
+    "Se pris og hvordan Instalyd vurderer bilstereo montering, CarPlay, subwoofer, forsterker og lydinstallasjon i bil. Timepris er 650 kr.",
   path: "/pris",
   keywords: [
     "pris lydinstallasjon",
     "pris bilstereo montering",
     "timepris bilstereo",
+    "CarPlay montering pris",
+    "subwoofer montering pris",
   ],
 });
+
+const priceHighlights = [
+  { label: "Timepris", value: "650 kr", note: "per time" },
+  { label: "Vurdering", value: "Før start", note: "bil, utstyr og omfang" },
+  { label: "Utstyr", value: "Dine deler", note: "vi monterer det du har" },
+];
+
+const exampleJobs = [
+  {
+    title: "CarPlay / skjerm",
+    description: "Montering, ramme, overgangskabler og enkel funksjonstest.",
+    price: "650 kr/time",
+    detail: "Omfang avhenger av bilmodell og dashbord.",
+  },
+  {
+    title: "Subwoofer + forsterker",
+    description: "Strømkabel, sikring, jordpunkt, signal og plassering i bagasjerom.",
+    price: "650 kr/time",
+    detail: "Send bilde av utstyr og bagasjerom først.",
+  },
+  {
+    title: "Høyttalere i dører",
+    description: "Bytte av originalhøyttalere, adaptere og eventuell demping.",
+    price: "650 kr/time",
+    detail: "Dørpanel og biltype avgjør tidsbruk.",
+  },
+  {
+    title: "Feilsøking / opprydding",
+    description: "Finne feil, rydde kabler, dårlig jord eller eldre halvferdig anlegg.",
+    price: "Etter vurdering",
+    detail: "Forklar problemet kort når du tar kontakt.",
+  },
+];
+
+const quoteSteps = [
+  {
+    number: "01",
+    title: "Send bil og jobb",
+    text: "Skriv bilmodell, årsmodell, hva du vil montere og hvilke deler du har.",
+  },
+  {
+    number: "02",
+    title: "Vi vurderer omfang",
+    text: "Du får en ærlig vurdering av hva som må gjøres før jobben starter.",
+  },
+  {
+    number: "03",
+    title: "Pris følger jobben",
+    text: "Timepris er fast, men totalen avhenger av tid, bil og oppsett.",
+  },
+];
 
 export default function PricingPage() {
   return (
@@ -25,85 +78,127 @@ export default function PricingPage() {
       <SiteEffects />
       <Header />
 
-      <main>
-        <section className="section">
-          <div className="page-hero">
-            <div data-reveal="">
-              <p className="eyebrow">Pris</p>
-              <h1>Pris vurderes ut fra bil, utstyr og arbeid.</h1>
-              <p className="lead">
-                Timepris er 650 kr. Endelig pris avhenger av hva som skal monteres og hvor
-                krevende bilen er å jobbe i.
+      <main className="price-page">
+        <section className="price-hero">
+          <div className="shop-container price-hero__grid">
+            <div className="price-hero__copy" data-reveal="">
+              <p className="shop-eyebrow">Pris</p>
+              <h1>Enkel timepris. Tydelig vurdering før montering.</h1>
+              <p>
+                Instalyd tar 650 kr/time for bilstereo, CarPlay, subwoofer, forsterker,
+                høyttalere og annen lydinstallasjon i bil. Du får vurdering basert på bil,
+                utstyr og omfang før jobben avtales.
               </p>
+              <div className="price-hero__actions">
+                <Link className="shop-btn shop-btn--red" href="/kontakt">Be om prisvurdering</Link>
+                <Link className="shop-btn shop-btn--dark" href="/tjenester">Se tjenester</Link>
+              </div>
             </div>
 
-            <aside className="page-hero__side" data-reveal="">
-              <p className="mini-title">Kort fortalt</p>
-              <div className="page-hero__meta">
-                <span>650 kr/time</span>
-                <span>Vurderes før start</span>
-                <span>Pris etter omfang</span>
-              </div>
+            <aside className="price-rate-card" data-reveal="">
+              <span>Timepris</span>
+              <strong>650 kr</strong>
+              <small>per time</small>
+              <p>Endelig totalpris avhenger av bilmodell, demontering, kabling og hvor mye utstyr som skal monteres.</p>
             </aside>
           </div>
         </section>
 
-        <section className="section section--tight">
-          <div className="pricing-grid">
-            <article className="pricing-rate" data-reveal="">
-              <p className="mini-title">Timepris</p>
-              <div className="pricing-rate__value">650 kr/time</div>
-              <p>
-                Vi sier fra dersom bilen eller oppsettet gjør jobben større enn det som
-                først ser ut til å være nødvendig.
-              </p>
-              <Link className="button button--secondary" href="/kontakt">
-                Be om vurdering
-              </Link>
+        <section className="shop-container price-highlights" aria-label="Kort om pris">
+          {priceHighlights.map((item) => (
+            <article key={item.label} data-reveal="">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+              <p>{item.note}</p>
             </article>
+          ))}
+        </section>
 
-            <div className="pricing-grid__stack">
-              <article className="pricing-card" data-reveal="">
-                <p className="mini-title">Dette påvirker prisen</p>
-                <ul className="plain-list">
-                  {pricingFactors.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </article>
+        <section className="shop-container price-section">
+          <div className="shop-section-title">
+            <p className="shop-eyebrow">Eksempler</p>
+            <h2>Vanlige jobber og hvordan pris vurderes.</h2>
+            <p>Dette er ikke fastpakker. Det er en ryddig oversikt over typiske jobber og hva som påvirker tiden.</p>
+          </div>
 
-              <article className="pricing-card" data-reveal="">
-                <p className="mini-title">Dette kan du forvente</p>
-                <ul className="plain-list">
-                  {pricingIncludes.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className="price-job-grid">
+            {exampleJobs.map((job) => (
+              <article className="price-job-card" key={job.title} data-reveal="">
+                <div>
+                  <h3>{job.title}</h3>
+                  <p>{job.description}</p>
+                </div>
+                <strong>{job.price}</strong>
+                <small>{job.detail}</small>
               </article>
-            </div>
+            ))}
           </div>
         </section>
 
-        <section className="section section--spread section--last">
-          <div className="detail-grid">
-            <article className="page-hero__media" data-reveal="">
-              <Image
-                src={afterRadioImage}
-                alt="CarPlay-skjerm montert i bil"
-                sizes="(max-width: 1100px) 100vw, 58vw"
-              />
+        <section className="price-breakdown">
+          <div className="shop-container price-breakdown__grid">
+            <article className="price-info-card" data-reveal="">
+              <p className="shop-eyebrow">Dette påvirker totalen</p>
+              <h2>Hvorfor prisen varierer.</h2>
+              <ul>
+                {pricingFactors.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </article>
 
-            <article className="detail-card" data-reveal="">
-              <p className="mini-title">Vanlige jobber</p>
-              <h3>Typiske ting vi får spørsmål om.</h3>
-              <ul className="info-list">
-                {commonJobs.map((item) => (
+            <article className="price-info-card price-info-card--dark" data-reveal="">
+              <p className="shop-eyebrow">Dette får du</p>
+              <h2>Hva som er inkludert i vurderingen.</h2>
+              <ul>
+                {pricingIncludes.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
             </article>
           </div>
+        </section>
+
+        <section className="shop-container price-process">
+          <div className="shop-section-title shop-section-title--center">
+            <p className="shop-eyebrow">Slik får du riktig pris</p>
+            <h2>Send riktig info først, så blir vurderingen bedre.</h2>
+          </div>
+
+          <div className="price-process__grid">
+            {quoteSteps.map((step) => (
+              <article key={step.number} data-reveal="">
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="shop-container price-final section--last">
+          <div className="price-final__image" data-reveal="">
+            <Image
+              src={afterRadioImage}
+              alt="CarPlay og bilstereo montert ryddig i bil"
+              sizes="(max-width: 900px) 100vw, 44vw"
+            />
+          </div>
+
+          <article className="price-final__copy" data-reveal="">
+            <p className="shop-eyebrow">Klar for vurdering?</p>
+            <h2>Send bilmodell, år og hva du vil montere.</h2>
+            <p>
+              Ta gjerne med bilder av dashbord, bagasjerom, eksisterende anlegg og delene du har kjøpt.
+              Da er det enklere å gi et realistisk svar før du setter av tid.
+            </p>
+            <ul>
+              {commonJobs.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <Link className="shop-btn shop-btn--red" href="/kontakt">Send forespørsel</Link>
+          </article>
         </section>
       </main>
 
