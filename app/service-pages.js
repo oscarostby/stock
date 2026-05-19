@@ -187,8 +187,8 @@ export const serviceLandingPages = [
       "For deg som vil oppgradere fra originalradio til skjerm eller CarPlay-løsning som fungerer bedre i hverdagen.",
     summary:
       "Vi ser på bilen, integrasjonen og hva som skal til for å få en løsning som både fungerer og ser riktig ut.",
-    imageKey: "afterRadio",
-    imageAlt: "CarPlay-skjerm montert i bil",
+    imageKey: "customCarplayFrame",
+    imageAlt: "3D-printet ramme til CarPlay-montering i bil",
     tags: [
       "Skjerm og originalradio",
       "CarPlay i hverdagen",
@@ -363,8 +363,8 @@ export const serviceLandingPages = [
       "For deg som vil ha mer klarhet, mer trykk og mindre slapp original lyd uten å bygge hele anlegget på nytt.",
     summary:
       "Vi ser på høyttalere, dører, adaptere og om lyddemping eller ekstra effekt bør vurderes samtidig.",
-    imageKey: "customSpeakerFrame",
-    imageAlt: "3D-printet custom ramme for høyttaler i bildør",
+    imageKey: "speakerUpgrade",
+    imageAlt: "Høyttaler og dørdetalj under oppgradering i bil",
     tags: [
       "Original lyd",
       "Dører og adaptere",

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import afterRadioImage from "../../assets/images/work/radio-after.png";
 import beforeRadioImage from "../../assets/images/work/radio-before.png";
 import audiOriginalAmplifierImage from "../../assets/images/work/audi-original-amplifier.png";
-import customSpeakerFrameImage from "../../assets/images/work/custom-3d-printed-speaker-frame.png";
+import customCarplayFrameImage from "../../assets/images/work/custom-3d-printed-carplay-frame.png";
 import speakerUpgradeImage from "../../assets/images/work/factory-speaker.png";
 import subInstallImageOne from "../../assets/images/work/subwoofer-install-1.png";
 import subInstallImageTwo from "../../assets/images/work/subwoofer-install-2.png";
@@ -24,7 +24,7 @@ const imageMap = {
   afterRadio: afterRadioImage,
   beforeRadio: beforeRadioImage,
   audiOriginalAmplifier: audiOriginalAmplifierImage,
-  customSpeakerFrame: customSpeakerFrameImage,
+  customCarplayFrame: customCarplayFrameImage,
   speakerUpgrade: speakerUpgradeImage,
   subInstallOne: subInstallImageOne,
   subInstallTwo: subInstallImageTwo,

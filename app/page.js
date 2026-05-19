@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CheckCircle2, Clock, Mail, MapPin, Phone, Star } from "lucide-react";
 import afterRadioImage from "./assets/images/work/radio-after.png";
 import audiOriginalAmplifierImage from "./assets/images/work/audi-original-amplifier.png";
-import customSpeakerFrameImage from "./assets/images/work/custom-3d-printed-speaker-frame.png";
+import customCarplayFrameImage from "./assets/images/work/custom-3d-printed-carplay-frame.png";
 import speakerUpgradeImage from "./assets/images/work/factory-speaker.png";
 import subwooferYellowImage from "./assets/images/work/subwoofer-yellow-install.png";
 import tweeterOhmResistorsImage from "./assets/images/work/tweeter-ohm-resistors.png";
@@ -27,8 +27,8 @@ export const metadata = createPageMetadata({
 });
 
 const categoryLinks = [
-  { title: "CarPlay", text: "Skjerm og adaptere", image: afterRadioImage },
-  { title: "Høyttalere", text: "3D-printet custom ramme", image: customSpeakerFrameImage },
+  { title: "CarPlay", text: "3D-printet ramme og skjerm", image: customCarplayFrameImage },
+  { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage },
   { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage },
   { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage },
   { title: "Lyddemping", text: "Dører og paneler", image: speakerUpgradeImage },
@@ -42,7 +42,7 @@ const servicePackages = [
     text: "Montering av skjerm, ramme, overgangskabler og enkel funksjonstest.",
     price: "Fra 650 kr/time",
     status: "Vurderes etter bilmodell",
-    image: afterRadioImage,
+    image: customCarplayFrameImage,
   },
   {
     badge: "Mest spurt om",
@@ -58,7 +58,7 @@ const servicePackages = [
     text: "Bytte av originalhøyttalere med adaptere, demping og ryddig montering.",
     price: "Fra 650 kr/time",
     status: "Bil og dørpanel avgjør tid",
-    image: customSpeakerFrameImage,
+    image: speakerUpgradeImage,
   },
   {
     badge: "Rydding",
@@ -154,7 +154,7 @@ export default function HomePage() {
               </div>
             </article>
             <article>
-              <Image src={customSpeakerFrameImage} alt="3D-printet custom ramme for høyttaler i bildør" sizes="(max-width: 900px) 100vw, 50vw" />
+              <Image src={speakerUpgradeImage} alt="Høyttaler og dørdetalj under oppgradering i bil" sizes="(max-width: 900px) 100vw, 50vw" />
               <div>
                 <span>Oppgradering</span>
                 <h2>Høyttalere og demping i dører</h2>
