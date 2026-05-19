@@ -5,6 +5,7 @@ import afterRadioImage from "./assets/images/work/radio-after.png";
 import audiOriginalAmplifierImage from "./assets/images/work/audi-original-amplifier.png";
 import customCarplayFrameImage from "./assets/images/work/custom-3d-printed-carplay-frame.png";
 import speakerUpgradeImage from "./assets/images/work/factory-speaker.png";
+import soundDeadeningImage from "./assets/images/work/sound-deadening.png";
 import subwooferYellowImage from "./assets/images/work/subwoofer-yellow-install.png";
 import tweeterOhmResistorsImage from "./assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "./components/footer";
@@ -31,7 +32,7 @@ const categoryLinks = [
   { title: "Høyttalere", text: "Dører og frontsystem", image: speakerUpgradeImage },
   { title: "Subwoofer", text: "Basskasse og kabler", image: subwooferYellowImage },
   { title: "Forsterker", text: "Original amp og oppkobling", image: audiOriginalAmplifierImage },
-  { title: "Lyddemping", text: "Dører og paneler", image: speakerUpgradeImage },
+  { title: "Lyddemping", text: "Dører og paneler", image: soundDeadeningImage },
   { title: "Feilsøking", text: "Måling og signalfeil", image: tweeterOhmResistorsImage },
 ];
 
