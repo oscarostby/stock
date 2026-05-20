@@ -269,11 +269,12 @@ main:not(.shop-site) { background: var(--shop-bg); }
 .eyebrow, .mini-title { color: var(--shop-red); font-size: .78rem; font-weight: 950; letter-spacing: .05em; margin-bottom: .55rem; text-transform: uppercase; }
 .lead { color: var(--shop-muted); font-size: clamp(1rem, 1.5vw, 1.16rem); line-height: 1.75; max-width: 42rem; }
 .page-hero { display: grid; gap: 1rem; align-items: stretch; background: linear-gradient(135deg, #191919 0%, #303030 68%, #151515 100%); border-left: 7px solid var(--shop-red); color: #fff; padding: clamp(1.4rem, 4vw, 2.4rem); }
-.page-hero h1 { max-width: 48rem; margin-bottom: .9rem; color: #fff; font-size: clamp(2.1rem, 5vw, 4.35rem); font-weight: 950; letter-spacing: -.055em; line-height: .98; text-transform: uppercase; }
-.page-hero .lead { color: rgba(255,255,255,.78); }
+.page-hero > * { min-width: 0; }
+.page-hero h1 { max-width: 100%; margin-bottom: .9rem; color: #fff; font-size: clamp(2rem, 4.2vw, 3.85rem); font-weight: 950; letter-spacing: -.055em; line-height: .98; overflow-wrap: anywhere; text-transform: uppercase; }
+.page-hero .lead { color: rgba(255,255,255,.78); overflow-wrap: break-word; }
 .page-hero__side { border: 1px solid rgba(255,255,255,.18); border-top: 6px solid var(--shop-red); background: rgba(255,255,255,.08); color: #fff; padding: 1.1rem; }
-.page-hero__meta { display: grid; gap: .55rem; }
-.page-hero__meta span { display: block; border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.16); color: #fff; font-weight: 900; padding: .72rem .85rem; }
+.page-hero__meta { display: grid; gap: .55rem; min-width: 0; }
+.page-hero__meta span { display: block; min-width: 0; border: 1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.16); color: #fff; font-weight: 900; overflow-wrap: break-word; padding: .72rem .85rem; }
 .detail-grid, .pricing-grid, .contact-stage { display: grid; gap: 1rem; align-items: start; }
 .page-hero__media { overflow: hidden; border: 1px solid var(--shop-line); background: #111; }
 .page-hero__media img { width: 100%; height: 100%; min-height: 19rem; object-fit: cover; }
@@ -493,7 +494,8 @@ main:not(.shop-site) { background: var(--shop-bg); }
   .privacy-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .processor-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .privacy-contact-card { grid-template-columns: minmax(0, 1fr) auto; }
-  .page-hero, .detail-grid, .pricing-grid, .contact-stage, .section-heading--split { grid-template-columns: minmax(0, 1fr) minmax(20rem, .72fr); }
+  .page-hero { grid-template-columns: minmax(0, 1.35fr) minmax(17rem, .55fr); }
+  .detail-grid, .pricing-grid, .contact-stage, .section-heading--split { grid-template-columns: minmax(0, 1fr) minmax(20rem, .72fr); }
   .service-row { grid-template-columns: 3rem minmax(0, 1fr) minmax(15rem, .65fr); }
   .content-link-grid, .values-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .area-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
