@@ -505,11 +505,11 @@ main:not(.shop-site) { background: var(--shop-bg); }
 @media (max-width: 639px) {
   .shop-container { width: min(100% - 1rem, 73rem); }
   .shop-site { overflow-x: hidden; }
-  .shop-hero { padding: .55rem 0 .75rem; }
+  .shop-hero { background: #fff; color: #111; padding: .55rem 0 .75rem; }
   .shop-hero__grid { gap: .65rem; }
-  .shop-hero__copy { min-height: auto; border-left-width: 5px; padding: 1.1rem; }
-  .shop-hero h1 { margin-bottom: .75rem; font-size: clamp(2.05rem, 10vw, 3.05rem); letter-spacing: -.06em; line-height: .94; overflow-wrap: break-word; }
-  .shop-hero p:not(.shop-eyebrow) { font-size: .98rem; line-height: 1.55; }
+  .shop-hero__copy { min-height: auto; border-left-width: 5px; background: #fff; color: #111; padding: 1.1rem; box-shadow: 0 8px 22px rgba(0,0,0,.07); }
+  .shop-hero h1 { margin-bottom: .75rem; color: #111; font-size: clamp(2.05rem, 10vw, 3.05rem); letter-spacing: -.06em; line-height: .94; overflow-wrap: break-word; }
+  .shop-hero p:not(.shop-eyebrow) { color: #333; font-size: .98rem; line-height: 1.55; }
   .shop-hero__buttons { gap: .55rem; margin-top: 1rem; }
   .shop-btn { width: 100%; min-height: 2.85rem; padding: .78rem .9rem; }
   .shop-hero__image { min-height: 13.5rem; }
