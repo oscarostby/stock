@@ -504,9 +504,47 @@ main:not(.shop-site) { background: var(--shop-bg); }
 
 @media (max-width: 639px) {
   .shop-container { width: min(100% - 1rem, 73rem); }
-  .shop-hero__copy { min-height: auto; padding: 1.4rem; }
-  .shop-btn { width: 100%; }
+  .shop-site { overflow-x: hidden; }
+  .shop-hero { padding: .55rem 0 .75rem; }
+  .shop-hero__grid { gap: .65rem; }
+  .shop-hero__copy { min-height: auto; border-left-width: 5px; padding: 1.1rem; }
+  .shop-hero h1 { margin-bottom: .75rem; font-size: clamp(2.05rem, 10vw, 3.05rem); letter-spacing: -.06em; line-height: .94; overflow-wrap: break-word; }
+  .shop-hero p:not(.shop-eyebrow) { font-size: .98rem; line-height: 1.55; }
+  .shop-hero__buttons { gap: .55rem; margin-top: 1rem; }
+  .shop-btn { width: 100%; min-height: 2.85rem; padding: .78rem .9rem; }
+  .shop-hero__image { min-height: 13.5rem; }
+  .shop-hero__image img { min-height: 13.5rem; }
+  .shop-hero__deal { right: .75rem; bottom: .75rem; padding: .72rem .9rem; }
+  .shop-hero__deal strong { font-size: .74rem; }
+  .shop-hero__deal span { font-size: 1.15rem; }
+  .shop-benefits__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shop-benefits__grid div { min-height: 3.15rem; padding: .65rem .35rem; font-size: .78rem; line-height: 1.15; }
+  .shop-categories, .shop-products, .shop-help, .shop-local, .shop-contact { padding: 2.15rem 0; }
+  .shop-section-title { gap: .45rem; margin-bottom: 1rem; }
   .shop-section-title > a { width: 100%; text-align: center; }
+  .shop-finder h2, .shop-section-title h2, .shop-help h2, .shop-local h2, .shop-contact h2 { font-size: clamp(1.45rem, 7vw, 2rem); line-height: 1.03; }
+  .shop-category-grid { gap: .6rem; }
+  .shop-category { padding: .82rem .5rem; }
+  .shop-category__image { width: 4.8rem; height: 4.8rem; }
+  .shop-category strong { font-size: .9rem; }
+  .shop-category small { font-size: .78rem; line-height: 1.25; }
+  .shop-offer { padding: .5rem 0; }
+  .shop-offer__grid { gap: .65rem; }
+  .shop-offer article { min-height: 15rem; }
+  .shop-offer article img { min-height: 15rem; }
+  .shop-offer article > div { inset: auto .85rem .85rem .85rem; }
+  .shop-offer h2 { font-size: clamp(1.35rem, 7vw, 1.9rem); }
+  .shop-offer p { font-size: .92rem; margin-bottom: .65rem; }
+  .shop-product-grid { gap: .75rem; }
+  .shop-product-card { border-top: 5px solid var(--shop-red); }
+  .shop-product-card > img { display: none; }
+  .shop-badge { position: static; align-self: start; margin: .85rem .9rem 0; width: fit-content; }
+  .shop-product-card__body { padding: .75rem .9rem .9rem; }
+  .shop-reviews { padding: 2.15rem 0; }
+  .shop-review-row article { flex-basis: min(18rem, 86vw); }
+  .shop-map-card { min-height: 11rem; border-width: 5px; padding: 1.2rem; }
+  .shop-map-card strong { font-size: 1.45rem; }
+  .shop-contact__form { padding: .85rem; }
   .sub-fit__fields fieldset > div { grid-template-columns: 1fr; }
   .sub-fit__scene { min-height: 17rem; }
   .sub-fit__stage { transform: scale(.78) rotateX(var(--scene-tilt)) rotateZ(var(--scene-rotate)); }
