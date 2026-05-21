@@ -1,9 +1,14 @@
 export const officeCookieName = "instalyd-office-session";
 export const officeCookieMaxAge = 60 * 60 * 24 * 14;
 
-const officePassword = "2006";
-const officeSessionSecret = "instalyd-office-session-v1";
-const allowedOfficeUsers = new Set(["oscar", "Oscar", "alex", "Alex"]);
+const officePassword = process.env.OFFICE_PASSWORD || "";
+const officeSessionSecret = process.env.OFFICE_SESSION_SECRET || "";
+const allowedOfficeUsers = new Set(
+  (process.env.OFFICE_USERS || "")
+    .split(",")
+    .map((user) => user.trim())
+    .filter(Boolean),
+);
 
 export function normalizeOfficeUsername(value) {
   return value.toString().trim();
@@ -16,10 +21,20 @@ export function formatOfficeUsername(value) {
 export function verifyOfficeCredentials(username, password) {
   const normalized = normalizeOfficeUsername(username);
 
-  return allowedOfficeUsers.has(normalized) && password === officePassword;
+  return Boolean(
+    officePassword &&
+      officeSessionSecret &&
+      allowedOfficeUsers.size > 0 &&
+      allowedOfficeUsers.has(normalized) &&
+      password === officePassword,
+  );
 }
 
 export function createOfficeSessionValue(username) {
+  if (!officeSessionSecret) {
+    return "";
+  }
+
   return `${normalizeOfficeUsername(username)}:${officeSessionSecret}`;
 }
 
@@ -38,7 +53,7 @@ export function readOfficeSessionValue(value) {
 
     const [username, secret] = parts;
 
-    if (secret !== officeSessionSecret || !normalizeOfficeUsername(username)) {
+    if (secret !== officeSessionSecret || !officeSessionSecret || !normalizeOfficeUsername(username)) {
       return null;
     }
 
