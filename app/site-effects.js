@@ -59,8 +59,6 @@ export function SiteEffects() {
       revealed.forEach((element) => element.classList.add("is-visible"));
     }
 
-    const forms = document.querySelectorAll("[data-contact-form]");
-
     const setFormStatus = (form, message, state = "") => {
       const status = form.querySelector("[data-form-status]");
 
@@ -79,9 +77,14 @@ export function SiteEffects() {
     };
 
     const handleSubmit = async (event) => {
+      const form = event.target?.closest?.("[data-contact-form]");
+
+      if (!form) {
+        return;
+      }
+
       event.preventDefault();
 
-      const form = event.currentTarget;
       const formData = new FormData(form);
       const entries = Array.from(formData.entries()).map(([key, value]) => [
         key,
@@ -209,12 +212,11 @@ export function SiteEffects() {
       }
     };
 
-    forms.forEach((form) => form.addEventListener("submit", handleSubmit));
+    document.addEventListener("submit", handleSubmit);
 
     return () => {
       observer?.disconnect();
-
-      forms.forEach((form) => form.removeEventListener("submit", handleSubmit));
+      document.removeEventListener("submit", handleSubmit);
     };
   }, []);
 
