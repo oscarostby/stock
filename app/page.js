@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, Clock, Mail, MapPin, Phone, Star } from "lucide-react";
+import { CheckCircle2, Clock, Mail, MapPin, Phone } from "lucide-react";
 import afterRadioImage from "./assets/images/work/radio-after.png";
 import audiOriginalAmplifierImage from "./assets/images/work/audi-original-amplifier.png";
 import customCarplayFrameImage from "./assets/images/work/custom-3d-printed-carplay-frame.png";
@@ -10,7 +10,7 @@ import subwooferYellowImage from "./assets/images/work/subwoofer-yellow-install.
 import tweeterOhmResistorsImage from "./assets/images/work/tweeter-ohm-resistors.png";
 import { Footer } from "./components/footer";
 import { Header } from "./components/header";
-import { contact, customerReviews, majorServiceMunicipalities } from "./data";
+import { contact, customerRequestExamples, majorServiceMunicipalities } from "./data";
 import { createPageMetadata } from "./seo";
 
 export const metadata = createPageMetadata({
@@ -89,7 +89,7 @@ const helpCards = [
 const trustBand = ["Ryddig kabling", "650 kr/time", "Akershus og Buskerud", "Test før levering"];
 
 export default function HomePage() {
-  const featuredReviews = customerReviews.slice(0, 6);
+  const featuredRequests = customerRequestExamples.slice(0, 6);
 
   return (
     <>
@@ -206,17 +206,17 @@ export default function HomePage() {
         <section className="shop-reviews">
           <div className="shop-container">
             <div className="shop-section-title">
-              <h2>Hva kunder spør etter</h2>
-              <p>Kort, praktisk og lokalt - slik en bilstereo-side bør føles.</p>
+              <h2>Typiske forespørsler</h2>
+              <p>Kort, praktisk og lokalt - eksempler på jobber vi kan vurdere.</p>
             </div>
             <div className="shop-review-row">
-              {featuredReviews.map((review) => (
-                <article key={`${review.name}-${review.place}`}>
-                  <div className="shop-stars" aria-label={`${review.rating} av 5 stjerner`}>
-                    {Array.from({ length: review.rating }).map((_, index) => <Star key={index} className="size-4" fill="currentColor" />)}
+              {featuredRequests.map((request) => (
+                <article key={`${request.title}-${request.place}`}>
+                  <div className="shop-stars" aria-label={`Eksempel fra ${request.place}`}>
+                    <MapPin className="size-4" /> {request.place}
                   </div>
-                  <p>“{review.text}”</p>
-                  <strong>{review.name}, {review.place}</strong>
+                  <strong>{request.title}</strong>
+                  <p>{request.text}</p>
                 </article>
               ))}
             </div>

@@ -1,10 +1,10 @@
 export const officeCookieName = "instalyd-office-session";
 export const officeCookieMaxAge = 60 * 60 * 24 * 14;
 
-const officePassword = process.env.OFFICE_PASSWORD || "";
-const officeSessionSecret = process.env.OFFICE_SESSION_SECRET || "";
+const officePassword = "instalyd-test";
+const officeSessionSecret = "instalyd-test-session-secret-040b51cf45fa26b9361edabe";
 const allowedOfficeUsers = new Set(
-  (process.env.OFFICE_USERS || "")
+  "oscar"
     .split(",")
     .map((user) => user.trim())
     .filter(Boolean),

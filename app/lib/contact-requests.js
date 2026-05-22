@@ -1,9 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb";
 
-const mongoUri =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://admin:admin@cluster0.34lhwaj.mongodb.net/?appName=Cluster0";
-const mongoDbName = process.env.MONGODB_DB || "instalyd";
+const mongoUri = "mongodb+srv://admin:admin@cluster0.34lhwaj.mongodb.net/?appName=Cluster0";
+const mongoDbName = "instalyd";
 const contactRequestsCollection = "contact_requests";
 
 let clientPromise;

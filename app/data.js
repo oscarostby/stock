@@ -135,66 +135,56 @@ export const contactChecklist = [
   "Hvilke deler du allerede har kjøpt",
 ];
 
-export const customerReviews = [
+export const customerRequestExamples = [
   {
-    name: "Marius H.",
+    title: "CarPlay i originalt dashbord",
     place: "Lillestrøm",
-    rating: 5,
-    text: "Veldig ryddig montering av CarPlay. Alt ser originalt ut, og jeg fikk god forklaring på løsningen før jobben startet.",
+    text: "Kunden sender bilmodell, årsmodell og bilde av dashbordet for å sjekke ramme, overgangskabler og montering.",
   },
   {
-    name: "Sara K.",
+    title: "Subwoofer og forsterker",
     place: "Drammen",
-    rating: 5,
-    text: "Fikk montert subwoofer og forsterker. Kablingen ble skjult pent, og bilen ble levert tilbake ren og klar.",
+    text: "Vanlig forespørsel er plassering i bagasjerom, strømkabel, sikring, jordpunkt og ryddig skjult kabling.",
   },
   {
-    name: "Jonas B.",
+    title: "Bedre lyd i original bil",
     place: "Asker",
-    rating: 4,
-    text: "God kommunikasjon og ærlig vurdering av hva som var verdt å gjøre i bilen min. Lyden ble mye bedre.",
+    text: "Mange vil bytte høyttalere, dempe dører eller koble inn forsterker uten at bilen ser ombygd ut.",
   },
   {
-    name: "Emilie R.",
+    title: "Høyttalere og demping",
     place: "Bærum",
-    rating: 5,
-    text: "Profesjonell hjelp med høyttaleroppgradering og demping i dørene. Merket stor forskjell på klarhet og trykk.",
+    text: "Typisk jobb er adaptere, dørpanel, kabeltilpasning og vurdering av lyddemping før montering.",
   },
   {
-    name: "Thomas L.",
+    title: "Opprydding i gammelt anlegg",
     place: "Kongsberg",
-    rating: 5,
-    text: "Ryddet opp i et gammelt anlegg som var koblet dårlig. Nå fungerer alt som det skal, og bagasjerommet ser mye penere ut.",
+    text: "Når noe ikke spiller riktig, er dårlig jording, løse kabler og feil signal ofte det første som sjekkes.",
   },
   {
-    name: "Nora S.",
+    title: "Råd før innkjøp",
     place: "Nesodden",
-    rating: 4,
-    text: "Trygg og enkel prosess. Jeg sendte bilder på forhånd og fikk tydelig svar på hva som måtte gjøres.",
+    text: "Før kunden kjøper deler kan bilmodell, bilder og ønsket løsning sendes inn for en mer presis vurdering.",
   },
   {
-    name: "Henrik A.",
+    title: "Skjerm og CarPlay",
     place: "Ullensaker",
-    rating: 5,
-    text: "Monterte skjerm og CarPlay i bilen. Ser ryddig ut i dashbordet og fungerer akkurat slik jeg ønsket.",
+    text: "Aktuelt når original radio skal byttes til skjerm, men bilen fortsatt skal ha en ryddig og praktisk løsning.",
   },
   {
-    name: "Andreas F.",
+    title: "Bassoppsett i bagasjerom",
     place: "Ringerike",
-    rating: 5,
-    text: "Veldig fornøyd med bassoppsettet. Fikk også tips om innstillingene så det spiller bedre med resten av anlegget.",
+    text: "Plass, kabling, festing og justering mot resten av anlegget vurderes før subwoofer bygges inn.",
   },
   {
-    name: "Ida M.",
+    title: "Pris før oppstart",
     place: "Lier",
-    rating: 4,
-    text: "Rask respons og pent arbeid. Likte at jeg fikk beskjed om hva som var nødvendig og hva jeg kunne vente med.",
+    text: "Forespørsler vurderes ut fra bil, deler og omfang slik at kunden får et tydeligere prisbilde før jobben starter.",
   },
   {
-    name: "Eirik T.",
+    title: "Montering i daglig bruksbil",
     place: "Ås",
-    rating: 5,
-    text: "Føles som en seriøs aktør. God finish, god dialog og en løsning som passer bilen i hverdagen.",
+    text: "Målet er en løsning som fungerer i bilen til daglig, ikke bare mest mulig utstyr på papiret.",
   },
 ];
 
