@@ -12,6 +12,7 @@ import { Footer } from "./components/footer";
 import { Header } from "./components/header";
 import { contact, customerRequestExamples, majorServiceMunicipalities } from "./data";
 import { createPageMetadata } from "./seo";
+import { SiteEffects } from "./site-effects";
 
 export const metadata = createPageMetadata({
   title: "Bilstereo montering i Akershus og Buskerud",
@@ -93,6 +94,7 @@ export default function HomePage() {
 
   return (
     <>
+      <SiteEffects />
       <Header />
       <main className="shop-site">
         <section className="shop-hero">
