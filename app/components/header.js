@@ -35,7 +35,7 @@ export function Header() {
         <div className="shop-container shop-topbar__inner">
           <span>Montering av bilstereo i {contact.area}</span>
           <div className="shop-topbar__links">
-            <Link href="/pris">Timepris 650 kr</Link>
+            <Link href="/pris">Timepris 850 kr</Link>
             <Link href="/kontakt">Kontakt oss</Link>
             <a href={`tel:${contact.phoneHref}`}>Ring oss: {contact.phoneDisplay}</a>
           </div>

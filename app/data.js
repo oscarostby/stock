@@ -1,5 +1,5 @@
 export const heroStats = [
-  { label: "Timepris", value: "650 kr/time" },
+  { label: "Timepris", value: "850 kr/time" },
   { label: "Område", value: "Akershus og Buskerud" },
   { label: "Kontakt", value: "902 54 100" },
 ];

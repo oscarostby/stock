@@ -134,7 +134,7 @@ export const localBusinessJsonLd = {
     addressCountry: "NO",
   },
   availableLanguage: ["nb-NO", "no"],
-  priceRange: "650 kr/time",
+  priceRange: "850 kr/time",
   knowsAbout: [
     "Bilstereo montering",
     "CarPlay montering",

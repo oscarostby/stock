@@ -10,7 +10,7 @@ import { SiteEffects } from "../site-effects";
 export const metadata = createPageMetadata({
   title: "Pris på bilstereo montering og lydinstallasjon",
   description:
-    "Se pris og hvordan Instalyd vurderer bilstereo montering, CarPlay, subwoofer, forsterker og lydinstallasjon i bil. Timepris er 650 kr.",
+    "Se pris og hvordan Instalyd vurderer bilstereo montering, CarPlay, subwoofer, forsterker og lydinstallasjon i bil. Timepris er 850 kr.",
   path: "/pris",
   keywords: [
     "pris lydinstallasjon",
@@ -22,7 +22,7 @@ export const metadata = createPageMetadata({
 });
 
 const priceHighlights = [
-  { label: "Timepris", value: "650 kr", note: "per time" },
+  { label: "Timepris", value: "850 kr", note: "per time" },
   { label: "Vurdering", value: "Før start", note: "bil, utstyr og omfang" },
   { label: "Utstyr", value: "Dine deler", note: "vi monterer det du har" },
 ];
@@ -31,19 +31,19 @@ const exampleJobs = [
   {
     title: "CarPlay / skjerm",
     description: "Montering, ramme, overgangskabler og enkel funksjonstest.",
-    price: "650 kr/time",
+    price: "850 kr/time",
     detail: "Omfang avhenger av bilmodell og dashbord.",
   },
   {
     title: "Subwoofer + forsterker",
     description: "Strømkabel, sikring, jordpunkt, signal og plassering i bagasjerom.",
-    price: "650 kr/time",
+    price: "850 kr/time",
     detail: "Send bilde av utstyr og bagasjerom først.",
   },
   {
     title: "Høyttalere i dører",
     description: "Bytte av originalhøyttalere, adaptere og eventuell demping.",
-    price: "650 kr/time",
+    price: "850 kr/time",
     detail: "Dørpanel og biltype avgjør tidsbruk.",
   },
   {
@@ -85,7 +85,7 @@ export default function PricingPage() {
               <p className="shop-eyebrow">Pris</p>
               <h1>Enkel timepris. Tydelig vurdering før montering.</h1>
               <p>
-                Instalyd tar 650 kr/time for bilstereo, CarPlay, subwoofer, forsterker,
+                Instalyd tar 850 kr/time for bilstereo, CarPlay, subwoofer, forsterker,
                 høyttalere og annen lydinstallasjon i bil. Du får vurdering basert på bil,
                 utstyr og omfang før jobben avtales.
               </p>
@@ -97,7 +97,7 @@ export default function PricingPage() {
 
             <aside className="price-rate-card" data-reveal="">
               <span>Timepris</span>
-              <strong>650 kr</strong>
+              <strong>850 kr</strong>
               <small>per time</small>
               <p>Endelig totalpris avhenger av bilmodell, demontering, kabling og hvor mye utstyr som skal monteres.</p>
             </aside>

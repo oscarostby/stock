@@ -41,7 +41,7 @@ const servicePackages = [
     badge: "Populær",
     title: "CarPlay / skjerm",
     text: "Montering av skjerm, ramme, overgangskabler og enkel funksjonstest.",
-    price: "Fra 650 kr/time",
+    price: "Fra 850 kr/time",
     status: "Vurderes etter bilmodell",
     image: customCarplayFrameImage,
   },
@@ -49,7 +49,7 @@ const servicePackages = [
     badge: "Mest spurt om",
     title: "Subwoofer + forsterker",
     text: "Strømkabel, sikring, jordpunkt, signal og plassering i bil/bagasjerom.",
-    price: "Fra 650 kr/time",
+    price: "Fra 850 kr/time",
     status: "Send bilde av utstyr",
     image: subwooferYellowImage,
   },
@@ -57,7 +57,7 @@ const servicePackages = [
     badge: "God oppgradering",
     title: "Høyttalere i dører",
     text: "Bytte av originalhøyttalere med adaptere, demping og ryddig montering.",
-    price: "Fra 650 kr/time",
+    price: "Fra 850 kr/time",
     status: "Bil og dørpanel avgjør tid",
     image: speakerUpgradeImage,
   },
@@ -86,7 +86,7 @@ const helpCards = [
   },
 ];
 
-const trustBand = ["Ryddig kabling", "650 kr/time", "Akershus og Buskerud", "Test før levering"];
+const trustBand = ["Ryddig kabling", "850 kr/time", "Akershus og Buskerud", "Test før levering"];
 
 export default function HomePage() {
   const featuredRequests = customerRequestExamples.slice(0, 6);
@@ -113,7 +113,7 @@ export default function HomePage() {
               <Image src={afterRadioImage} alt="Skjerm og bilstereo montert i bil" priority sizes="(max-width: 900px) 100vw, 48vw" />
               <div className="shop-hero__deal">
                 <strong>Montering</strong>
-                <span>650 kr/time</span>
+                <span>850 kr/time</span>
               </div>
             </div>
           </div>
